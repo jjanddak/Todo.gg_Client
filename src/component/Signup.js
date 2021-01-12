@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 axios.defaults.withCredentials = true;
-
 function Signup() {
   const history = useHistory();
-  let emailChecked = false;
+  const [emailChecked, setEmailChecked] = useState(false);
   const [email, setEmail] = useState("");
   const [emailMessage, setEmailMessage] = useState("");
-  let usernameChecked = false;
+  const [usernameChecked, setUsernameChecked] = useState(false);
   const [username, setUsername] = useState("");
   const [usernameMessage, setUsernameMessage] = useState("");
   const [password, setPassword] = useState("");
@@ -35,41 +34,39 @@ function Signup() {
     }
     if (!email) {
       setEmailMessage("이메일을 입력 해 주세요");
-      emailChecked = false;
+      setEmailChecked(false);
     } else if (!isEmail(email)) {
       setEmailMessage("이메일 형식이 올바르지 않습니다");
-      emailChecked = false;
+      setEmailChecked(false);
     } else {
       axios.post("https://localhost:4001/user/checkEmail", {
         email: email
       })
         .then(res => {
-          if (res.data) {
-            setEmailMessage("이미 가입된 이메일 입니다");
-            emailChecked = false;
-          } else {
-            setEmailMessage("사용 가능한 이메일 입니다");
-            emailChecked = true;
-          }
+          setEmailMessage("사용 가능한 이메일 입니다");
+          setEmailChecked(true);
+        })
+        .catch(()=>{
+          setEmailMessage("이미 가입된 이메일 입니다");
+          setEmailChecked(false);
         })
     }
   };
   const checkUsername = () => {
     if (username === "") {
       setUsernameMessage("닉네임을 입력 해 주세요");
-      usernameChecked = false;
+      setUsernameChecked(false);
     } else {
       axios.post("https://localhost:4001/user/checkUsername", {
         username: username
       })
         .then(res => {
-          if (res.data.message === "invalid") {
-            setUsernameMessage("사용 중인 닉네임 입니다");
-            usernameChecked = false;
-          } else {
-            setUsernameMessage("사용 가능한 닉네임 입니다");
-            usernameChecked = true;
-          }
+          setUsernameMessage("사용 가능한 닉네임 입니다");
+          setUsernameChecked(true);
+        })
+        .catch(()=>{
+          setUsernameMessage("사용 중인 닉네임 입니다");
+          setUsernameChecked(false);
         })
     }
   };
@@ -101,7 +98,6 @@ function Signup() {
         });
     }
   };
-
   return (
     <div className="Signup">
       <h2 className="Signup_title">SignUp</h2>
@@ -160,5 +156,4 @@ function Signup() {
     </div>
   )
 }
-
 export default Signup;
