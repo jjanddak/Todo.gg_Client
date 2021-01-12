@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  withRouter,
+} from "react-router-dom";
 import './App.css';
+import React from 'react'
+import Login from './component/Login'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component{
+  state = {
+    accessToken:''
+  }
+  handleAccessToken(token){ //액세스 토큰 스테이트에 저장
+    this.setState(
+      {accessToken:token}
+    )
+  }
+
+
+  render(){
+    return(
+      <>
+      <h1>hello world</h1>
+      <Router>
+       <Login></Login>
+      </Router>
+      </>
+    )
+  }
 }
+
 
 export default App;
