@@ -5,8 +5,8 @@ import {
   Route,
   withRouter,
 } from "react-router-dom";
-// import Signup from "./component/Signup";
 import Login from './component/Login';
+import Signup from "./component/Signup";
 class App extends React.Component{
   render(){
     return(
@@ -20,6 +20,12 @@ class App extends React.Component{
             <Route patn="/user/login">
               <Login />
             </Route>
+            <Route path="/user/signup">
+              <Signup />
+            </Route>
+            {/* <Route patn="/user/login">
+              <Login />
+            </Route> */}
           </Switch>
         </Router>
       </>
