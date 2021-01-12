@@ -17,7 +17,7 @@ class App extends React.Component{
             {/* <Route path="/user/signup">
               <Signup />
             </Route> */}
-            <Route patn="/user/login">
+            <Route path="/user/login">
               <Login />
             </Route>
             <Route path="/user/signup">

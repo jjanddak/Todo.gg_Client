@@ -25,8 +25,8 @@ class Login extends React.Component{
       }, { withCredentials: true })
         .then((param) => {
           window.sessionStorage.accessToken = param.data.accessToken
-          window.sessionStorage.email = param.data.email //세션저장
-          window.sessionStorage.username = param.data.username
+          window.sessionStorage.email = param.data.userinfo.email //세션저장
+          window.sessionStorage.username = param.data.userinfo.username
           window.sessionStorage.isLogin = true
         }).then(() => {
           this.props.history.push("/") // 메인화면으로 넘어가기
@@ -51,7 +51,7 @@ class Login extends React.Component{
         <button onClick={this.handleLogin}>
           로그인
         </button>
-      <Link to='/user/signUp'>
+      <Link to='/user/signup'>
        회원가입
       </Link>
       <Link to='/user/social'>
