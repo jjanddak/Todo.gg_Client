@@ -12,6 +12,7 @@ class App extends React.Component{
   state = {
     accessToken:''
   }
+
   handleAccessToken(token){ //액세스 토큰 스테이트에 저장
     this.setState(
       {accessToken:token}
@@ -24,7 +25,7 @@ class App extends React.Component{
       <>
       <h1>hello world</h1>
       <Router>
-       <Login></Login>
+       <Login handleAccessToken={this.handleAccessToken.bind(this)}></Login>
       </Router>
       </>
     )

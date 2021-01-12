@@ -24,7 +24,7 @@ class Login extends React.Component{
         password: password
       }, { withCredentials: true })
         .then((param) => {
-          this.props.handleResponseSuccess(param.data.accessToken)//로그인 여부 바꾸는 함수 실행
+          this.props.handleAccessToken(param.data.accessToken)//토큰 저장
           window.sessionStorage.email = param.data.email //세션저장
           window.sessionStorage.username = param.data.username
           window.sessionStorage.isLogin = true
