@@ -1,106 +1,155 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+
+import RandomPicture from "./RandomPicture"
+
 axios.defaults.withCredentials = true;
+
 function Signup() {
   const history = useHistory();
-  const [emailChecked, setEmailChecked] = useState(false);
-  const [email, setEmail] = useState("");
-  const [emailMessage, setEmailMessage] = useState("");
-  const [usernameChecked, setUsernameChecked] = useState(false);
-  const [username, setUsername] = useState("");
-  const [usernameMessage, setUsernameMessage] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstPassword, setFirstPassword] = useState("");
-  const [lastPassword, setLastPassword] = useState("");
-  const [passwordMessage, setPasswordMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const getKeyword = (e) => {
-    if (e.target.name === "email") setEmail(e.target.value);
-    if (e.target.name === "username") setUsername(e.target.value);
-    if (e.target.name === "firstPassword") {
-      setFirstPassword(e.target.value);
-      checkPassword(e.target.value, lastPassword);
-    }
-    if (e.target.name === "lastPassword") {
-      setLastPassword(e.target.value);
-      checkPassword(firstPassword, e.target.value);
-    }
+  const [state, setState] = useState({
+    emailChecked: false,
+    email: "",
+    emailMessage: "",
+    usernameChecked: false,
+    username: "",
+    usernameMessage: "",
+    password: "",
+    firstPassword: "",
+    lastPassword: "",
+    passwordMessage: "",
+    errorMessage: "",
+  })
+  const { emailChecked, email, emailMessage, usernameChecked, username, usernameMessage, password, firstPassword, lastPassword, passwordMessage, errorMessage } = state;
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setState({
+      ...state,
+      [name]: value,
+    })
   };
+  useEffect(() => { //* 비밀번호 입력되면 비밀번호확인 함수 실행
+    checkPassword();
+  }, [firstPassword, lastPassword]); //? 배열에 state 추가 하라는데 그러면 무한루프파티!!! 경고 없애고 싶음...
   const checkEmail = () => {
     function isEmail(asValue) {
       let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
       return regExp.test(asValue);
     }
     if (!email) {
-      setEmailMessage("이메일을 입력 해 주세요");
-      setEmailChecked(false);
+      setState({
+        ...state,
+        emailMessage: "이메일을 입력 해 주세요",
+        emailChecked: false,
+      })
     } else if (!isEmail(email)) {
-      setEmailMessage("이메일 형식이 올바르지 않습니다");
-      setEmailChecked(false);
+      setState({
+        ...state,
+        emailMessage: "이메일 형식이 올바르지 않습니다",
+        emailChecked: false,
+      })
     } else {
       axios.post("https://localhost:4001/user/checkEmail", {
         email: email
       })
-        .then(res => {
-          setEmailMessage("사용 가능한 이메일 입니다");
-          setEmailChecked(true);
+        .then(() => {
+          setState({
+            ...state,
+            emailMessage: "사용 가능한 이메일 입니다",
+            emailChecked: true,
+          })
         })
-        .catch(()=>{
-          setEmailMessage("이미 가입된 이메일 입니다");
-          setEmailChecked(false);
+        .catch(() => {
+          setState({
+            ...state,
+            emailMessage: "이미 가입된 이메일 입니다",
+            emailChecked: false,
+          })
         })
     }
   };
   const checkUsername = () => {
     if (username === "") {
-      setUsernameMessage("닉네임을 입력 해 주세요");
-      setUsernameChecked(false);
+      setState({
+        ...state,
+        usernameMessage: "닉네임을 입력 해 주세요",
+        usernameChecked: false,
+      })
     } else {
       axios.post("https://localhost:4001/user/checkUsername", {
         username: username
       })
-        .then(res => {
-          setUsernameMessage("사용 가능한 닉네임 입니다");
-          setUsernameChecked(true);
+        .then(() => {
+          setState({
+            ...state,
+            usernameMessage: "사용 가능한 닉네임 입니다",
+            usernameChecked: true,
+          })
         })
-        .catch(()=>{
-          setUsernameMessage("사용 중인 닉네임 입니다");
-          setUsernameChecked(false);
+        .catch(() => {
+          setState({
+            ...state,
+            usernameMessage: "사용 중인 닉네임 입니다",
+            usernameChecked: false,
+          })
         })
     }
   };
-  const checkPassword = (pw1, pw2) => {
-    if (pw1.length < 1 || pw2.length < 1) {
-      setPasswordMessage("비밀번호를 입력 해 주세요");
-    } else if (pw1.length < 6 || pw1.length > 12) {
-      setPasswordMessage("비밀번호는 6~12자리 이내로 입력 해 주세요");
-    } else if (pw1 === pw2) {
-      setPasswordMessage("비밀번호가 일치합니다");
-      setPassword(pw1);
+  const checkPassword = () => {
+    if (firstPassword.length < 1 || lastPassword.length < 1) {
+      setState({
+        ...state,
+        password: "",
+        passwordMessage: "비밀번호를 입력 해 주세요",
+      })
+    } else if (firstPassword.length < 6 || firstPassword.length > 12) {
+      setState({
+        ...state,
+        password: "",
+        passwordMessage: "비밀번호는 6~12자리 이내로 입력 해 주세요",
+      })
+    } else if (firstPassword === lastPassword) {
+      setState({
+        ...state,
+        passwordMessage: "비밀번호가 일치합니다",
+        password: firstPassword,
+      })
     } else {
-      setPasswordMessage("비밀번호가 일치하지 않습니다");
+      setState({
+        ...state,
+        password: "",
+        passwordMessage: "비밀번호가 일치하지 않습니다",
+      })
     }
   };
   const handleSignup = () => {
     if (!username || !password || !email) {
-      setErrorMessage("모든 항목은 필수입니다");
+      setState({
+        ...state,
+        errorMessage: "모든 항목은 필수입니다",
+      })
     } else if (!emailChecked || !usernameChecked) {
-      setErrorMessage("이메일과 닉네임 중복 확인을 해주세요");
+      setState({
+        ...state,
+        errorMessage: "이메일과 닉네임 중복 확인을 해주세요",
+      })
     } else {
       axios.post("https://localhost:4001/user/signup", {
         username: username,
         password: password,
-        email: email
+        email: email,
+        profile: RandomPicture(),
       })
         .then(() => {
           history.push("/user/login");
         });
     }
   };
+
   return (
     <div className="Signup">
-      <h2 className="Signup_title">SignUp</h2>
+      <h2 className="Signup_title">Signup</h2>
       <span className="Signup_subtitle">이메일</span>
       <button
         className="SignUp_check_button"
@@ -110,7 +159,7 @@ function Signup() {
         className="Signup_input"
         name="email"
         type="text"
-        onChange={getKeyword}
+        onChange={onChange}
       />
       <div className="Signup_alert_box">{emailMessage}</div>
       <span className="Signup_subtitle">비밀번호</span>
@@ -118,7 +167,7 @@ function Signup() {
         className="Signup_input"
         name="firstPassword"
         type="password"
-        onChange={getKeyword}
+        onChange={onChange}
         value={firstPassword}
       />
       <span className="Signup_subtitle">비밀번호 확인</span>
@@ -126,7 +175,7 @@ function Signup() {
         className="Signup_input"
         name="lastPassword"
         type="password"
-        onChange={getKeyword}
+        onChange={onChange}
         value={lastPassword}
       />
       <div className="Signup_alert_box">{passwordMessage}</div>
@@ -140,7 +189,7 @@ function Signup() {
         className="Signup_input"
         name="username"
         type="text"
-        onChange={getKeyword}
+        onChange={onChange}
       />
       <div className="Signup_alert_box">{usernameMessage}</div>
       <div>
@@ -150,10 +199,9 @@ function Signup() {
       <button
         className="SignUp_submit_button"
         onClick={handleSignup}
-      >
-        회원가입
-        </button>
+      >회원가입</button>
     </div>
   )
 }
+
 export default Signup;
