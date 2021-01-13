@@ -8,6 +8,7 @@ import {
 
 import Login from './component/Login';
 import Signup from "./component/Signup";
+import UpdateUserinfo from "./component/UpdateUserinfo";
 
 class App extends React.Component {
   render() {
@@ -21,6 +22,9 @@ class App extends React.Component {
             </Route>
             <Route path="/user/signup">
               <Signup />
+            </Route>
+            <Route path="/user/updateUserinfo">
+              <UpdateUserinfo />
             </Route>
           </Switch>
         </Router>

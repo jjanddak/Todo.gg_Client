@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
-import RandomPicture from "./RandomPicture"
+import Pictures from "./Pictures"
 
 axios.defaults.withCredentials = true;
 
@@ -139,7 +139,7 @@ function Signup() {
         username: username,
         password: password,
         email: email,
-        profile: RandomPicture(),
+        profile: Pictures[Math.floor(Math.random() * 16)],
       })
       .then(() => {
         history.push("/user/login");
