@@ -199,9 +199,7 @@ function Signup() {
       <button
         className="SignUp_submit_button"
         onClick={handleSignup}
-      >
-        회원가입
-        </button>
+      >회원가입</button>
     </div>
   )
 }
