@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 import Login from './component/Login';
 import Signup from "./component/Signup";
+import ProjectList from "./component/ProjectList";
+import './App.css'
 class App extends React.Component{
   render(){
     return(
@@ -23,6 +25,7 @@ class App extends React.Component{
             <Route path="/user/signup">
               <Signup />
             </Route>
+            <ProjectList></ProjectList>
             {/* <Route patn="/user/login">
               <Login />
             </Route> */}
