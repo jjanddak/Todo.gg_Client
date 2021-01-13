@@ -16,19 +16,21 @@ class App extends React.Component{
         <h1>hello world</h1>
         <Router>
           <Switch>
-            {/* <Route path="/user/signup">
-              <Signup />
-            </Route> */}
             <Route path="/user/login">
               <Login />
             </Route>
             <Route path="/user/signup">
               <Signup />
             </Route>
-            <ProjectList></ProjectList>
-            {/* <Route patn="/user/login">
-              <Login />
-            </Route> */}
+            {
+              window.sessionStorage.isLogin === false
+              ?(
+                <ProjectList></ProjectList>
+              )
+              :(
+                <ProjectList></ProjectList>
+              )
+            }
           </Switch>
         </Router>
       </>
