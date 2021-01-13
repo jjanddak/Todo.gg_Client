@@ -9,10 +9,13 @@ import {
 import Login from './component/Login';
 import Signup from "./component/Signup";
 import UpdateUserinfo from "./component/UpdateUserinfo";
+import ProjectList from "./component/ProjectList";
 
-class App extends React.Component {
-  render() {
-    return (
+import './App.css'
+
+class App extends React.Component{
+  render(){
+    return(
       <>
         <h1>hello world</h1>
         <Router>
@@ -23,9 +26,19 @@ class App extends React.Component {
             <Route path="/user/signup">
               <Signup />
             </Route>
+
             <Route path="/user/updateUserinfo">
               <UpdateUserinfo />
             </Route>
+            {
+              window.sessionStorage.isLogin === false
+              ?(
+                <ProjectList></ProjectList>
+              )
+              :(
+                <ProjectList></ProjectList>
+              )
+            }
           </Switch>
         </Router>
       </>

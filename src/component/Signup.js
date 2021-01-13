@@ -53,8 +53,8 @@ function Signup() {
       axios.post("https://localhost:4001/user/checkEmail", {
         email: email
       })
-      .then(() => {
-        setState({
+        .then(() => {
+          setState({
             ...state,
             emailMessage: "사용 가능한 이메일 입니다",
             emailChecked: true,
@@ -80,20 +80,20 @@ function Signup() {
       axios.post("https://localhost:4001/user/checkUsername", {
         username: username
       })
-      .then(() => {
-        setState({
-          ...state,
-          usernameMessage: "사용 가능한 닉네임 입니다",
-          usernameChecked: true,
+        .then(() => {
+          setState({
+            ...state,
+            usernameMessage: "사용 가능한 닉네임 입니다",
+            usernameChecked: true,
+          })
         })
-      })
-      .catch(() => {
-        setState({
-          ...state,
-          usernameMessage: "사용 중인 닉네임 입니다",
-          usernameChecked: false,
+        .catch(() => {
+          setState({
+            ...state,
+            usernameMessage: "사용 중인 닉네임 입니다",
+            usernameChecked: false,
+          })
         })
-      })
     }
   };
   const checkPassword = () => {
@@ -141,13 +141,13 @@ function Signup() {
         email: email,
         profile: Pictures[Math.floor(Math.random() * 16)],
       })
-      .then(() => {
-        history.push("/user/login");
+        .then(() => {
+          history.push("/user/login");
         });
-      }
-    };
-    
-    return (
+    }
+  };
+
+  return (
     <div className="Signup">
       <h2 className="Signup_title">Signup</h2>
       <span className="Signup_subtitle">이메일</span>
@@ -199,9 +199,7 @@ function Signup() {
       <button
         className="SignUp_submit_button"
         onClick={handleSignup}
-      >
-        회원가입
-        </button>
+      >회원가입</button>
     </div>
   )
 }
