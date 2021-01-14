@@ -27,6 +27,7 @@ class Login extends React.Component{
           window.sessionStorage.accessToken = param.data.accessToken
           window.sessionStorage.email = param.data.userinfo.email //세션저장
           window.sessionStorage.username = param.data.userinfo.username
+          window.sessionStorage.profile = param.data.userinfo.profile //! 로그인에 이거 한 줄 추가 했어
           window.sessionStorage.isLogin = true
         }).then(() => {
           this.props.history.push("/") // 메인화면으로 넘어가기
