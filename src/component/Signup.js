@@ -3,10 +3,11 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
 import Pictures from "./Pictures"
+import './css/Login.css'
 
 axios.defaults.withCredentials = true;
 
-function Signup() {
+function Signup({signupChange,loginChange}) {
   const history = useHistory();
   const [state, setState] = useState({
     emailChecked: false,
@@ -148,7 +149,8 @@ function Signup() {
   };
 
   return (
-    <div className="Signup">
+    <div className='login_container' onClick={signupChange}>
+    <div className="Signup loginmodal" onClick={(e)=>e.stopPropagation()}>
       <h2 className="Signup_title">Signup</h2>
       <span className="Signup_subtitle">이메일</span>
       <button
@@ -193,13 +195,14 @@ function Signup() {
       />
       <div className="Signup_alert_box">{usernameMessage}</div>
       <div>
-        <Link to="/user/login">이미 아이디가 있으신가요?</Link>
+        <Link onClick={loginChange}>이미 아이디가 있으신가요?</Link>
       </div>
       <div className="Signup_alert_box">{errorMessage}</div>
       <button
         className="SignUp_submit_button"
         onClick={handleSignup}
       >회원가입</button>
+    </div>
     </div>
   )
 }

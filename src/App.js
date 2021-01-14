@@ -20,9 +20,9 @@ class App extends React.Component{
         <h1>hello world</h1>
         <Router>
           <Switch>
-            <Route path="/user/login">
+            {/* <Route path="/user/login">
               <Login />
-            </Route>
+            </Route> */}
             <Route path="/user/signup">
               <Signup />
             </Route>

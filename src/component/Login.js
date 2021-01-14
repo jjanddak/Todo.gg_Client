@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link,withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
-class Login extends React.Component{
-  constructor(props){
+import './css/Login.css'
+class Login extends React.Component {
+  constructor(props) {
     super(props)
     this.state = {
       email: "",
@@ -40,25 +41,27 @@ class Login extends React.Component{
   };
 
 
-  render(){
-    return(
-      <div>
-      <h1>Login</h1>
-        <p>이메일</p>
-        <input type='email' onChange={this.handleInputValue('email')}></input>
-        <p>비밀번호</p>
-        <input type='password' onChange={this.handleInputValue('password')}></input>
-        <div>{this.state.errorMessage}</div>
-        <button onClick={this.handleLogin}>
-          로그인
+  render() {
+    return (
+      <div className='login_container' onClick={this.props.loginChange}>
+        <div className='loginmodal'onClick={(e)=>e.stopPropagation()}>
+          <h1>Login</h1>
+          <p>이메일</p>
+          <input type='email' onChange={this.handleInputValue('email')}></input>
+          <p>비밀번호</p>
+          <input type='password' onChange={this.handleInputValue('password')}></input>
+          <div>{this.state.errorMessage}</div>
+          <button onClick={this.handleLogin}>
+            로그인
         </button>
-      <Link to='/user/signup'>
-       회원가입
+        <button onClick={this.props.signupChange}>
+            회원가입
+            </button>
+          <Link to='/user/social'>
+            소셜로그인
       </Link>
-      <Link to='/user/social'>
-       소셜로그인
-      </Link>
-    </div>
+        </div>
+      </div>
     )
   }
 }
