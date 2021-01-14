@@ -10,6 +10,7 @@ import Login from './component/Login';
 import Signup from "./component/Signup";
 import UpdateUserinfo from "./component/UpdateUserinfo";
 import ProjectList from "./component/ProjectList";
+import NewProject from "./component/NewProject";
 
 import './App.css'
 
@@ -30,7 +31,7 @@ class App extends React.Component{
             <Route path="/user/updateUserinfo">
               <UpdateUserinfo />
             </Route>
-            {
+            {/* {
               window.sessionStorage.isLogin === false
               ?(
                 <ProjectList></ProjectList>
@@ -38,7 +39,8 @@ class App extends React.Component{
               :(
                 <ProjectList></ProjectList>
               )
-            }
+            } */}
+            <NewProject></NewProject>
           </Switch>
         </Router>
       </>
