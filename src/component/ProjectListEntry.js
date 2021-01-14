@@ -21,7 +21,7 @@ function ProjectListEntry({content}) {
       <div className='entry_team'>
         {teamList}
       </div>
-    </div>
+    </div> 
   )
 }
 
