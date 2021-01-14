@@ -4,8 +4,6 @@ import './css/ProjectListEntry.css'
 
 function ProjectListEntry({content,taskCardCount}) {
   const {project} = content
-  const startDate = project.start_date.slice(0,10)
-  const endDate = project.end_date.slice(0,10)
 
   const { done, inprogress, todo} = taskCardCount
   const sum = Math.round(done/(inprogress+todo+done) *100) // 합계구하기
