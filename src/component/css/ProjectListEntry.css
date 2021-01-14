@@ -1,8 +1,10 @@
 .entry{
+    display: block;
     clear: both;
     border:1px solid red;
     width:1430px;
     height: 150px;
+    border-radius: 15px;
     /* vertical-align: middle; */
 }
 .entry_stateColor,.box,.entry_host,.entry_description{
