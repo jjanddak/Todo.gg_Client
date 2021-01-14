@@ -85,7 +85,7 @@ function UpdateUserinfo() {
         usernameMessage: "현재 닉네임과 동일한 닉네임 입니다",
       });
     } else {
-      axios.post("http://localhost:4000/user/checkUsername", {
+      axios.post("https://localhost:4001/user/checkUsername", {
         username: newUsername,
       })
         .then((param) => {
@@ -111,7 +111,7 @@ function UpdateUserinfo() {
   };
   const checkOldPassword = () => {
     if (oldPassword) {
-      axios.post("http://localhost:4000/user/checkPassword", {
+      axios.post("https://localhost:4001/user/checkPassword", {
         oldPassword: oldPassword,
       }, {
         headers: {
