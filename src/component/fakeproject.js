@@ -13,8 +13,8 @@ const project = {
                     title: "프로젝트1이름",
                     description: "프로젝트는 어찌구저찌구 이렇게 하는겁니다프로젝트는 어찌구저찌구 이렇게 하는겁니다",
                     manager_id: 8,
-                    start_date: "2020-02-02T00:00:00.000Z",
-                    end_date: "2020-03-03T00:00:00.000Z",
+                    start_date: "2020-02-02",
+                    end_date: "2020-03-03",
                     contributers: [
                         {
                             project_id: 1,
@@ -54,8 +54,8 @@ const project = {
                     title: "프로젝트1이름",
                     description: "프로젝트는 어찌구저찌구 이렇게 하는겁니다프로젝트는 어찌구저찌구 이렇게 하는겁니다",
                     manager_id: 8,
-                    start_date: "2020-02-02T00:00:00.000Z",
-                    end_date: "2020-03-03T00:00:00.000Z",
+                    start_date: "2020-02-02",
+                    end_date: "2020-03-03",
                     contributers: [
                         {
                             project_id: 1,
@@ -95,8 +95,8 @@ const project = {
                     title: "프로젝트1이름",
                     description: "프로젝트는 어찌구저찌구 이렇게 하는겁니다프로젝트는 어찌구저찌구 이렇게 하는겁니다",
                     manager_id: 8,
-                    start_date: "2020-02-02T00:00:00.000Z",
-                    end_date: "2020-03-03T00:00:00.000Z",
+                    start_date: "2020-02-02",
+                    end_date: "완료날짜 미정",
                     contributers: [
                         {
                             project_id: 1,

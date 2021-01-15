@@ -18,12 +18,12 @@ function ProjectList() {
   })
 
   const { loginModal, signupModal, updateModal,logoutControll } = state;
-  const taskCardCount = fakeproject.taskCardCount
+  const taskCardCount = fakeproject.projectList.taskCardCount
   const isLogin = window.sessionStorage.isLogin
   let done = 0 // kda계산
   let inprogress = 0
   let todo = 0
-  fakeproject.taskCardCount.map(ele => {
+  taskCardCount.map(ele => {
     done = done + ele.done;
     inprogress = inprogress + ele.inprogress;
     todo = todo + ele.todo;
