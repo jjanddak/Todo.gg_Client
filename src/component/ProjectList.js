@@ -47,14 +47,14 @@ function ProjectList() {
     })
       .then(param => {
         param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
-        param.data.contributers.map((ele, idx) => {
+        param.data.projectList.contributers.map((ele, idx) => {
           return <ProjectListEntry key={idx} content={ele} taskCardCount={taskCardCount[idx]}></ProjectListEntry>
         })
       })
   }
   let list = isLogin //로그인 상태별 리스트
     ? loginList()
-    : fakeproject.contributers.map((ele, idx) => {
+    : fakeproject.projectList.contributers.map((ele, idx) => {
       return <ProjectListEntry key={idx} content={ele} taskCardCount={taskCardCount[idx]}></ProjectListEntry>
     })
 
