@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import './css/Login.css'
+axios.defaults.withCredentials = true;
 class Login extends React.Component {
   constructor(props) {
     super(props)
@@ -23,15 +24,19 @@ class Login extends React.Component {
       axios.post('https://localhost:4001/user/login', {
         email: email,
         password: password
-      }, { withCredentials: true })
+      }, {
+        headers: {
+          Authorization: `Bearer ${window.sessionStorage.accessToken}`,
+          "content-type": "application/json"
+        }
+        })
         .then((param) => {
           window.sessionStorage.accessToken = param.data.accessToken
           window.sessionStorage.email = param.data.userinfo.email //세션저장
           window.sessionStorage.username = param.data.userinfo.username
           window.sessionStorage.profile = param.data.userinfo.profile //! 로그인에 이거 한 줄 추가 했어
           window.sessionStorage.isLogin = true
-        }).then(() => {
-          this.props.history.push("/") // 메인화면으로 넘어가기
+          this.props.loginChange()
         }).catch(() => {
           this.setState({ errorMessage: '일치하는 회원 정보가 없습니다.' })
         })
