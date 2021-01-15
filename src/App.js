@@ -14,9 +14,9 @@ import NewProject from "./component/NewProject";
 
 import './App.css'
 
-class App extends React.Component{
-  render(){
-    return(
+class App extends React.Component {
+  render() {
+    return (
       <>
         <h1>hello world</h1>
         <Router>
@@ -40,7 +40,9 @@ class App extends React.Component{
                 <ProjectList></ProjectList>
               )
             } */}
-            <NewProject></NewProject>
+            <Route path="/newproject">
+              <NewProject />
+            </Route>
           </Switch>
         </Router>
       </>
