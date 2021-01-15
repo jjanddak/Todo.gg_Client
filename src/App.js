@@ -31,7 +31,7 @@ class App extends React.Component {
             <Route path="/user/updateUserinfo">
               <UpdateUserinfo />
             </Route>
-            {/* {
+            {
               window.sessionStorage.isLogin === false
               ?(
                 <ProjectList></ProjectList>
@@ -39,7 +39,7 @@ class App extends React.Component {
               :(
                 <ProjectList></ProjectList>
               )
-            } */}
+            }
             <Route path="/newproject">
               <NewProject />
             </Route>
