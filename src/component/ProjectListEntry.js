@@ -24,7 +24,7 @@ function ProjectListEntry({content,taskCardCount}) {
     <Link to={`/project/${content.project_id}`} className='entry' >
       <div className='entry_stateColor' style={color}></div>
       <div className='box'>
-        <p className='entry_title'>{project.title}<br />{startDate}<br />{`~${endDate}`}</p>
+        <p className='entry_title'>{project.title}<br />{project.startDate}<br />{`~${project.endDate}`}</p>
         {/* <p className='entry_date'>{content.date}</p> */}
       </div>
       <img src={project.user.profile} className='entry_host'></img>
