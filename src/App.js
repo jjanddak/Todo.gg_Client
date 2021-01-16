@@ -3,51 +3,39 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  withRouter,
 } from "react-router-dom";
 
-import Login from './component/Login';
-import Signup from "./component/Signup";
 import UpdateUserinfo from "./component/UpdateUserinfo";
 import ProjectList from "./component/ProjectList";
 import NewProject from "./component/NewProject";
+import TodoList from "./component/TodoList";
 
-import './App.css'
+import "./App.css";
 
-class App extends React.Component {
-  render() {
-    return (
-      <>
-        <h1>hello world</h1>
-        <Router>
-          <Switch>
-            {/* <Route path="/user/login">
-              <Login />
-            </Route> */}
-            <Route path="/user/signup">
-              <Signup />
-            </Route>
+function App() {
 
-            <Route path="/user/updateUserinfo">
-              <UpdateUserinfo />
-            </Route>
-            {
-              window.sessionStorage.isLogin === false
-              ?(
-                <ProjectList></ProjectList>
-              )
-              :(
-                <ProjectList></ProjectList>
-              )
-            }
-            <Route path="/newproject">
-              <NewProject />
-            </Route>
-          </Switch>
-        </Router>
-      </>
-    )
-  }
+  return (
+    <div className="App">
+      <h1>hello world</h1>
+      <Router>
+        <Switch>
+          <Route path="/user/updateUserinfo"> {/** 모달 완료되면 삭제 */}
+            <UpdateUserinfo />
+          </Route>
+
+          <Route path="/project/">
+            <TodoList />
+          </Route>
+          <Route path="/newproject">
+            <NewProject />
+          </Route>
+          <Route exact path="/">
+            <ProjectList />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  )
 }
 
-export default withRouter(App);
+export default App;

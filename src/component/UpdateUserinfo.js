@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
-
 import Pictures from "./Pictures";
+import './css/updateUserinfo.css';
 
 axios.defaults.withCredentials = true;
 
-function UpdateUserinfo() {
-  const history = useHistory();
+function UpdateUserinfo({ updateUserinfoModal }) {
   const [state, setState] = useState({
     usernameChecked: true,
     username: window.sessionStorage.username,
@@ -59,12 +57,13 @@ function UpdateUserinfo() {
       }, {
         headers: {
           Authorization: `Bearer ${window.sessionStorage.accessToken}`,
-          "content-type": "multipart/form-data"
+          "content-type": "application/json"
         }
       })
-        .then(() => {
+        .then((param) => {
+          param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
           window.sessionStorage.username = username;
-          history.push("/");
+          updateUserinfoModal()
         })
         .catch((err) => {
           console.log(err);
@@ -112,26 +111,31 @@ function UpdateUserinfo() {
   const checkOldPassword = () => {
     if (oldPassword) {
       axios.post("https://localhost:4001/user/checkPassword", {
-        oldPassword: oldPassword,
+        password: oldPassword,
       }, {
         headers: {
           Authorization: `Bearer ${window.sessionStorage.accessToken}`,
-          "content-type": "multipart/form-data"
+          "content-type": "appliction/json"
         }
       })
-        .then(() => {
-          setState({
-            ...state,
-            oldPasswordChecked: true,
-            oldPasswordMessage: ""
-          });
+        .then((param) => {
+          param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
+          if (param.data.message === "valid") {
+            setState({
+              ...state,
+              oldPasswordChecked: true,
+              oldPasswordMessage: ""
+            });
+          } else {
+            setState({
+              ...state,
+              oldPasswordChecked: false,
+              oldPasswordMessage: "기존 비밀번호가 일치하지 않습니다",
+            });
+          }
         })
-        .catch(() => {
-          setState({
-            ...state,
-            oldPasswordChecked: false,
-            oldPasswordMessage: "기존 비밀번호가 일치하지 않습니다",
-          });
+        .catch((err) => {
+          console.log(err);
         });
     } else {
       setState({
@@ -195,64 +199,66 @@ function UpdateUserinfo() {
   };
 
   return (
-    <div className="updateUserinfo">
-      <h2 className="updateUserinfo_title">updateUserinfo</h2>
-      <div className="updateUserinfo_profile"> 프로필
-        <img src={profile} alt="" name="profile" />
+    <div className="updateUserinfo" onClick={updateUserinfoModal}>
+      <div className="updateModal" onClick={(e) => e.stopPropagation()}>
+        <h2 className="updateUserinfo_title">updateUserinfo</h2>
+        <div className="updateUserinfo_profile"> 프로필
+          <img src={profile} alt="" name="profile" />
+          <button
+            className="updateUserinfo_button"
+            onClick={changeProfile}
+          >프로필 변경</button>
+        </div>
+        <div className="updateUserinfo_pictures">
+          {pictureList}
+        </div>
+        <span className="updateUserinfo_subtitle">닉네임</span>
         <button
           className="updateUserinfo_button"
-          onClick={changeProfile}
-        >프로필 변경</button>
+          type="submit"
+          onClick={checkUsername}
+        >중복확인</button>
+        <input
+          className="updateUserinfo_input"
+          name="newUsername"
+          type="text"
+          placeholder={window.sessionStorage.username}
+          onChange={onChange}
+        />
+        <div className="updateUserinfo_alert_box">{usernameMessage}</div>
+        <span className="updateUserinfo_subtitle">기존 비밀번호</span>
+        <input
+          className="updateUserinfo_input"
+          name="oldPassword"
+          type="password"
+          onBlur={checkOldPassword}
+          onChange={onChange}
+          value={oldPassword}
+        />
+        <div className="updateUserinfo_alert_box">{oldPasswordMessage}</div>
+        <span className="updateUserinfo_subtitle">새 비밀번호</span>
+        <input
+          className="updateUserinfo_input"
+          name="firstPassword"
+          type="password"
+          onChange={onChange}
+          value={firstPassword}
+        />
+        <span className="updateUserinfo_subtitle">비밀번호 확인</span>
+        <input
+          className="updateUserinfo_input"
+          name="lastPassword"
+          type="password"
+          onChange={onChange}
+          value={lastPassword}
+        />
+        <div className="updateUserinfo_alert_box">{newPasswordMessage}</div>
+        <div className="updateUserinfo_alert_box">{errorMessage}</div>
+        <button
+          className="updateUserinfo_submit_button"
+          onClick={handleUpdateUserinfo}
+        >적용</button>
       </div>
-      <div className="updateUserinfo_pictures">
-        {pictureList}
-      </div>
-      <span className="updateUserinfo_subtitle">닉네임</span>
-      <button
-        className="updateUserinfo_button"
-        type="submit"
-        onClick={checkUsername}
-      >중복확인</button>
-      <input
-        className="updateUserinfo_input"
-        name="newUsername"
-        type="text"
-        placeholder={window.sessionStorage.username}
-        onChange={onChange}
-      />
-      <div className="updateUserinfo_alert_box">{usernameMessage}</div>
-      <span className="updateUserinfo_subtitle">기존 비밀번호</span>
-      <input
-        className="updateUserinfo_input"
-        name="oldPassword"
-        type="password"
-        onBlur={checkOldPassword}
-        onChange={onChange}
-        value={oldPassword}
-      />
-      <div className="updateUserinfo_alert_box">{oldPasswordMessage}</div>
-      <span className="updateUserinfo_subtitle">새 비밀번호</span>
-      <input
-        className="updateUserinfo_input"
-        name="firstPassword"
-        type="password"
-        onChange={onChange}
-        value={firstPassword}
-      />
-      <span className="updateUserinfo_subtitle">비밀번호 확인</span>
-      <input
-        className="updateUserinfo_input"
-        name="lastPassword"
-        type="password"
-        onChange={onChange}
-        value={lastPassword}
-      />
-      <div className="updateUserinfo_alert_box">{newPasswordMessage}</div>
-      <div className="updateUserinfo_alert_box">{errorMessage}</div>
-      <button
-        className="updateUserinfo_submit_button"
-        onClick={handleUpdateUserinfo}
-      >적용</button>
     </div>
   )
 }
