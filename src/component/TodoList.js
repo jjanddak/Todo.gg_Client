@@ -31,7 +31,7 @@ function TodoList() {
    */
   useEffect(() => {
     if(isLogin) { //* 로그인 상태일 때
-      axios.get(`https://localhost:4001/project/:${projectId}`, {
+      axios.get(`https://localhost:4001/project/${projectId}`, {
       headers: {
         Authorization: `Bearer ${window.sessionStorage.accessToken}`,
         "Content-Type": "application/json"
