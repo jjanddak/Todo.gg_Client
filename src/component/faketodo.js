@@ -1,4 +1,4 @@
-export default [
+const dummy = [
   { //! [0]
     projectInfo: {
       id: 0,
@@ -81,7 +81,7 @@ export default [
             content: "task_card_01",
             state: "done",
             project_id: 0,
-            contributers: [] //TODO 태스크 맡은 사람, 복수 가능
+            contributers: [] //* 태스크 맡은 사람, 복수 가능
           },
           {
             id: 4,
@@ -112,7 +112,7 @@ export default [
             contributers: [
               {
                 id: 5,
-                project_id: null,
+                project_id: 0,
                 taskCard_id: 3,
                 user_id: 4,
                 user: {
@@ -179,7 +179,7 @@ export default [
       contributers: [
         {
           id: 0,
-          project_id: 0,
+          project_id: 1,
           taskCard_id: 0,
           user_id: 1,
           user: {
@@ -190,7 +190,7 @@ export default [
         },
         {
           id: 1,
-          project_id: 0,
+          project_id: 1,
           taskCard_id: 0,
           user_id: 2,
           user: {
@@ -201,7 +201,7 @@ export default [
         },
         {
           id: 2,
-          project_id: 0,
+          project_id: 1,
           taskCard_id: 0,
           user_id: 3,
           user: {
@@ -212,7 +212,7 @@ export default [
         },
         {
           id: 3,
-          project_id: 0,
+          project_id: 1,
           taskCard_id: 0,
           user_id: 4,
           user: {
@@ -223,7 +223,7 @@ export default [
         },
         {
           id: 4,
-          project_id: 0,
+          project_id: 1,
           taskCard_id: 0,
           user_id: 5,
           user: {
@@ -234,7 +234,7 @@ export default [
         },
         {
           id: 5,
-          project_id: 0,
+          project_id: 1,
           taskCard_id: 0,
           user_id: 6,
           user: {
@@ -245,7 +245,7 @@ export default [
         },
         {
           id: 6,
-          project_id: 0,
+          project_id: 1,
           taskCard_id: 0,
           user_id: 7,
           user: {
@@ -256,7 +256,7 @@ export default [
         },
         {
           id: 7,
-          project_id: 0,
+          project_id: 1,
           taskCard_id: 0,
           user_id: 8,
           user: {
@@ -272,39 +272,39 @@ export default [
             id: 1,
             content: "task_card_01",
             state: "done",
-            project_id: 0,
+            project_id: 1,
             contributers: []
           },
           {
             id: 4,
             content: "task_card_04",
             state: "done",
-            project_id: 0,
+            project_id: 1,
             contributers: []
           },
           {
             id: 5,
             content: "task_card_05",
             state: "done",
-            project_id: 0,
+            project_id: 1,
             contributers: []
           },
           {
             id: 2,
             content: "task_card_02",
             state: "todo",
-            project_id: 0,
+            project_id: 1,
             contributers: []
           },
           {
             id: 6,
             content: "task_card_06",
             state: "inprogress",
-            project_id: 0,
+            project_id: 1,
             contributers: [
               {
                 id: 5,
-                project_id: null,
+                project_id: 1,
                 taskCard_id: 3,
                 user_id: 4,
                 user: {
@@ -315,7 +315,7 @@ export default [
               },
               {
                 id: 4,
-                project_id: 0,
+                project_id: 1,
                 taskCard_id: 3,
                 user_id: 1,
                 user: {
@@ -330,32 +330,32 @@ export default [
             id: 3,
             content: "task_card_03",
             state: "done",
-            project_id: 0,
+            project_id: 1,
             contributers: []
           },
           {
             id: 0,
             content: "task_card_03",
             state: "done",
-            project_id: 0,
+            project_id: 1,
             contributers: []
           },
           {
             id: 7,
             content: "task_card_03",
             state: "done",
-            project_id: 0,
+            project_id: 1,
             contributers: []
           },
           {
             id: 8,
             content: "task_card_08",
             state: "done",
-            project_id: 0,
+            project_id: 1,
             contributers: [
               {
                 id: 2,
-                project_id: 0,
+                project_id: 1,
                 taskCard_id: 1,
                 user_id: 3,
                 user: {
@@ -381,11 +381,11 @@ export default [
       title: "더미 프로젝트2",
       description: "비회원 상태로 작성한 정보는 저장되지 않습니다",
       start_date: "2020-02-02",
-      end_date: "완료날짜 미정",
+      end_date: "9999-01-01",
       contributers: [
         {
           id: 0,
-          project_id: 0,
+          project_id: 2,
           taskCard_id: 0,
           user_id: 1,
           user: {
@@ -396,7 +396,7 @@ export default [
         },
         {
           id: 1,
-          project_id: 0,
+          project_id: 2,
           taskCard_id: 0,
           user_id: 2,
           user: {
@@ -407,7 +407,7 @@ export default [
         },
         {
           id: 2,
-          project_id: 0,
+          project_id: 2,
           taskCard_id: 0,
           user_id: 3,
           user: {
@@ -418,7 +418,7 @@ export default [
         },
         {
           id: 3,
-          project_id: 0,
+          project_id: 2,
           taskCard_id: 0,
           user_id: 4,
           user: {
@@ -429,7 +429,7 @@ export default [
         },
         {
           id: 4,
-          project_id: 0,
+          project_id: 2,
           taskCard_id: 0,
           user_id: 5,
           user: {
@@ -440,7 +440,7 @@ export default [
         },
         {
           id: 5,
-          project_id: 0,
+          project_id: 2,
           taskCard_id: 0,
           user_id: 6,
           user: {
@@ -456,39 +456,39 @@ export default [
             id: 1,
             content: "task_card_01",
             state: "done",
-            project_id: 0,
+            project_id: 2,
             contributers: []
           },
           {
             id: 4,
             content: "task_card_04",
             state: "done",
-            project_id: 0,
+            project_id: 2,
             contributers: []
           },
           {
             id: 5,
             content: "task_card_05",
             state: "done",
-            project_id: 0,
+            project_id: 2,
             contributers: []
           },
           {
             id: 2,
             content: "task_card_02",
             state: "done",
-            project_id: 0,
+            project_id: 2,
             contributers: []
           },
           {
             id: 6,
             content: "task_card_06",
             state: "done",
-            project_id: 0,
+            project_id: 2,
             contributers: [
               {
                 id: 5,
-                project_id: null,
+                project_id: 2,
                 taskCard_id: 3,
                 user_id: 4,
                 user: {
@@ -499,7 +499,7 @@ export default [
               },
               {
                 id: 4,
-                project_id: 0,
+                project_id: 2,
                 taskCard_id: 3,
                 user_id: 1,
                 user: {
@@ -514,7 +514,7 @@ export default [
             id: 3,
             content: "task_card_03",
             state: "done",
-            project_id: 0,
+            project_id: 2,
             contributers: []
           },
         ],
@@ -527,3 +527,4 @@ export default [
     },
   },
 ]
+export default dummy;

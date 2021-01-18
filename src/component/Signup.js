@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import SHA256 from "./SHA256";
 import Pictures from "./Pictures";
@@ -8,7 +8,6 @@ import './css/Login.css';
 axios.defaults.withCredentials = true;
 
 function Signup({signupChange,loginChange}) {
-  const history = useHistory();
   const [state, setState] = useState({
     emailChecked: false,
     email: "",
