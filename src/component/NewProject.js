@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
+axios.defaults.withCredentials = true;
+
 function NewProject() {
   const history = useHistory();
   const [state, setState] = useState({
@@ -46,7 +48,7 @@ function NewProject() {
     }
   }
   const addMember = function(){
-    axios.post('https://localhost:4001/user/getOne', {member:member})
+    axios.post('https://localhost:4001/user/getOne', {username:member})
     .then((param)=>{
       setState({...state,team:[...team,param.data.userinfo]})
     })
@@ -68,10 +70,17 @@ function NewProject() {
           endDate:!checked ? endDate :'완료날짜 미정',
           member:team,
           description:description
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${window.sessionStorage.accessToken}`,
+            "Content-Type": "application/json"
+          }
         })
         .then((param)=>{
+          console.log(param.data);
           const proId = param.data.project_id;
-          history.push(`/project/:${proId}`)
+          history.push(`/project/${proId}`)
         })
         .catch(err=>{
           console.log(err)
