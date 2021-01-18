@@ -65,7 +65,7 @@ function NewProject() {
         axios.post('https://localhost:4001/project/new', {
           title:title,
           startDate:startDate,
-          endDate:!checked ? endDate :'no',
+          endDate:!checked ? endDate :'완료날짜 미정',
           member:team,
           description:description
         })
