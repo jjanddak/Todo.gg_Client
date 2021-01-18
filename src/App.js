@@ -1,10 +1,11 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  withRouter,
+  useHistory,
 } from "react-router-dom";
+import axios from 'axios'
 
 import Login from './component/Login';
 import Signup from "./component/Signup";
@@ -13,9 +14,9 @@ import ProjectList from "./component/ProjectList";
 import NewProject from "./component/NewProject";
 
 import './App.css'
+axios.defaults.withCredentials = true;
 
-class App extends React.Component {
-  render() {
+function App(){
     return (
       <>
         <h1>hello world</h1>
@@ -31,15 +32,7 @@ class App extends React.Component {
             <Route path="/user/updateUserinfo">
               <UpdateUserinfo />
             </Route>
-            {
-              window.sessionStorage.isLogin === false
-              ?(
-                <ProjectList></ProjectList>
-              )
-              :(
-                <ProjectList></ProjectList>
-              )
-            }
+                <ProjectList ></ProjectList>
             <Route path="/newproject">
               <NewProject />
             </Route>
@@ -47,7 +40,8 @@ class App extends React.Component {
         </Router>
       </>
     )
-  }
+  
 }
 
-export default withRouter(App);
+export default App;
+
