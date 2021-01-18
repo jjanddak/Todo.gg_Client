@@ -1,10 +1,9 @@
-import React,{useState} from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
-import axios from 'axios'
 
 import UpdateUserinfo from "./component/UpdateUserinfo";
 import ProjectList from "./component/ProjectList";

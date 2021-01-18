@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-
-import Pictures from "./Pictures"
-import './css/Login.css'
+import SHA256 from "./SHA256";
+import Pictures from "./Pictures";
+import './css/Login.css';
 
 axios.defaults.withCredentials = true;
 
@@ -138,13 +138,10 @@ function Signup({signupChange,loginChange}) {
     } else {
       axios.post("https://localhost:4001/user/signup", {
         username: username,
-        password: password,
+        password: SHA256(password),
         email: email,
         profile: Pictures[Math.floor(Math.random() * 16)],
       })
-        .then(() => {
-          history.push("/user/login");
-        });
     }
   };
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import SHA256 from "./SHA256";
 import Pictures from "./Pictures";
 import './css/updateUserinfo.css';
 
@@ -52,7 +53,7 @@ function UpdateUserinfo({ updateUserinfoModal }) {
     } else {
       axios.post("https://localhost:4001/user/updateUserinfo", {
         username: username ? username : window.sessionStorage.username,
-        password: password ? password : oldPassword,
+        password: SHA256(password ? password : oldPassword),
         profile: profile,
       }, {
         headers: {
@@ -111,7 +112,7 @@ function UpdateUserinfo({ updateUserinfoModal }) {
   const checkOldPassword = () => {
     if (oldPassword) {
       axios.post("https://localhost:4001/user/checkPassword", {
-        password: oldPassword,
+        password: SHA256(oldPassword),
       }, {
         headers: {
           Authorization: `Bearer ${window.sessionStorage.accessToken}`,

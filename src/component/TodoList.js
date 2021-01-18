@@ -11,16 +11,16 @@ function TodoList() {
   const projectId = window.location.href.split("/")[4]; //* url 에서 아이디 가져오기
   const isLogin = window.sessionStorage.isLogin;
   //TODO ↓↓↓ dummy에 없는 id 넘어오면 홈으로 보내고 싶은데 에러가 먼저 나옴
-  (!isLogin && projectId>2) && history.push("/"); 
+  (!isLogin && projectId>2) && history.push("/");
 
-  const [project, setProject] = useState(dummy[projectId]);
+  const [project, setProject] = useState(dummy[projectId].projectInfo);
+  const [counts, setCount] = useState(dummy[projectId].taskCardCount);
 
-  const counts = project.task_card_count;
   const process =Math.round(counts.done / (counts.todo + counts.inprogress + counts.done) * 100);
   const todoList = [];
   const inprogressList = [];
   const doneList = [];
-  project.task_card_list.map((item) => {
+  project.taskCards.map((item) => {
     item.state === "todo" && todoList.push(<div className="todoList_todo_entry" key={item.id}>{item.content}</div>)
     item.state === "inprogress" && inprogressList.push(<div className="todoList_todo_entry" key={item.id}>{item.content}</div>)
     item.state === "done" && doneList.push(<div className="todoList_todo_entry" key={item.id}>{item.content}</div>)
@@ -31,7 +31,7 @@ function TodoList() {
    */
   useEffect(() => {
     if(isLogin) { //* 로그인 상태일 때
-      axios.get(`https://localhost:4001/project/${projectId}`, {
+      axios.get(`https://localhost:4001/project/${projectId}`, null, {
       headers: {
         Authorization: `Bearer ${window.sessionStorage.accessToken}`,
         "Content-Type": "application/json"
@@ -39,7 +39,8 @@ function TodoList() {
     })
       .then((param) => {
         param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
-        setProject(param.data.project);
+        setProject(param.data.projectInfo);
+        setCount(param.data.taskCardCount);
       })
       .catch((err) => {
         console.log(err);
@@ -47,12 +48,17 @@ function TodoList() {
       })
     }
   }, []);
-  
+  let color = { backgroundColor: 'red' }; //* process_color
+  if (process > 76 && process <= 99) {
+    color = { backgroundColor: 'yellow' };
+  } else if (process === 100) {
+    color = { backgroundColor: 'blue' };
+  }
   
   return (
     <div className="todoList">
       <nav className="todoList_nav">
-        <div className="todoList_precess_color" />
+        <div className="todoList_precess_color" style={color} />
         <div className="todoList_title">{project.title}</div>
         <div className="todoList_date">{`${project.start_date} ~ ${project.end_date}`}</div>
         <div className="todoList_process">{`진행도 ${process}%`}</div>
