@@ -5,7 +5,7 @@ import './css/updateUserinfo.css';
 
 axios.defaults.withCredentials = true;
 
-function UpdateUserinfo({updateUserinfoModal}) {
+function UpdateUserinfo({ updateUserinfoModal }) {
   const [state, setState] = useState({
     usernameChecked: true,
     username: window.sessionStorage.username,
@@ -111,27 +111,31 @@ function UpdateUserinfo({updateUserinfoModal}) {
   const checkOldPassword = () => {
     if (oldPassword) {
       axios.post("https://localhost:4001/user/checkPassword", {
-        oldPassword: oldPassword,
+        password: oldPassword,
       }, {
         headers: {
           Authorization: `Bearer ${window.sessionStorage.accessToken}`,
-          "content-type": "application/json"
+          "content-type": "appliction/json"
         }
       })
         .then((param) => {
           param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
-          setState({
-            ...state,
-            oldPasswordChecked: true,
-            oldPasswordMessage: ""
-          });
+          if (param.data.message === "valid") {
+            setState({
+              ...state,
+              oldPasswordChecked: true,
+              oldPasswordMessage: ""
+            });
+          } else {
+            setState({
+              ...state,
+              oldPasswordChecked: false,
+              oldPasswordMessage: "기존 비밀번호가 일치하지 않습니다",
+            });
+          }
         })
-        .catch(() => {
-          setState({
-            ...state,
-            oldPasswordChecked: false,
-            oldPasswordMessage: "기존 비밀번호가 일치하지 않습니다",
-          });
+        .catch((err) => {
+          console.log(err);
         });
     } else {
       setState({
@@ -196,7 +200,7 @@ function UpdateUserinfo({updateUserinfoModal}) {
 
   return (
     <div className="updateUserinfo" onClick={updateUserinfoModal}>
-      <div className="updateModal" onClick={(e)=>e.stopPropagation()}>
+      <div className="updateModal" onClick={(e) => e.stopPropagation()}>
         <h2 className="updateUserinfo_title">updateUserinfo</h2>
         <div className="updateUserinfo_profile"> 프로필
           <img src={profile} alt="" name="profile" />
