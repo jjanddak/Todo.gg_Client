@@ -107,7 +107,7 @@ function ProjectList() {
       { signupModal && <Signup loginChange={loginChange} signupChange={signupChange} />}
       { updateModal && <UpdateUserinfo updateUserinfoModal={updateUserinfoModal} />}
       <button>+</button>
-      {/* {list} */}
+      {list}
     </>
   )
 }
