@@ -141,6 +141,9 @@ function Signup({signupChange,loginChange}) {
         email: email,
         profile: Pictures[Math.floor(Math.random() * 16)],
       })
+      .then(()=>{
+        signupChange()
+      })
     }
   };
 

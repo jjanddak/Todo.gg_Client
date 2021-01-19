@@ -38,22 +38,44 @@ function ProjectList() {
   const updateUserinfoModal = () => { //수정모달
     setState({ ...state, updateModal: !updateModal })
   }
-  const loginList = function () { //list변수에서 실행시킬 함수 (로그인시 유저 프로젝트리스트)
-    axios.post('https://localhost:4001/', {
+  let result
+  // const loginList = function () { //list변수에서 실행시킬 함수 (로그인시 유저 프로젝트리스트)
+  //   axios.post('https://localhost:4001/',null, {
+  //     headers: {
+  //       Authorization: `Bearer ${window.sessionStorage.accessToken}`,
+  //       "content-type": "application/json"
+  //     }
+  //   })
+  //     .then(param => {
+  //       param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
+  //       result = param
+  //       return result
+  //     })
+  //     // .then(param=>{
+  //     //   // console.log(param.data)
+
+  //     //   return result = param.data.projectList.contributers.map((ele, idx) => {
+  //     //     return <ProjectListEntry key={idx} content={ele} taskCardCount={taskCardCount[idx]}></ProjectListEntry>
+  //     //   })
+  //     // })
+  //     console.log(result)
+  // }
+
+
+  const getMyData = async()=>{
+    let LoginList = await axios.post('https://localhost:4001/',null, {
       headers: {
         Authorization: `Bearer ${window.sessionStorage.accessToken}`,
         "content-type": "application/json"
       }
     })
-      .then(param => {
-        param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
-        param.data.projectList.contributers.map((ele, idx) => {
-          return <ProjectListEntry key={idx} content={ele} taskCardCount={taskCardCount[idx]}></ProjectListEntry>
-        })
-      })
+    LoginList=LoginList.data;
+    console.log(JSON.stringify(LoginList))
+    // return JSON.stringify(LoginList)
   }
+  getMyData()
   let list = isLogin //로그인 상태별 리스트
-    ? loginList()
+    ? getMyData()
     : fakeproject.projectList.contributers.map((ele, idx) => {
       return <ProjectListEntry key={idx} content={ele} taskCardCount={taskCardCount[idx]}></ProjectListEntry>
     })
@@ -104,7 +126,7 @@ function ProjectList() {
       { signupModal && <Signup loginChange={loginChange} signupChange={signupChange} />}
       { updateModal && <UpdateUserinfo updateUserinfoModal={updateUserinfoModal} />}
       <button>+</button>
-      {list}
+      {/* {list} */}
     </>
   )
 }
