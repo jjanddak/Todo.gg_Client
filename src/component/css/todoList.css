@@ -1,0 +1,36 @@
+/* nav */
+.todoList_process_color {
+  width: 20px;
+  height: 60px;
+  display: inline-block;
+}
+/* .todoList_title, .todoList_date, .todoList_process {
+  
+} */
+
+/* card titles */
+.todoList_taskCards {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.todoList_todo, .todoList_inprogress, .todoList_done{
+  border: solid 2px greenyellow; /*! 삭제 하라고*/
+  width: 350px;
+  float:left;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.todoList_counts {
+  float: right;
+}
+
+/* entry */
+.todoList_todo_entry, .todoList_inprogress_entry, .todoList_done_entry {
+  border: solid 2px red; /*! 삭제 하라고*/
+  width: 300px;
+  height: 50px;
+  margin: 10px auto;
+}
+.todoList_delete_card {
+  float: right;
+}
