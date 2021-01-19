@@ -50,7 +50,7 @@ function NewProject() {
   const addMember = function(){
     axios.post('https://localhost:4001/user/getOne', {username:member})
     .then((param)=>{
-      setState({...state,team:[...team,param.data.userinfo]})
+      setState({...state,team:[...team,param.data.userinfo],memberErrorMsg:''})
     })
     .catch(()=>{
       setState({...state,memberErrorMsg:'일치하는 유저네임이 없습니다.'})
@@ -67,7 +67,7 @@ function NewProject() {
         axios.post('https://localhost:4001/project/new', {
           title:title,
           startDate:startDate,
-          endDate:!checked ? endDate :'완료날짜 미정',
+          endDate:!checked ? endDate :'9999.01.01',
           member:team,
           description:description
         },
