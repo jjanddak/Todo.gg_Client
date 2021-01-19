@@ -16,10 +16,10 @@ function ProjectListEntry({content,taskCardCount}) {
   }else{
     color = {backgroundColor : 'blue'}
   }
-  const teamList = content.project.contributers.map(ele=>{ //팀원프사
-    return <img className='entry_teamimg'key={ele.user_id}src={ele.user.profile}></img>
+  const teamList = project.contributers.map(ele=>{ //팀원프사
+    return <img className='entry_teamimg'key={ele.user_id} src={ele.user.profile}></img>
   })
-
+  
   return (
     <Link to={`/project/${content.project_id}`} className='entry' >
       <div className='entry_stateColor' style={color}></div>
@@ -30,7 +30,7 @@ function ProjectListEntry({content,taskCardCount}) {
       <img src={project.user.profile} className='entry_host'></img>
       <div className='box'>
         <p className='entry_kda'>{`${todo}/${inprogress}/${done}`}</p>
-        <p className='entry_progress'>{`진행 ${sum}%`}</p>
+        <p className='entry_progress'>{`진행 ${sum ? sum :0}%`}</p>
       </div>
       <p className='entry_description'>{project.description}</p>
       <div className='entry_team'>

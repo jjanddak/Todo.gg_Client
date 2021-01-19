@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProjectListEntry from './ProjectListEntry'
 import { Link } from "react-router-dom";
 import fakeproject from './fakeproject.js';
@@ -9,26 +9,17 @@ import UpdateUserinfo from './UpdateUserinfo'
 axios.defaults.withCredentials = true;
 
 function ProjectList() {
-  
   const [state, setState] = useState({ //모달창을위한 state
     loginModal: false,
     signupModal: false,
     updateModal: false,
-    logoutControll: true
+    logoutControll: true,
+    dataList:[],
+    taskCountList:[]
   })
-
-  const { loginModal, signupModal, updateModal,logoutControll } = state;
-  const taskCardCount = fakeproject.projectList.taskCardCount
+  const { loginModal, signupModal, updateModal,logoutControll,dataList,taskCountList } = state;
   const isLogin = window.sessionStorage.isLogin
-  let done = 0 // kda계산
-  let inprogress = 0
-  let todo = 0
-  taskCardCount.map(ele => {
-    done = done + ele.done;
-    inprogress = inprogress + ele.inprogress;
-    todo = todo + ele.todo;
-  })
-
+  
   const loginChange = () => { //로그인모달
     setState({ ...state, loginModal: !loginModal, signupModal: false })
   }
@@ -38,47 +29,40 @@ function ProjectList() {
   const updateUserinfoModal = () => { //수정모달
     setState({ ...state, updateModal: !updateModal })
   }
-  let result
-  // const loginList = function () { //list변수에서 실행시킬 함수 (로그인시 유저 프로젝트리스트)
-  //   axios.post('https://localhost:4001/',null, {
-  //     headers: {
-  //       Authorization: `Bearer ${window.sessionStorage.accessToken}`,
-  //       "content-type": "application/json"
-  //     }
-  //   })
-  //     .then(param => {
-  //       param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
-  //       result = param
-  //       return result
-  //     })
-  //     // .then(param=>{
-  //     //   // console.log(param.data)
-
-  //     //   return result = param.data.projectList.contributers.map((ele, idx) => {
-  //     //     return <ProjectListEntry key={idx} content={ele} taskCardCount={taskCardCount[idx]}></ProjectListEntry>
-  //     //   })
-  //     // })
-  //     console.log(result)
-  // }
-
-
-  const getMyData = async()=>{
-    let LoginList = await axios.post('https://localhost:4001/',null, {
-      headers: {
-        Authorization: `Bearer ${window.sessionStorage.accessToken}`,
-        "content-type": "application/json"
-      }
-    })
-    LoginList=LoginList.data;
-    console.log(JSON.stringify(LoginList))
-    // return JSON.stringify(LoginList)
-  }
-  getMyData()
+  useEffect(()=>{
+    const loginList = ()=>{ //list변수에서 실행시킬 함수 (로그인시 유저 프로젝트리스트)
+      axios.post('https://localhost:4001/',null, {
+        headers: {
+          Authorization: `Bearer ${window.sessionStorage.accessToken}`,
+          "content-type": "application/json"
+        }
+      })
+        .then(param => {
+          param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
+          setState({...state, dataList:param.data.projectList.contributers,taskCountList:param.data.projectList.taskCardCount})
+        })
+    }
+    loginList()
+  },[])
+  
+  let taskCardCount = isLogin //로그인 상태별 태스크카운트
+  ? taskCountList
+  : fakeproject.projectList.taskCardCount
+  let done = 0 // kda계산
+  let inprogress = 0
+  let todo = 0
+  taskCardCount.map(ele => {
+    done = done + ele.done;
+    inprogress = inprogress + ele.inprogress;
+    todo = todo + ele.todo;
+  })
   let list = isLogin //로그인 상태별 리스트
-    ? getMyData()
-    : fakeproject.projectList.contributers.map((ele, idx) => {
-      return <ProjectListEntry key={idx} content={ele} taskCardCount={taskCardCount[idx]}></ProjectListEntry>
-    })
+  ? dataList.map((ele, idx) => {
+    return <ProjectListEntry key={idx} content={ele} taskCardCount={taskCardCount[idx]}></ProjectListEntry>
+  })
+  : fakeproject.projectList.contributers.map((ele, idx) => {
+    return <ProjectListEntry key={idx} content={ele} taskCardCount={taskCardCount[idx]}></ProjectListEntry>
+  })
 
   const handleLogout = function () { 
     axios.post("https://localhost:4001/user/logout", null, {
@@ -94,6 +78,7 @@ function ProjectList() {
         })
       })
   }
+
   const main = isLogin
     ? <div>
         <img src={fakeproject.profile}></img> //! 테스트 끝나면 세션스토리지값으로 변경해라
@@ -109,9 +94,6 @@ function ProjectList() {
         <button onClick={signupChange}>회원가입</button>
       </div>
 
-
-
-
   return (
     <>
       <nav>
@@ -121,7 +103,6 @@ function ProjectList() {
         }
       </nav>
       {main}
-
       { loginModal && <Login loginChange={loginChange} signupChange={signupChange} />}
       { signupModal && <Signup loginChange={loginChange} signupChange={signupChange} />}
       { updateModal && <UpdateUserinfo updateUserinfoModal={updateUserinfoModal} />}
