@@ -132,24 +132,46 @@ function TodoList() {
       {showEditCard[item.id]
         ? (<div>
             <input type="text" value={taskContent} onChange={onChange} />
-            <button className="todoList_edit_submit" onClick={() => {editCard(item.id)}}>submit</button>
+            <button className="todoList_card_button" onClick={() => {editCard(item.id)}}>submit</button>
           </div>)
         : (<div>{item.content}
-            <button className="todoList_edit_card" onClick={() => {
+            <button className="todoList_card_button" onClick={() => {deleteCard(item.id)}}>✖</button>
+            <button className="todoList_card_button" onClick={() => {
               setTaskContent(item.content)
               setShowEditCard({[item.id]:true})
             }}>⚙</button>
-            <button className="todoList_delete_card" onClick={() => {deleteCard(item.id)}}>✖</button>
           </div>)
       }
     </div>)
     item.state === "inprogress" && inprogressList.push(<div className="todoList_inprogress_entry" key={item.id}>
-      {item.content}
-      <button className="todoList_delete_card" onClick={() => {deleteCard(item.id)}}>✖</button>
+      {showEditCard[item.id]
+        ? (<div>
+            <input type="text" value={taskContent} onChange={onChange} />
+            <button className="todoList_card_button" onClick={() => {editCard(item.id)}}>submit</button>
+          </div>)
+        : (<div>{item.content}
+            <button className="todoList_card_button" onClick={() => {deleteCard(item.id)}}>✖</button>
+            <button className="todoList_card_button" onClick={() => {
+              setTaskContent(item.content)
+              setShowEditCard({[item.id]:true})
+            }}>⚙</button>
+          </div>)
+      }
     </div>)
     item.state === "done" && doneList.push(<div className="todoList_done_entry" key={item.id}>
-      {item.content}
-      <button className="todoList_delete_card" onClick={() => {deleteCard(item.id)}}>✖</button>
+      {showEditCard[item.id]
+        ? (<div>
+            <input type="text" value={taskContent} onChange={onChange} />
+            <button className="todoList_card_button" onClick={() => {editCard(item.id)}}>submit</button>
+          </div>)
+        : (<div>{item.content}
+            <button className="todoList_card_button" onClick={() => {deleteCard(item.id)}}>✖</button>
+            <button className="todoList_card_button" onClick={() => {
+              setTaskContent(item.content)
+              setShowEditCard({[item.id]:true})
+            }}>⚙</button>
+          </div>)
+      }
     </div>)
   });
   return (

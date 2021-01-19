@@ -35,6 +35,8 @@
   height: 50px;
   margin: 10px auto;
 }
-.todoList_delete_card {
+.todoList_card_button {
+  background-color: #fff;
+  border: 1px #000 solid;
   float: right;
 }
