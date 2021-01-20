@@ -5,7 +5,7 @@ import './css/NewProject.css'
 
 axios.defaults.withCredentials = true;
 
-function EditProject({data,editProjectChange}) {
+function EditProject({data,editProjectChange,getProject}) {
     const [state, setState] = useState({
         title: data.title,
         startDate: data.start_date,
@@ -61,10 +61,10 @@ function EditProject({data,editProjectChange}) {
   const addProject = function () {
     if (title && startDate && (endDate || checked) && description) {
       if (isLogin) {
-        axios.post(`https://localhost:4001/project/${data.project_id}/update}`, {
+        axios.post(`https://localhost:4001/project/${data.id}/update`, {
           title: title,
           startDate: startDate,
-          endDate: !checked ? endDate : '완료날짜 미정',
+          endDate: !checked ? endDate : '9999-01-01',
           member: team,
           description: description
         },
@@ -76,6 +76,7 @@ function EditProject({data,editProjectChange}) {
           })
           .then((param) => {
             param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
+            getProject()
             editProjectChange()
           })
           .catch(err => {

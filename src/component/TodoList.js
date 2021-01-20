@@ -235,7 +235,7 @@ function TodoList() {
           {doneList}
         </div>
       </div>
-      { editProjectModal && <EditProject editProjectChange={editProjectChange} data={project} />}
+      { editProjectModal && <EditProject getProject={getProject} editProjectChange={editProjectChange} data={project} />}
     </div>
   )
 }
