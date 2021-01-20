@@ -12,13 +12,18 @@ class Login extends React.Component {
       password: "",
       errorMessage: ""
     }
+
+    this.GITHUB_LOGIN_URL = 'https://github.com/login/oauth/authorize?client_id=48913fb6f49bac54449a'
+    this.socialLoginHandler = this.socialLoginHandler.bind(this)
     this.handleInputValue = this.handleInputValue.bind(this);
   }
 
   handleInputValue = (key) => (e) => {
     this.setState({ [key]: e.target.value });
   };
-
+  socialLoginHandler() {
+    window.location.assign(this.GITHUB_LOGIN_URL)
+  }
   handleLogin = () => {
     const { email, password } = this.state; //변수할당
     if (email && password) { //다 채워져있으면 서버에보내기
@@ -58,9 +63,7 @@ class Login extends React.Component {
         <button onClick={this.props.signupChange}>
             회원가입
             </button>
-          <Link to='/user/social'>
-            소셜로그인
-      </Link>
+            <button onClick={this.socialLoginHandler}>GitHub Login</button>
         </div>
       </div>
     )
