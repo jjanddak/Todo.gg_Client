@@ -1,30 +1,22 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import './css/NewProject.css'
 
 axios.defaults.withCredentials = true;
 
-function NewProject({addProjectChange}) {
-  const history = useHistory();
-  const [state, setState] = useState({
-    title: '',
-    startDate: '',
-    endDate: '',
-    team: [
-      {
-        email: 'dd',
-        username: 'dd',
-        profile: '/img/레킹볼.png'
-      }
-    ],
-    member: '',
-    description: '',
-    memberErrorMsg: '',
-    inputErrorMsg: '',
-    checked: null
-  })
-
+function EditProject({data,editProjectChange}) {
+    const [state, setState] = useState({
+        title: data.title,
+        startDate: data.start_date,
+        endDate: data.end_date,
+        team: data.contributers,
+        member: '',
+        description: data.description,
+        memberErrorMsg: '',
+        inputErrorMsg: '',
+        checked: data.end_date === '9999-01-01' ? true : null
+      })
   const { title, startDate, endDate, team, member, description, memberErrorMsg, inputErrorMsg, checked } = state
   const isLogin = window.sessionStorage.isLogin
 
@@ -61,15 +53,15 @@ function NewProject({addProjectChange}) {
       })
   }
   const teamList = team.length > 0 && team.map(ele => {
-    return <div key={ele.username}>
-      <img className='hi' src={ele.profile}></img>
-      <span>{ele.username}</span>
+    return <div key={ele.user_id}>
+      <img className='hi' src={ele.user.profile}></img>
+      <span>{ele.user.username}</span>
     </div>
   })
   const addProject = function () {
     if (title && startDate && (endDate || checked) && description) {
       if (isLogin) {
-        axios.post('https://localhost:4001/project/new', {
+        axios.post(`https://localhost:4001/project/${data.project_id}/update}`, {
           title: title,
           startDate: startDate,
           endDate: !checked ? endDate : '완료날짜 미정',
@@ -83,16 +75,15 @@ function NewProject({addProjectChange}) {
             }
           })
           .then((param) => {
-            console.log(param.data);
-            const proId = param.data.project_id;
-            history.push(`/project/${proId}`)  //! 순서를 어케하지? 링크를 옮기고 모달을 닫아?!?!
+            param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
+            editProjectChange()
           })
           .catch(err => {
             console.log(err)
           })
       } else {
         window.sessionStorage.guestProject = JSON.stringify({state})
-        history.push('/project/guest')
+        editProjectChange()
       }
     }
     else {
@@ -101,28 +92,32 @@ function NewProject({addProjectChange}) {
   }
 
   return (
-    <div className='newProjectModal_container' onClick={addProjectChange}>
+    <div className='newProjectModal_container' onClick={editProjectChange}>
       <div className='newProjectModal' onClick={(e)=>e.stopPropagation()}>
         <p>프로젝트 이름</p>
-        <input type='text' name='title' onChange={changeData}></input>
+        <input type='text' name='title' value={title} onChange={changeData}></input>
         <p>시작날짜</p>
-        <input type='date' name='startDate' onChange={changeData}></input>
+        <input type='date' name='startDate' value={startDate} onChange={changeData}></input>
         {
           !checked &&
           <>
             <p>종료날짜</p>
-            <input type='date' name='endDate' onChange={changeData}></input>
+            <input type='date' name='endDate' value={endDate} onChange={changeData}></input>
           </>
         }
         <p>미정</p>
-        <input type='checkbox' name='checked' onChange={changeData}></input>
+        {checked
+            ?<input type='checkbox' name='checked' checked onChange={changeData}></input>
+            :<input type='checkbox' name='checked' onChange={changeData}></input>
+      }   
+        
         <p>참여 팀원</p>
         <input type='text' name='member' onChange={changeData}></input>
         <button onClick={addMember}>추가</button>
         {teamList}
         <p>{memberErrorMsg}</p>
         <p>프로젝트 설명</p>
-        <textarea name='description' onChange={changeData}></textarea>
+        <textarea name='description' value={description} onChange={changeData}></textarea>
         <button onClick={addProject}>생성</button>
         <p>{inputErrorMsg}</p>
       </div>
@@ -131,4 +126,4 @@ function NewProject({addProjectChange}) {
   )
 }
 
-export default NewProject
+export default EditProject
