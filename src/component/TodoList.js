@@ -18,24 +18,11 @@ function TodoList() {
   const [counts, setCount] = useState({ todo: 0, inprogress: 0, done: 0, }); //* 카운트 초기화
   const [taskContent, setTaskContent] = useState("");
   const [showAddCard, setShowAddCard] = useState(false);
+  const [showEditCard, setShowEditCard] = useState({});
   const process = Math.round(counts.done / (counts.todo + counts.inprogress + counts.done) * 100);
   const todoList = [];
   const inprogressList = [];
   const doneList = [];
-  project.taskCards.forEach((item) => {
-    item.state === "todo" && todoList.push(<div className="todoList_todo_entry" key={item.id}>
-      {item.content}
-      <button className="todoList_delete_card">delete card</button>
-    </div>)
-    item.state === "inprogress" && inprogressList.push(<div className="todoList_inprogress_entry" key={item.id}>
-      {item.content}
-      <button className="todoList_delete_card">delete card</button>
-    </div>)
-    item.state === "done" && doneList.push(<div className="todoList_done_entry" key={item.id}>
-      {item.content}
-      <button className="todoList_delete_card">delete card</button>
-    </div>)
-  });
   /**
    * DONE 태스크카드 받아서 뿌려주는 것 까지 R
    * TODO 태스크카드 C UD, 햄버거 모달, 진행도 따라 색 표시
@@ -57,7 +44,7 @@ function TodoList() {
           "Content-Type": "application/json"
         }
       })
-        .then((param) => {
+      .then((param) => {
           param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
           setProject(param.data.projectInfo);
           setCount(param.data.taskCardCount);
@@ -66,10 +53,10 @@ function TodoList() {
           console.log(err);
           history.push("/"); //* 에러나면 홈으로
         })
+      }
     }
-  }
-  useEffect(() => {
-    getProject();
+    useEffect(() => {
+      getProject();
   }, []);
   let color = { backgroundColor: 'red' }; //* process_color
   if (process > 76 && process <= 99) {
@@ -89,10 +76,10 @@ function TodoList() {
         "content-type": "application/json"
       }
     })
-      .then(() => {
-        window.sessionStorage.clear();
-        history.push("/");
-      });
+    .then(() => {
+      window.sessionStorage.clear();
+      history.push("/");
+    });
   };
   const addCard = () => {
     axios.post(`https://localhost:4001/project/${projectId}/newTask`, {
@@ -112,6 +99,81 @@ function TodoList() {
       console.log(err);
     });
   };
+  const deleteCard = (id) => {
+    axios.post(`https://localhost:4001/project/${projectId}/deleteTask`, {
+      id: id,
+    }, {
+      headers: {
+        Authorization: `Bearer ${window.sessionStorage.accessToken}`,
+        "Content-Type": "application/json"
+      }
+    })
+    .then(() => {
+      getProject();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  };
+  const editCard = (id) => {
+    axios.post(`https://localhost:4001/project/${projectId}/updateTask`, {
+      id: id,
+      content: taskContent,
+    })
+      .then(() => {
+        getProject();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+  project.taskCards.forEach((item) => {
+    item.state === "todo" && todoList.push(<div className="todoList_todo_entry" key={item.id}>
+      {showEditCard[item.id]
+        ? (<div>
+            <input type="text" value={taskContent} onChange={onChange} />
+            <button className="todoList_card_button" onClick={() => {editCard(item.id)}}>submit</button>
+          </div>)
+        : (<div>{item.content}
+            <button className="todoList_card_button" onClick={() => {deleteCard(item.id)}}>✖</button>
+            <button className="todoList_card_button" onClick={() => {
+              setTaskContent(item.content)
+              setShowEditCard({[item.id]:true})
+            }}>⚙</button>
+          </div>)
+      }
+    </div>)
+    item.state === "inprogress" && inprogressList.push(<div className="todoList_inprogress_entry" key={item.id}>
+      {showEditCard[item.id]
+        ? (<div>
+            <input type="text" value={taskContent} onChange={onChange} />
+            <button className="todoList_card_button" onClick={() => {editCard(item.id)}}>submit</button>
+          </div>)
+        : (<div>{item.content}
+            <button className="todoList_card_button" onClick={() => {deleteCard(item.id)}}>✖</button>
+            <button className="todoList_card_button" onClick={() => {
+              setTaskContent(item.content)
+              setShowEditCard({[item.id]:true})
+            }}>⚙</button>
+          </div>)
+      }
+    </div>)
+    item.state === "done" && doneList.push(<div className="todoList_done_entry" key={item.id}>
+      {showEditCard[item.id]
+        ? (<div>
+            <input type="text" value={taskContent} onChange={onChange} />
+            <button className="todoList_card_button" onClick={() => {editCard(item.id)}}>submit</button>
+          </div>)
+        : (<div>{item.content}
+            <button className="todoList_card_button" onClick={() => {deleteCard(item.id)}}>✖</button>
+            <button className="todoList_card_button" onClick={() => {
+              setTaskContent(item.content)
+              setShowEditCard({[item.id]:true})
+            }}>⚙</button>
+          </div>)
+      }
+    </div>)
+  });
   return (
     <div className="todoList">
       <nav className="todoList_nav">
