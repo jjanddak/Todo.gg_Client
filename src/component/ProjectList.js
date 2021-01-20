@@ -5,7 +5,8 @@ import fakeproject from './fakeproject.js';
 import Login from './Login';
 import Signup from './Signup';
 import axios from 'axios';
-import UpdateUserinfo from './UpdateUserinfo'
+import UpdateUserinfo from './UpdateUserinfo';
+import NewProject from './NewProject'
 axios.defaults.withCredentials = true;
 
 function ProjectList() {
@@ -13,11 +14,12 @@ function ProjectList() {
     loginModal: false,
     signupModal: false,
     updateModal: false,
+    newProjectModal: false,
     logoutControll: true,
     dataList:[],
     taskCountList:[]
   })
-  const { loginModal, signupModal, updateModal,logoutControll,dataList,taskCountList } = state;
+  const { loginModal, signupModal, updateModal,newProjectModal,logoutControll,dataList,taskCountList } = state;
   const isLogin = window.sessionStorage.isLogin
   
   const loginChange = () => { //로그인모달
@@ -26,23 +28,28 @@ function ProjectList() {
   const signupChange = () => { //회원가입모달
     setState({ ...state, signupModal: !signupModal, loginModal: false })
   }
-  const updateUserinfoModal = () => { //수정모달
+  const updateUserinfoChange = () => { //수정모달
     setState({ ...state, updateModal: !updateModal })
   }
+  const addProjectChange = () => {
+    setState({ ...state, newProjectModal: !newProjectModal })
+  }
   useEffect(()=>{
-    const loginList = ()=>{ //list변수에서 실행시킬 함수 (로그인시 유저 프로젝트리스트)
-      axios.post('https://localhost:4001/',null, {
-        headers: {
-          Authorization: `Bearer ${window.sessionStorage.accessToken}`,
-          "content-type": "application/json"
-        }
-      })
-        .then(param => {
-          param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
-          setState({...state, dataList:param.data.projectList.contributers,taskCountList:param.data.projectList.taskCardCount})
+    if(isLogin){
+      const loginList = ()=>{ //list변수에서 실행시킬 함수 (로그인시 유저 프로젝트리스트)
+        axios.post('https://localhost:4001/',null, {
+          headers: {
+            Authorization: `Bearer ${window.sessionStorage.accessToken}`,
+            "content-type": "application/json"
+          }
         })
+          .then(param => {
+            param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
+            setState({...state, dataList:param.data.projectList.contributers,taskCountList:param.data.projectList.taskCardCount})
+          })
+      }
+      loginList()
     }
-    loginList()
   },[])
   
   let taskCardCount = isLogin //로그인 상태별 태스크카운트
@@ -81,12 +88,12 @@ function ProjectList() {
 
   const main = isLogin
     ? <div>
-        <img src={fakeproject.profile}></img> //! 테스트 끝나면 세션스토리지값으로 변경해라
-        <p>{fakeproject.username}</p>
+        <img src={window.sessionStorage.profile}></img> //! 테스트 끝나면 세션스토리지값으로 변경해라
+        <p>{window.sessionStorage.username}</p>
         <p>todo:{todo}</p>
         <p>inprogress:{inprogress}</p>
         <p>done:{done}</p>
-        <button onClick={updateUserinfoModal}>프로필수정</button>
+        <button onClick={updateUserinfoChange}>프로필수정</button>
       </div>
     : <div>
         <h1>업무티어 올리기 투두관리부터 !<br />협업은 todo.gg와 함께</h1>
@@ -103,10 +110,11 @@ function ProjectList() {
         }
       </nav>
       {main}
+      <button onClick={addProjectChange}>+</button>
       { loginModal && <Login loginChange={loginChange} signupChange={signupChange} />}
       { signupModal && <Signup loginChange={loginChange} signupChange={signupChange} />}
-      { updateModal && <UpdateUserinfo updateUserinfoModal={updateUserinfoModal} />}
-      <button>+</button>
+      { updateModal && <UpdateUserinfo updateUserinfoChange={updateUserinfoChange} />}
+      { newProjectModal && <NewProject addProjectChange={addProjectChange}/>}
       {list}
     </>
   )
