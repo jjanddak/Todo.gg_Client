@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import dummy from "./faketodo";
+import EditProject from "./EditProject";
 import "./css/todoList.css";
 
 axios.defaults.withCredentials = true;
@@ -22,6 +23,7 @@ function TodoList() {
   const [showAddCard, setShowAddCard] = useState(false);
   const [showEditCard, setShowEditCard] = useState({});
   const [showAddMembar, setShowAddMembar] = useState({});
+  const [editProjectModal, setEditProjectModal] = useState(false);
   const process = Math.round(counts.done / (counts.todo + counts.inprogress + counts.done) * 100);
   const todoList = [];
   const inprogressList = [];
@@ -69,8 +71,8 @@ function TodoList() {
   }
   const onChange = (e) => {
     e.target.name === "member"
-    ? setNewMember(e.target.value)
-    : setTaskContent(e.target.value)
+      ? setNewMember(e.target.value)
+      : setTaskContent(e.target.value)
   };
   const logout = () => {
     axios.post("https://localhost:4001/user/logout", null, {
@@ -185,7 +187,7 @@ function TodoList() {
               {showAddMembar[item.id] && (
                 <div className="todoList_add_member">
                   <input type="text" name="member" />
-                  <button className="todoList_card_button" onClick={() => {addMember(item.id)}}>add</button>
+                  <button className="todoList_card_button" onClick={() => { addMember(item.id) }}>add</button>
                   <div className="todoList_add_member_err">{newMemberErr}</div>
                 </div>
               )}
@@ -200,16 +202,19 @@ function TodoList() {
     item.state === "inprogress" && inprogressList.push(setCard("todoList_inprogress_entry", item));
     item.state === "done" && doneList.push(setCard("todoList_inprogress_entry", item));
   });
+  const editProjectChange = () => {
+    setEditProjectModal(!editProjectModal)
+  }
   return (
     <div className="todoList">
       <nav className="todoList_nav">
         <div className="todoList_process_color" style={color} />
         <span className="todoList_title">{project.title}</span>
-        <span className="todoList_date">{`${project.start_date} ~ ${project.end_date}`}</span>
+        <span className="todoList_date">{`${project.start_date} ~${project.end_date === '9999-01-01' ? '완료날짜 미정' : project.end_date}`}</span>
         <span className="todoList_process">{`진행도 ${process ? process : 0}%`}</span>
         {isLogin && <button className="todoList_logout" onClick={logout}>로그아웃</button>}
         <button className="todoList_home" onClick={() => { history.push("/") }}>홈버튼</button>
-        <button className="todoList_set_project">프로젝트 관리</button>
+        <button className="todoList_set_project" onClick={editProjectChange} >프로젝트 관리</button>
       </nav>
       <div className="todoList_taskCards">
         <div className="todoList_todo">todo
@@ -230,6 +235,7 @@ function TodoList() {
           {doneList}
         </div>
       </div>
+      { editProjectModal && <EditProject editProjectChange={editProjectChange} data={project} />}
     </div>
   )
 }
