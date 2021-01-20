@@ -4,9 +4,10 @@
   height: 60px;
   display: inline-block;
 }
-/* .todoList_title, .todoList_date, .todoList_process {
-  
-} */
+.todoList_nav {
+  border: solid 2px thistle; /*! 삭제 하라고*/
+  height: 60px;
+}
 
 /* card titles */
 .todoList_taskCards {
@@ -32,11 +33,30 @@
   background-color: #fff;
   color: #000;
   width: 300px;
-  height: 50px;
+  height: 100px;
   margin: 10px auto;
+}
+.todoList_card_text {
+  width: 250px;
+  height: 95px;
+}
+.todoList_card_content {
+  display: inline-block;
+  width: 265px;
+  height: 65px;
 }
 .todoList_card_button {
   background-color: #fff;
   border: 1px #000 solid;
-  float: right;
+  vertical-align: top;
+}
+.todoList_contributers {
+  border: solid 2px thistle; /*! 삭제 하라고*/
+  display: inline-block;
+  width: 265px;
+  min-height: 32px;
+}
+.todoList_contributers_profile {
+  width: 30px;
+  height: 30px;
 }

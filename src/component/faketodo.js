@@ -14,7 +14,7 @@ const dummy = [
           user_id: 1,
           user: {
             id: 1,
-            profile: "../avatars/avt_15.png",
+            profile: "/static/media/avt_15.b09a1586.png",
             username: "아무개1"
           }
         },
@@ -25,7 +25,7 @@ const dummy = [
           user_id: 2,
           user: {
             id: 2,
-            profile: "../avatars/avt_13.png",
+            profile: "/static/media/avt_13.58096983.png",
             username: "아무개2"
           }
         },
@@ -36,7 +36,7 @@ const dummy = [
           user_id: 3,
           user: {
             id: 3,
-            profile: "../avatars/avt_9.png",
+            profile: "/static/media/avt_9.ee26d074.png",
             username: "아무개3"
           }
         },
@@ -47,7 +47,7 @@ const dummy = [
           user_id: 4,
           user: {
             id: 4,
-            profile: "../avatars/avt_5.png",
+            profile: "/static/media/avt_5.6b67b02a.png",
             username: "아무개4"
           }
         },
@@ -58,7 +58,7 @@ const dummy = [
           user_id: 5,
           user: {
             id: 5,
-            profile: "../avatars/avt_11.png",
+            profile: "/static/media/avt_11.3e37ca43.png",
             username: "아무개5"
           }
         },
@@ -69,7 +69,7 @@ const dummy = [
           user_id: 6,
           user: {
             id: 6,
-            profile: "../avatars/avt_10.png",
+            profile: "/static/media/avt_10.4aa1a052.png",
             username: "아무개6"
           }
         },
@@ -117,7 +117,7 @@ const dummy = [
                 user_id: 4,
                 user: {
                   id: 4,
-                  profile: "../avatars/avt_9.png",
+                  profile: "/static/media/avt_0.59701f8c.png",
                   username: "아무개4"
                 }
               },
@@ -128,7 +128,7 @@ const dummy = [
                 user_id: 1,
                 user: {
                   id: 1,
-                  profile: "../avatars/avt_15.png",
+                  profile: "/static/media/avt_15.b09a1586.png",
                   username: "아무개1"
                 }
               }
@@ -154,7 +154,7 @@ const dummy = [
                 user_id: 3,
                 user: {
                   id: 3,
-                  profile: "../avatars/avt_9.png",
+                  profile: "/static/media/avt_9.ee26d074.png",
                   username: "아무개3"
                 }
               }
@@ -184,7 +184,7 @@ const dummy = [
           user_id: 1,
           user: {
             id: 1,
-            profile: "../avatars/avt_15.png",
+            profile: "/static/media/avt_15.b09a1586.png",
             username: "아무개1"
           }
         },
@@ -195,7 +195,7 @@ const dummy = [
           user_id: 2,
           user: {
             id: 2,
-            profile: "../avatars/avt_13.png",
+            profile: "/static/media/avt_13.58096983.png",
             username: "아무개2"
           }
         },
@@ -206,7 +206,7 @@ const dummy = [
           user_id: 3,
           user: {
             id: 3,
-            profile: "../avatars/avt_9.png",
+            profile: "/static/media/avt_9.ee26d074.png",
             username: "아무개3"
           }
         },
@@ -217,7 +217,7 @@ const dummy = [
           user_id: 4,
           user: {
             id: 4,
-            profile: "../avatars/avt_5.png",
+            profile: "/static/media/avt_5.6b67b02a.png",
             username: "아무개4"
           }
         },
@@ -228,7 +228,7 @@ const dummy = [
           user_id: 5,
           user: {
             id: 5,
-            profile: "../avatars/avt_11.png",
+            profile: "/static/media/avt_11.3e37ca43.png",
             username: "아무개5"
           }
         },
@@ -239,7 +239,7 @@ const dummy = [
           user_id: 6,
           user: {
             id: 6,
-            profile: "../avatars/avt_10.png",
+            profile: "/static/media/avt_10.4aa1a052.png",
             username: "아무개6"
           }
         },
@@ -250,7 +250,7 @@ const dummy = [
           user_id: 7,
           user: {
             id: 7,
-            profile: "../avatars/avt_10.png",
+            profile: "/static/media/avt_10.4aa1a052.png",
             username: "아무개7"
           }
         },
@@ -261,7 +261,7 @@ const dummy = [
           user_id: 8,
           user: {
             id: 8,
-            profile: "../avatars/avt_10.png",
+            profile: "/static/media/avt_10.4aa1a052.png",
             username: "아무개8"
           }
         },
@@ -309,7 +309,7 @@ const dummy = [
                 user_id: 4,
                 user: {
                   id: 4,
-                  profile: "../avatars/avt_9.png",
+                  profile: "/static/media/avt_9.ee26d074.png",
                   username: "아무개4"
                 }
               },
@@ -320,7 +320,7 @@ const dummy = [
                 user_id: 1,
                 user: {
                   id: 1,
-                  profile: "../avatars/avt_15.png",
+                  profile: "/static/media/avt_15.b09a1586.png",
                   username: "아무개1"
                 }
               }
@@ -360,7 +360,7 @@ const dummy = [
                 user_id: 3,
                 user: {
                   id: 3,
-                  profile: "../avatars/avt_9.png",
+                  profile: "/static/media/avt_9.ee26d074.png",
                   username: "아무개3"
                 }
               }
@@ -390,7 +390,7 @@ const dummy = [
           user_id: 1,
           user: {
             id: 1,
-            profile: "../avatars/avt_15.png",
+            profile: "/static/media/avt_15.b09a1586.png",
             username: "아무개1"
           }
         },
@@ -401,7 +401,7 @@ const dummy = [
           user_id: 2,
           user: {
             id: 2,
-            profile: "../avatars/avt_13.png",
+            profile: "/static/media/avt_13.58096983.png",
             username: "아무개2"
           }
         },
@@ -412,7 +412,7 @@ const dummy = [
           user_id: 3,
           user: {
             id: 3,
-            profile: "../avatars/avt_9.png",
+            profile: "/static/media/avt_9.ee26d074.png",
             username: "아무개3"
           }
         },
@@ -423,7 +423,7 @@ const dummy = [
           user_id: 4,
           user: {
             id: 4,
-            profile: "../avatars/avt_5.png",
+            profile: "/static/media/avt_5.6b67b02a.png",
             username: "아무개4"
           }
         },
@@ -434,7 +434,7 @@ const dummy = [
           user_id: 5,
           user: {
             id: 5,
-            profile: "../avatars/avt_11.png",
+            profile: "/static/media/avt_11.3e37ca43.png",
             username: "아무개5"
           }
         },
@@ -445,7 +445,7 @@ const dummy = [
           user_id: 6,
           user: {
             id: 6,
-            profile: "../avatars/avt_10.png",
+            profile: "/static/media/avt_10.4aa1a052.png",
             username: "아무개6"
           }
         },
@@ -493,7 +493,7 @@ const dummy = [
                 user_id: 4,
                 user: {
                   id: 4,
-                  profile: "../avatars/avt_9.png",
+                  profile: "/static/media/avt_9.ee26d074.png",
                   username: "아무개4"
                 }
               },
@@ -504,7 +504,7 @@ const dummy = [
                 user_id: 1,
                 user: {
                   id: 1,
-                  profile: "../avatars/avt_15.png",
+                  profile: "/static/media/avt_15.b09a1586.png",
                   username: "아무개1"
                 }
               }
@@ -527,4 +527,5 @@ const dummy = [
     },
   },
 ]
+
 export default dummy;
