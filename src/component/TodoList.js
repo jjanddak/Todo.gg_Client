@@ -51,7 +51,11 @@ function TodoList() {
       })
         .then((param) => {
           param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
-          setProject(param.data.projectInfo);
+          setProject({
+            ...param.data.projectInfo,
+            start_date: param.data.projectInfo.start_date.split(" ")[0],
+            end_date: param.data.projectInfo.end_date.split(" ")[0],
+          });
           setCount(param.data.taskCardCount);
         })
         .catch((err) => {
@@ -235,7 +239,7 @@ function TodoList() {
           {doneList}
         </div>
       </div>
-      { editProjectModal && <EditProject getProject={getProject} editProjectChange={editProjectChange} data={project} />}
+      { editProjectModal && <EditProject getProject={getProject} editProjectChange={editProjectChange} data={project} setProject={setProject} />}
     </div>
   )
 }
