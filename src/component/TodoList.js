@@ -12,7 +12,6 @@ function TodoList() {
   const history = useHistory();
   const projectId = window.location.href.split("/")[4]; //* url 에서 아이디 가져오기
   const isLogin = window.sessionStorage.isLogin;
-
   const [project, setProject] = useState({ //* 프로젝트 초기화
     id: 0, title: "", description: "", start_date: "", end_date: "", contributers: [], taskCards: [],
   });
@@ -28,19 +27,19 @@ function TodoList() {
   const todoList = [];
   const inprogressList = [];
   const doneList = [];
-  /**
-   * DONE 태스크카드 CRUD ,진행도 따라 색 표시
-   * TODO 햄버거 모달, 인원 추가 삭제
-   * DONE 3 이상의 아이디 넘어올 때 에러(더미에 2까지 밖에 없어서) -> 하드코딩...
-   */
+
   const getProject = () => {
     if (!isLogin) { //* 로그인 상태 아닐 때
-      try {
-        setProject(dummy[projectId].projectInfo);
-        setCount(dummy[projectId].taskCardCount);
-      } catch (err) {
-        console.log(err);
-        history.push("/"); //* 에러나면 홈으로
+      if (projectId === "guest") { //* 게스트프로젝트
+        setProject(JSON.parse(window.sessionStorage.guestProject));
+      } else {
+        try {
+          setProject(dummy[projectId].projectInfo);
+          setCount(dummy[projectId].taskCardCount);
+        } catch (err) {
+          console.log(err);
+          history.push("/"); //* 에러나면 홈으로
+        }
       }
     } else {
       axios.get(`https://localhost:4001/project/${projectId}`, {
@@ -51,7 +50,11 @@ function TodoList() {
       })
         .then((param) => {
           param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
-          setProject(param.data.projectInfo);
+          setProject({
+            ...param.data.projectInfo,
+            start_date: param.data.projectInfo.start_date.split(" ")[0],
+            end_date: param.data.projectInfo.end_date.split(" ")[0],
+          });
           setCount(param.data.taskCardCount);
         })
         .catch((err) => {
@@ -59,7 +62,7 @@ function TodoList() {
           history.push("/"); //* 에러나면 홈으로
         })
     }
-  }
+  };
   useEffect(() => {
     getProject();
   }, []);
@@ -86,39 +89,62 @@ function TodoList() {
         history.push("/");
       });
   };
+  let count = project.taskCards.length;
   const addCard = () => {
-    axios.post(`https://localhost:4001/project/${projectId}/newTask`, {
-      content: taskContent,
-    }, {
-      headers: {
-        Authorization: `Bearer ${window.sessionStorage.accessToken}`,
-        "Content-Type": "application/json"
-      }
-    })
-      .then(() => {
-        setTaskContent("");
-        setShowAddCard(false);
-        getProject();
+    if (!isLogin) {
+      count++;
+      setProject({
+        ...project,
+        taskCards: [...project.taskCards, {
+          id: count,
+          content: taskContent,
+          state: "todo",
+          project_id: projectId,
+          contributers: [],
+        }]
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      setTaskContent("");
+    } else {
+      axios.post(`https://localhost:4001/project/${projectId}/newTask`, {
+        content: taskContent,
+      }, {
+        headers: {
+          Authorization: `Bearer ${window.sessionStorage.accessToken}`,
+          "Content-Type": "application/json"
+        }
+      })
+        .then(() => {
+          setTaskContent("");
+          setShowAddCard(false);
+          getProject();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   const deleteCard = (id) => {
-    axios.post(`https://localhost:4001/project/${projectId}/deleteTask`, {
-      id: id,
-    }, {
-      headers: {
-        Authorization: `Bearer ${window.sessionStorage.accessToken}`,
-        "Content-Type": "application/json"
-      }
-    })
-      .then(() => {
-        getProject();
-      })
-      .catch((err) => {
-        console.log(err);
+    if (!isLogin) {
+      setProject({
+        ...project,
+        taskCards: project.taskCards.filter(item => item.id !== id),
       });
+    } else {
+      axios.post(`https://localhost:4001/project/${projectId}/deleteTask`, {
+        id: id,
+      }, {
+        headers: {
+          Authorization: `Bearer ${window.sessionStorage.accessToken}`,
+          "Content-Type": "application/json"
+        }
+      })
+        .then(() => {
+          getProject();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   const editCard = (id) => {
     axios.post(`https://localhost:4001/project/${projectId}/updateTask`, {
@@ -136,10 +162,9 @@ function TodoList() {
       .catch((err) => {
         console.log(err);
       })
-  }
+  };
   const addMember = (id) => {
-    console.log("asdfasdf");
-    project.contributers.includes(newMember)
+    project.contributers.filter(item => item.user.username === newMember).length //* 0 or 1 프로젝트에 참여한 인원이면 1이 나옴 아니면 0
       ? (
         axios.post(`https://localhost:4001/project/${projectId}/addContributer`, {
           userId: id,
@@ -160,7 +185,7 @@ function TodoList() {
       ) : (
         setNewMemberErr("프로젝트에 참여하지 않은 인원입니다")
       );
-  }
+  };
   const setCard = (entryName, item) => {
     return (
       <div className={entryName} key={item.id}>
@@ -186,7 +211,7 @@ function TodoList() {
               <button className="todoList_card_button" onClick={() => { setShowAddMembar({ [item.id]: !showAddMembar[item.id] }) }}>➕</button>
               {showAddMembar[item.id] && (
                 <div className="todoList_add_member">
-                  <input type="text" name="member" />
+                  <input type="text" name="member" onChange={onChange} />
                   <button className="todoList_card_button" onClick={() => { addMember(item.id) }}>add</button>
                   <div className="todoList_add_member_err">{newMemberErr}</div>
                 </div>
@@ -196,7 +221,7 @@ function TodoList() {
         }
       </div>
     )
-  }
+  };
   project.taskCards.forEach((item) => {
     item.state === "todo" && todoList.push(setCard("todoList_todo_entry", item));
     item.state === "inprogress" && inprogressList.push(setCard("todoList_inprogress_entry", item));
@@ -204,17 +229,17 @@ function TodoList() {
   });
   const editProjectChange = () => {
     setEditProjectModal(!editProjectModal)
-  }
+  };
   return (
     <div className="todoList">
       <nav className="todoList_nav">
         <div className="todoList_process_color" style={color} />
         <span className="todoList_title">{project.title}</span>
-        <span className="todoList_date">{`${project.start_date} ~${project.end_date === '9999-01-01' ? '완료날짜 미정' : project.end_date}`}</span>
+        <span className="todoList_date">{`${project.start_date} ~ ${project.end_date === '9999-01-01' ? '완료날짜 미정' : project.end_date}`}</span>
         <span className="todoList_process">{`진행도 ${process ? process : 0}%`}</span>
-        {isLogin && <button className="todoList_logout" onClick={logout}>로그아웃</button>}
-        <button className="todoList_home" onClick={() => { history.push("/") }}>홈버튼</button>
-        <button className="todoList_set_project" onClick={editProjectChange} >프로젝트 관리</button>
+        {isLogin && <button className="todoList_nav_button logout" onClick={logout}>로그아웃</button>}
+        <button className="todoList_nav_button home" onClick={() => { history.push("/") }}>홈버튼</button>
+        <button className="todoList_nav_button edit_project" onClick={editProjectChange} >프로젝트 관리</button>
       </nav>
       <div className="todoList_taskCards">
         <div className="todoList_todo">todo
