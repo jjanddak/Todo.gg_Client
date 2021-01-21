@@ -11,11 +11,12 @@ axios.defaults.withCredentials = true;
 function TodoList() {
   const history = useHistory();
   const projectId = window.location.href.split("/")[4]; //* url 에서 아이디 가져오기
-  const isLogin = window.sessionStorage.isLogin;
+  const storage = window.sessionStorage;
+  const isLogin = storage.isLogin;
   const [project, setProject] = useState({ //* 프로젝트 초기화
     id: 0, title: "", description: "", start_date: "", end_date: "", contributers: [], taskCards: [],
   });
-  const [counts, setCount] = useState({ todo: 0, inprogress: 0, done: 0, }); //* 카운트 초기화
+  const [counts, setCounts] = useState({ todo: 0, inprogress: 0, done: 0, }); //* 카운트 초기화
   const [taskContent, setTaskContent] = useState("");
   const [newMember, setNewMember] = useState("");
   const [newMemberErr, setNewMemberErr] = useState("");
@@ -27,35 +28,33 @@ function TodoList() {
   const todoList = [];
   const inprogressList = [];
   const doneList = [];
-
+  const setStorage = () => {
+    storage[`pjt${projectId}`] = JSON.stringify(project);
+    storage[`cnt${projectId}`] = JSON.stringify(counts);
+  };
   const getProject = () => {
     if (!isLogin) { //* 로그인 상태 아닐 때
       if (projectId === "guest") { //* 게스트프로젝트
-        setProject(JSON.parse(window.sessionStorage.guestProject));
-      } else {
-        try {
-          setProject(dummy[projectId].projectInfo);
-          setCount(dummy[projectId].taskCardCount);
-        } catch (err) {
-          console.log(err);
-          history.push("/"); //* 에러나면 홈으로
-        }
+        setProject(JSON.parse(storage.guestProject));
+      } else { //* 더미프로젝트
+        setProject(JSON.parse(storage[`pjt${projectId}`]));
+        setCounts(JSON.parse(storage[`cnt${projectId}`]));
       }
     } else {
       axios.get(`https://localhost:4001/project/${projectId}`, {
         headers: {
-          Authorization: `Bearer ${window.sessionStorage.accessToken}`,
+          Authorization: `Bearer ${storage.accessToken}`,
           "Content-Type": "application/json"
         }
       })
         .then((param) => {
-          param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
+          param.data.accessToken && (storage.accessToken = param.data.accessToken);
           setProject({
             ...param.data.projectInfo,
             start_date: param.data.projectInfo.start_date.split(" ")[0],
             end_date: param.data.projectInfo.end_date.split(" ")[0],
           });
-          setCount(param.data.taskCardCount);
+          setCounts(param.data.taskCardCount);
         })
         .catch((err) => {
           console.log(err);
@@ -64,8 +63,23 @@ function TodoList() {
     }
   };
   useEffect(() => {
+    if (!isLogin && !storage[`pjt${projectId}`] && !storage[`cnt${projectId}`]) {
+      try {
+        storage[`pjt${projectId}`] = JSON.stringify(dummy[projectId].projectInfo);
+        storage[`cnt${projectId}`] = JSON.stringify(dummy[projectId].taskCardCount);
+      } catch (err) {
+        console.log(err);
+        history.push("/"); //* 에러나면 홈으로
+      }
+    }
     getProject();
   }, []);
+  useEffect(() => {
+    if (!isLogin) {
+      setStorage();
+      setCounts({ todo: todoList.length, inprogress: inprogressList.length, done: doneList.length, });
+    }
+  }, [project]);
   let color = { backgroundColor: 'red' }; //* process_color
   if (process > 76 && process <= 99) {
     color = { backgroundColor: 'yellow' };
@@ -80,36 +94,36 @@ function TodoList() {
   const logout = () => {
     axios.post("https://localhost:4001/user/logout", null, {
       headers: {
-        Authorization: `Bearer ${window.sessionStorage.accessToken}`,
+        Authorization: `Bearer ${storage.accessToken}`,
         "content-type": "application/json"
       }
     })
       .then(() => {
-        window.sessionStorage.clear();
+        storage.clear();
         history.push("/");
       });
   };
-  let count = project.taskCards.length;
+  let idCount = project.taskCards.length;
   const addCard = () => {
     if (!isLogin) {
-      count++;
       setProject({
         ...project,
         taskCards: [...project.taskCards, {
-          id: count,
+          id: idCount,
           content: taskContent,
           state: "todo",
           project_id: projectId,
           contributers: [],
         }]
       })
+      idCount++;
       setTaskContent("");
     } else {
       axios.post(`https://localhost:4001/project/${projectId}/newTask`, {
         content: taskContent,
       }, {
         headers: {
-          Authorization: `Bearer ${window.sessionStorage.accessToken}`,
+          Authorization: `Bearer ${storage.accessToken}`,
           "Content-Type": "application/json"
         }
       })
@@ -134,7 +148,7 @@ function TodoList() {
         id: id,
       }, {
         headers: {
-          Authorization: `Bearer ${window.sessionStorage.accessToken}`,
+          Authorization: `Bearer ${storage.accessToken}`,
           "Content-Type": "application/json"
         }
       })
@@ -147,31 +161,74 @@ function TodoList() {
     }
   };
   const editCard = (id) => {
-    axios.post(`https://localhost:4001/project/${projectId}/updateTask`, {
-      id: id,
-      content: taskContent,
-    }, {
-      headers: {
-        Authorization: `Bearer ${window.sessionStorage.accessToken}`,
-        "Content-Type": "application/json"
-      }
-    })
-      .then(() => {
-        getProject();
+    if (!isLogin) {
+      const cards = project.taskCards.map((item) => {
+        if (item.id === id) {
+          return {...item, content: taskContent};
+        } else {
+          return item;
+        }
+      });
+      setProject({
+        ...project,
+        taskCards: cards,
+      });
+      setShowEditCard({ [id]: false })
+    } else {
+      axios.post(`https://localhost:4001/project/${projectId}/updateTask`, {
+        id: id,
+        content: taskContent,
+      }, {
+        headers: {
+          Authorization: `Bearer ${storage.accessToken}`,
+          "Content-Type": "application/json"
+        }
       })
-      .catch((err) => {
-        console.log(err);
-      })
+        .then(() => {
+          getProject();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
   };
   const addMember = (id) => {
-    project.contributers.filter(item => item.user.username === newMember).length //* 0 or 1 프로젝트에 참여한 인원이면 1이 나옴 아니면 0
-      ? (
+    if (!project.contributers.filter(item => item.user.username === newMember).length) {
+      setNewMemberErr("프로젝트에 참여하지 않은 인원입니다");
+      return;
+    }
+    const user = project.contributers.filter(item => item.user.username === newMember)[0].user;
+    if (project.taskCards.filter(item => item.id === id)[0].contributers.filter(item => item.user.id === user.id).length) {
+      setNewMemberErr("태스크카드에 이미 참여 한 인원입니다");
+    } else {
+      if (!isLogin) {
+        const cards = project.taskCards.map((item) => {
+          if (item.id === id) {
+            return {...item, contributers: [
+              ...item.contributers, {
+                project_id: projectId,
+                taskCard_id: id,
+                user_id: user.id,
+                user: user,
+              }
+            ]};
+          } else {
+            return item;
+          }
+        });
+        setProject({
+          ...project,
+          taskCards: cards,
+        });
+        setNewMemberErr("");
+        setShowAddMembar({ [id]: false });
+      } else {
         axios.post(`https://localhost:4001/project/${projectId}/addContributer`, {
-          userId: id,
-          taskCardId: newMember,
+          userId: user.id,
+          taskCardId: id,
         }, {
           headers: {
-            Authorization: `Bearer ${window.sessionStorage.accessToken}`,
+            Authorization: `Bearer ${storage.accessToken}`,
             "Content-Type": "application/json"
           }
         })
@@ -182,9 +239,8 @@ function TodoList() {
           .catch((err) => {
             console.log(err);
           })
-      ) : (
-        setNewMemberErr("프로젝트에 참여하지 않은 인원입니다")
-      );
+      }
+    }
   };
   const setCard = (entryName, item) => {
     return (

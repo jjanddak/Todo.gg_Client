@@ -113,7 +113,7 @@ const dummy = [
               {
                 id: 5,
                 project_id: 0,
-                taskCard_id: 3,
+                taskCard_id: 6,
                 user_id: 4,
                 user: {
                   id: 4,
@@ -124,7 +124,7 @@ const dummy = [
               {
                 id: 4,
                 project_id: 0,
-                taskCard_id: 3,
+                taskCard_id: 6,
                 user_id: 1,
                 user: {
                   id: 1,
@@ -513,6 +513,13 @@ const dummy = [
           {
             id: 3,
             content: "task_card_03",
+            state: "done",
+            project_id: 2,
+            contributers: []
+          },
+          {
+            id: 7,
+            content: "task_card_07",
             state: "done",
             project_id: 2,
             contributers: []
