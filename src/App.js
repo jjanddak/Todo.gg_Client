@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,6 +16,7 @@ import axios from "axios";
 
 function App() {
   const history = useHistory();
+  const [gitLogin, setGitLogin] = useState(false)
   const getAccessToken = async (authorizationCode) => {
     // 받아온 authorization code로 다시 OAuth App에 요청해서 access token을 받을 수 있습니다.
     // access token은 보안 유지가 필요하기 때문에 클라이언트에서 직접 OAuth App에 요청을 하는 방법은 보안에 취약할 수 있습니다.
@@ -38,30 +39,29 @@ function App() {
         withCredentials:false
       })
       .then(res=>{
-        window.sessionStorage.username=res.data.login;
-        window.sessionStorage.profile=res.data.avatar_url;
-        window.sessionStorage.email=res.data.id;
-        window.sessionStorage.isLogin=true;
         axios.post("https://localhost:4001/user/githubLogin",{
           data:res.data
         })
         .then(result=>{
+          window.sessionStorage.username=result.data.userinfo.username;
+          window.sessionStorage.profile=result.data.userinfo.profile;
+          window.sessionStorage.email=result.data.userinfo.email;
           window.sessionStorage.accessToken=result.data.accessToken;
+          window.sessionStorage.isLogin=true;
+          setGitLogin(!gitLogin);
           history.push("/");
         })
       })
     }))
   }
   useEffect(()=>{
-    // if(window.sessionStorage.isLogin==="github"){
-      const url = new URL(window.location.href)
-      const authorizationCode = url.searchParams.get('code')
-      if (authorizationCode) {
-        // authorization server로부터 클라이언트로 리디렉션된 경우, authorization code가 함께 전달됩니다.
-        // ex) http://localhost:3000/?code=5e52fb85d6a1ed46a51f
-        getAccessToken(authorizationCode)
-      }
-    // }
+    const url = new URL(window.location.href)
+    const authorizationCode = url.searchParams.get('code')
+    if (authorizationCode) {
+      // authorization server로부터 클라이언트로 리디렉션된 경우, authorization code가 함께 전달됩니다.
+      // ex) http://localhost:3000/?code=5e52fb85d6a1ed46a51f
+      getAccessToken(authorizationCode)
+    }
   },[])
   return (
     <div className="App">
