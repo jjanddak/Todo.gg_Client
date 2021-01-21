@@ -6,7 +6,7 @@ import './css/updateUserinfo.css';
 
 axios.defaults.withCredentials = true;
 
-function UpdateUserinfo({ updateUserinfoModal }) {
+function UpdateUserinfo({ updateUserinfoChange }) {
   const [state, setState] = useState({
     usernameChecked: true,
     username: window.sessionStorage.username,
@@ -64,7 +64,7 @@ function UpdateUserinfo({ updateUserinfoModal }) {
         .then((param) => {
           param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
           window.sessionStorage.username = username;
-          updateUserinfoModal()
+          updateUserinfoChange()
         })
         .catch((err) => {
           console.log(err);
@@ -200,7 +200,7 @@ function UpdateUserinfo({ updateUserinfoModal }) {
   };
 
   return (
-    <div className="updateUserinfo" onClick={updateUserinfoModal}>
+    <div className="updateUserinfo" onClick={updateUserinfoChange}>
       <div className="updateModal" onClick={(e) => e.stopPropagation()}>
         <h2 className="updateUserinfo_title">updateUserinfo</h2>
         <div className="updateUserinfo_profile"> 프로필

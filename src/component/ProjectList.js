@@ -50,7 +50,7 @@ function ProjectList() {
       }
       loginList()
     }
-  },[])
+  },[isLogin])
   
   let taskCardCount = isLogin //로그인 상태별 태스크카운트
   ? taskCountList

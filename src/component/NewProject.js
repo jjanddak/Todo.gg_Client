@@ -2,32 +2,22 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import './css/NewProject.css'
-
 axios.defaults.withCredentials = true;
-
 function NewProject({addProjectChange}) {
   const history = useHistory();
   const [state, setState] = useState({
     title: '',
     startDate: '',
     endDate: '',
-    team: [
-      {
-        email: 'dd',
-        username: 'dd',
-        profile: '/img/레킹볼.png'
-      }
-    ],
+    team: [],
     member: '',
     description: '',
     memberErrorMsg: '',
     inputErrorMsg: '',
     checked: null
   })
-
   const { title, startDate, endDate, team, member, description, memberErrorMsg, inputErrorMsg, checked } = state
   const isLogin = window.sessionStorage.isLogin
-
   const changeData = e => { //온체인지 스테이트변경
     const { name, value } = e.target
     if (name === 'checked') { //미정버튼
@@ -54,16 +44,16 @@ function NewProject({addProjectChange}) {
   const addMember = function () {
     axios.post('https://localhost:4001/user/getOne', { username: member })
       .then((param) => {
-        setState({ ...state, team: [...team, param.data.userinfo] })
+        setState({ ...state, team: [...team, param.data] })
       })
       .catch(() => {
         setState({ ...state, memberErrorMsg: '일치하는 유저네임이 없습니다.' })
       })
   }
   const teamList = team.length > 0 && team.map(ele => {
-    return <div key={ele.username}>
-      <img className='hi' src={ele.profile}></img>
-      <span>{ele.username}</span>
+    return <div key={ele.user.id}>
+      <img className='hi' src={ele.user.profile}></img>
+      <span>{ele.user.username}</span>
     </div>
   })
   const addProject = function () {
@@ -72,7 +62,7 @@ function NewProject({addProjectChange}) {
         axios.post('https://localhost:4001/project/new', {
           title: title,
           startDate: startDate,
-          endDate: !checked ? endDate : '완료날짜 미정',
+          endDate: !checked ? endDate : '9999-01-01',
           member: team,
           description: description
         },
@@ -91,7 +81,14 @@ function NewProject({addProjectChange}) {
             console.log(err)
           })
       } else {
-        window.sessionStorage.guestProject = JSON.stringify({state})
+        window.sessionStorage.guestProject = JSON.stringify({
+          title: title,
+          description: description,
+          start_date: startDate,
+          end_date: !checked ? endDate : '9999-01-01',
+          contributers: [],
+          taskCards: []
+        })
         history.push('/project/guest')
       }
     }
@@ -99,7 +96,6 @@ function NewProject({addProjectChange}) {
       setState({ ...state, inputErrorMsg: '프로젝트 정보는 필수입니다.' })
     }
   }
-
   return (
     <div className='newProjectModal_container' onClick={addProjectChange}>
       <div className='newProjectModal' onClick={(e)=>e.stopPropagation()}>
@@ -107,14 +103,13 @@ function NewProject({addProjectChange}) {
         <input type='text' name='title' onChange={changeData}></input>
         <p>시작날짜</p>
         <input type='date' name='startDate' onChange={changeData}></input>
-        {
-          !checked &&
-          <>
-            <p>종료날짜</p>
-            <input type='date' name='endDate' onChange={changeData}></input>
-          </>
-        }
-        <p>미정</p>
+        {!checked &&
+        <>
+          <p>종료날짜</p>
+          <input type='date' name='endDate' value={endDate} onChange={changeData}></input>
+        </>
+      }
+        <p>종료날짜 미정</p>
         <input type='checkbox' name='checked' onChange={changeData}></input>
         <p>참여 팀원</p>
         <input type='text' name='member' onChange={changeData}></input>
@@ -127,8 +122,6 @@ function NewProject({addProjectChange}) {
         <p>{inputErrorMsg}</p>
       </div>
       </div>
-    
   )
 }
-
 export default NewProject

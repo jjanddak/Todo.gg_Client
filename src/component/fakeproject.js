@@ -96,7 +96,7 @@ const project = {
           description: "비회원 상태로 작성한 정보는 저장되지 않습니다",
           manager_id: 8,
           start_date: "2020-02-02",
-          end_date: "완료날짜 미정",
+          end_date: "완료날짜미정",
           contributers: [
             {
               project_id: 2,

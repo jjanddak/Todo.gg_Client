@@ -7,6 +7,8 @@ function ProjectListEntry({content,taskCardCount}) {
 
   const { done, inprogress, todo} = taskCardCount
   const sum = Math.round(done/(inprogress+todo+done) *100) // 합계구하기
+  const start_date = project.start_date.split(' ')[0]
+  const end_date = project.end_date.split(' ')[0]
 
   let color //state 색상변경
   if(sum <= 75){
@@ -24,7 +26,7 @@ function ProjectListEntry({content,taskCardCount}) {
     <Link to={`/project/${content.project_id}`} className='entry' >
       <div className='entry_stateColor' style={color}></div>
       <div className='box'>
-        <p className='entry_title'>{project.title}<br />{project.start_date}<br />{`~${project.end_date}`}</p>
+        <p className='entry_title'>{project.title}<br />{start_date}<br />{`~${end_date === '9999-01-01' ? '완료날짜미정' :end_date}`}</p>
         {/* <p className='entry_date'>{content.date}</p> */}
       </div>
       <img src={project.user.profile} className='entry_host'></img>

@@ -33,6 +33,7 @@ class Login extends React.Component {
       })
         .then((param) => {
           window.sessionStorage.accessToken = param.data.accessToken
+          window.sessionStorage.id = param.data.userinfo.id
           window.sessionStorage.email = param.data.userinfo.email //세션저장
           window.sessionStorage.username = param.data.userinfo.username
           window.sessionStorage.profile = param.data.userinfo.profile
