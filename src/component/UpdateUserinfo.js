@@ -116,7 +116,7 @@ function UpdateUserinfo({ updateUserinfoModal }) {
       }, {
         headers: {
           Authorization: `Bearer ${window.sessionStorage.accessToken}`,
-          "content-type": "appliction/json"
+          "content-type": "application/json"
         }
       })
         .then((param) => {
