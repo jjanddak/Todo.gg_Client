@@ -84,6 +84,20 @@ const dummy = [
             contributers: [] //* 태스크 맡은 사람, 복수 가능
           },
           {
+            id: 2,
+            content: "task_card_02",
+            state: "inprogress",
+            project_id: 0,
+            contributers: []
+          },
+          {
+            id: 3,
+            content: "task_card_03",
+            state: "todo",
+            project_id: 0,
+            contributers: []
+          },
+          {
             id: 4,
             content: "task_card_04",
             state: "done",
@@ -98,13 +112,6 @@ const dummy = [
             contributers: []
           },
           {
-            id: 2,
-            content: "task_card_02",
-            state: "inprogress",
-            project_id: 0,
-            contributers: []
-          },
-          {
             id: 6,
             content: "task_card_06",
             state: "inprogress",
@@ -113,7 +120,7 @@ const dummy = [
               {
                 id: 5,
                 project_id: 0,
-                taskCard_id: 3,
+                taskCard_id: 6,
                 user_id: 4,
                 user: {
                   id: 4,
@@ -124,7 +131,7 @@ const dummy = [
               {
                 id: 4,
                 project_id: 0,
-                taskCard_id: 3,
+                taskCard_id: 6,
                 user_id: 1,
                 user: {
                   id: 1,
@@ -133,13 +140,6 @@ const dummy = [
                 }
               }
             ]
-          },
-          {
-            id: 3,
-            content: "task_card_03",
-            state: "todo",
-            project_id: 0,
-            contributers: []
           },
           {
             id: 7,
@@ -267,10 +267,31 @@ const dummy = [
         },
       ],
       taskCards:
-        [
+      [
+          {
+            id: 0,
+            content: "task_card_00",
+            state: "done",
+            project_id: 1,
+            contributers: []
+          },
           {
             id: 1,
             content: "task_card_01",
+            state: "done",
+            project_id: 1,
+            contributers: []
+          },
+          {
+            id: 2,
+            content: "task_card_02",
+            state: "todo",
+            project_id: 1,
+            contributers: []
+          },
+          {
+            id: 3,
+            content: "task_card_03",
             state: "done",
             project_id: 1,
             contributers: []
@@ -286,13 +307,6 @@ const dummy = [
             id: 5,
             content: "task_card_05",
             state: "done",
-            project_id: 1,
-            contributers: []
-          },
-          {
-            id: 2,
-            content: "task_card_02",
-            state: "todo",
             project_id: 1,
             contributers: []
           },
@@ -325,20 +339,6 @@ const dummy = [
                 }
               }
             ]
-          },
-          {
-            id: 3,
-            content: "task_card_03",
-            state: "done",
-            project_id: 1,
-            contributers: []
-          },
-          {
-            id: 0,
-            content: "task_card_00",
-            state: "done",
-            project_id: 1,
-            contributers: []
           },
           {
             id: 7,
@@ -460,6 +460,20 @@ const dummy = [
             contributers: []
           },
           {
+            id: 2,
+            content: "task_card_02",
+            state: "done",
+            project_id: 2,
+            contributers: []
+          },
+          {
+            id: 3,
+            content: "task_card_03",
+            state: "done",
+            project_id: 2,
+            contributers: []
+          },
+          {
             id: 4,
             content: "task_card_04",
             state: "done",
@@ -469,13 +483,6 @@ const dummy = [
           {
             id: 5,
             content: "task_card_05",
-            state: "done",
-            project_id: 2,
-            contributers: []
-          },
-          {
-            id: 2,
-            content: "task_card_02",
             state: "done",
             project_id: 2,
             contributers: []
@@ -511,8 +518,8 @@ const dummy = [
             ]
           },
           {
-            id: 3,
-            content: "task_card_03",
+            id: 7,
+            content: "task_card_07",
             state: "done",
             project_id: 2,
             contributers: []
