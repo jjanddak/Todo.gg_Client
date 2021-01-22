@@ -187,6 +187,7 @@ function TodoList() {
       })
         .then(() => {
           getProject();
+          setShowEditCard({ [id]: false });
         })
         .catch((err) => {
           console.log(err);
