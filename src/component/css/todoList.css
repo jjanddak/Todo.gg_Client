@@ -9,7 +9,7 @@
   height: 60px;
 }
 
-/* card titles */
+/* card list */
 .todoList_taskCards {
   max-width: 1200px;
   margin: 0 auto;
@@ -17,46 +17,56 @@
 .todoList_todo, .todoList_inprogress, .todoList_done{
   border: solid 2px greenyellow; /*! 삭제 하라고*/
   background-color: #335;
+  padding-bottom: 30px;
+  padding: 15px;
   color: #fff;
-  width: 350px;
+  width: 330px;
   float:left;
+  min-height: 150px;
+  max-height: 800px;
   margin-left: 20px;
   margin-right: 20px;
 }
 .todoList_counts {
   float: right;
 }
-
+.todoList_todo_list, .todoList_inprogress_list, .todoList_done_list {
+  overflow: auto;
+  max-height: 750px;
+}
 /* entry */
-.todoList_todo_entry, .todoList_inprogress_entry, .todoList_done_entry {
+.todoList_cards {
   border: solid 2px red; /*! 삭제 하라고*/
   background-color: #fff;
   color: #000;
-  width: 300px;
-  height: 100px;
+  width: 275px;
+  min-height: 110px;
+  max-height: 170px;
   margin: 10px auto;
 }
-.todoList_card_text {
-  width: 250px;
+.todoList_cards_textarea {
+  width: 240px;
   height: 95px;
 }
-.todoList_card_content {
+.todoList_cards_content {
   display: inline-block;
-  width: 265px;
-  height: 65px;
+  overflow:auto;
+  width: 240px;
+  min-height: 65px;
+  max-height: 100px;
 }
-.todoList_card_button {
+.todoList_cards_button {
   background-color: #fff;
   border: 1px #000 solid;
   vertical-align: top;
 }
-.todoList_contributers {
+.todoList_cards_contributers {
   border: solid 2px thistle; /*! 삭제 하라고*/
   display: inline-block;
-  width: 265px;
+  width: 240px;
   min-height: 32px;
 }
-.todoList_contributers_profile {
+.todoList_cards_contributers_profile {
   width: 30px;
   height: 30px;
 }

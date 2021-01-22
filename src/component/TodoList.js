@@ -106,6 +106,7 @@ function TodoList() {
   let idCount = project.taskCards.length;
   const addCard = () => {
     if (!isLogin) {
+      idCount++;
       setProject({
         ...project,
         taskCards: [...project.taskCards, {
@@ -116,8 +117,8 @@ function TodoList() {
           contributers: [],
         }]
       })
-      idCount++;
       setTaskContent("");
+      setShowAddCard(false);
     } else {
       axios.post(`https://localhost:4001/project/${projectId}/newTask`, {
         content: taskContent,
@@ -164,7 +165,7 @@ function TodoList() {
     if (!isLogin) {
       const cards = project.taskCards.map((item) => {
         if (item.id === id) {
-          return {...item, content: taskContent};
+          return { ...item, content: taskContent };
         } else {
           return item;
         }
@@ -204,14 +205,16 @@ function TodoList() {
       if (!isLogin) {
         const cards = project.taskCards.map((item) => {
           if (item.id === id) {
-            return {...item, contributers: [
-              ...item.contributers, {
-                project_id: projectId,
-                taskCard_id: id,
-                user_id: user.id,
-                user: user,
-              }
-            ]};
+            return {
+              ...item, contributers: [
+                ...item.contributers, {
+                  project_id: projectId,
+                  taskCard_id: id,
+                  user_id: user.id,
+                  user: user,
+                }
+              ]
+            };
           } else {
             return item;
           }
@@ -242,34 +245,81 @@ function TodoList() {
       }
     }
   };
-  const setCard = (entryName, item) => {
+ 
+  let cardId; 
+  const changeState = (id, state) => {
+    if (!isLogin) {
+      const cards = project.taskCards.map((item) => {
+        if (item.id === id) {
+          return { ...item, state: state };
+        } else {
+          return item;
+        }
+      });
+      setProject({
+        ...project,
+        taskCards: cards,
+      })
+    } else {
+      axios.post(`https://localhost:4001/project/${projectId}/updateState`, {
+        id: id,
+        state: state,
+      }, {
+        headers: {
+          Authorization: `Bearer ${storage.accessToken}`,
+          "Content-Type": "application/json"
+        }
+      })
+        .then(() => {
+          getProject();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }
+  const allowDrop = (e) => {
+    e.preventDefault();
+  };
+  const dropItem = (state) => {
+    changeState(cardId, state);
+  };
+  const dragStart = (id) => {
+    cardId = id;
+  };
+
+  const setCard = (item) => {
     return (
-      <div className={entryName} key={item.id}>
+      <div className="todoList_cards"
+        draggable="true"
+        onDragStart={() => { dragStart(item.id) }}
+        key={item.id}
+      >
         {showEditCard[item.id]
           ? (
             <>
-              <textarea className="todoList_card_text" name="content" value={taskContent} onChange={onChange} />
-              <button className="todoList_card_button" onClick={() => { editCard(item.id) }}>submit</button>
+              <textarea className="todoList_cards_textarea" name="content" value={taskContent} onChange={onChange} />
+              <button className="todoList_cards_button" onClick={() => { editCard(item.id) }}>submit</button>
             </>
           ) : (
             <>
-              <div className="todoList_card_content">{item.content}</div>
-              <button className="todoList_card_button" onClick={() => {
+              <div className="todoList_cards_content">{item.content}</div>
+              <button className="todoList_cards_button" onClick={() => {
                 setTaskContent(item.content)
                 setShowEditCard({ [item.id]: true })
               }}>⚙</button>
-              <button className="todoList_card_button" onClick={() => { deleteCard(item.id) }}>✖</button>
-              <div className="todoList_contributers">
+              <button className="todoList_cards_button" onClick={() => { deleteCard(item.id) }}>✖</button>
+              <div className="todoList_cards_contributers">
                 {item.contributers.map((el) => {
-                  return <img className="todoList_contributers_profile" src={el.user.profile} title={el.user.username} alt={el.user.username} key={el.user.id} />
+                  return <img className="todoList_cards_contributers_profile" src={el.user.profile} title={el.user.username} alt={el.user.username} key={el.user.id} />
                 })}
               </div>
-              <button className="todoList_card_button" onClick={() => { setShowAddMembar({ [item.id]: !showAddMembar[item.id] }) }}>➕</button>
+              <button className="todoList_cards_button" onClick={() => { setShowAddMembar({ [item.id]: !showAddMembar[item.id] }) }}>➕</button>
               {showAddMembar[item.id] && (
-                <div className="todoList_add_member">
+                <div className="todoList_cards_add_member">
                   <input type="text" name="member" onChange={onChange} />
-                  <button className="todoList_card_button" onClick={() => { addMember(item.id) }}>add</button>
-                  <div className="todoList_add_member_err">{newMemberErr}</div>
+                  <button className="todoList_cards_button" onClick={() => { addMember(item.id) }}>add</button>
+                  <div className="todoList_cards_add_member_err">{newMemberErr}</div>
                 </div>
               )}
             </>
@@ -279,9 +329,9 @@ function TodoList() {
     )
   };
   project.taskCards.forEach((item) => {
-    item.state === "todo" && todoList.push(setCard("todoList_todo_entry", item));
-    item.state === "inprogress" && inprogressList.push(setCard("todoList_inprogress_entry", item));
-    item.state === "done" && doneList.push(setCard("todoList_inprogress_entry", item));
+    item.state === "todo" && todoList.push(setCard(item));
+    item.state === "inprogress" && inprogressList.push(setCard(item));
+    item.state === "done" && doneList.push(setCard(item));
   });
   const editProjectChange = () => {
     setEditProjectModal(!editProjectModal)
@@ -298,22 +348,28 @@ function TodoList() {
         <button className="todoList_nav_button edit_project" onClick={editProjectChange} >프로젝트 관리</button>
       </nav>
       <div className="todoList_taskCards">
-        <div className="todoList_todo">todo
+        <div className="todoList_todo" onDragOver={allowDrop} onDrop={() => { dropItem("todo") }}>todo
           <button className="todoList_add_card" onClick={() => setShowAddCard(!showAddCard)}>add card</button>
           <div className="todoList_counts">{counts.todo}</div>
           <div className="todoList_add_" style={{ display: showAddCard ? "block" : "none" }}>
             <textarea className="todoList_input" name="content" onChange={onChange} value={taskContent} />
             <button className="todoList_submit_input" onClick={addCard}>add</button>
           </div>
-          {todoList}
+          <div className="todoList_todo_list">
+            {todoList}
+          </div>
         </div>
-        <div className="todoList_inprogress">inprogress
+        <div className="todoList_inprogress" onDragOver={allowDrop} onDrop={() => { dropItem("inprogress") }}>inprogress
           <div className="todoList_counts">{counts.inprogress}</div>
-          {inprogressList}
+          <div className="todoList_inprogress_list">
+            {inprogressList}
+          </div>
         </div>
-        <div className="todoList_done">done
+        <div className="todoList_done" onDragOver={allowDrop} onDrop={() => { dropItem("done") }}>done
           <div className="todoList_counts">{counts.done}</div>
-          {doneList}
+          <div className="todoList_done_list">
+            {doneList}
+          </div>
         </div>
       </div>
       { editProjectModal && <EditProject getProject={getProject} editProjectChange={editProjectChange} data={project} setProject={setProject} />}
