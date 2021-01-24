@@ -14,7 +14,7 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-.todoList_todo, .todoList_inprogress, .todoList_done{
+.todoList_todo, .todoList_inprogress, .todoList_done {
   border: solid 2px greenyellow; /*! 삭제 하라고*/
   background-color: #335;
   padding-bottom: 30px;
@@ -22,7 +22,6 @@
   color: #fff;
   width: 330px;
   float:left;
-  min-height: 150px;
   max-height: 800px;
   margin-left: 20px;
   margin-right: 20px;
@@ -34,6 +33,11 @@
   overflow: auto;
   max-height: 750px;
 }
+.todoList_position_box {
+  border: solid 2px coral; /*! 삭제 하라고*/
+  height: 100px;
+}
+
 /* entry */
 .todoList_cards {
   border: solid 2px red; /*! 삭제 하라고*/
@@ -44,7 +48,7 @@
   max-height: 170px;
   margin: 10px auto;
 }
-.todoList_cards_textarea {
+.todoList_cards_textarea { /*! 크기 고정 필요*/
   width: 240px;
   height: 95px;
 }

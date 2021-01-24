@@ -77,24 +77,35 @@ const dummy = [
       taskCards:
         [
           {
-            id: 1,
-            content: "task_card_01",
+            id: 0,
+            content: "task_card_00",
             state: "done",
             project_id: 0,
+            position: 10,
             contributers: [] //* 태스크 맡은 사람, 복수 가능
+          },
+          {
+            id: 1,
+            content: "task_card_01",
+            state: "inprogress",
+            project_id: 0,
+            position: 3,
+            contributers: []
           },
           {
             id: 2,
             content: "task_card_02",
-            state: "inprogress",
+            state: "todo",
             project_id: 0,
+            position: 2,
             contributers: []
           },
           {
             id: 3,
             content: "task_card_03",
-            state: "todo",
+            state: "done",
             project_id: 0,
+            position: 5,
             contributers: []
           },
           {
@@ -102,20 +113,15 @@ const dummy = [
             content: "task_card_04",
             state: "done",
             project_id: 0,
+            position: 6,
             contributers: []
           },
           {
             id: 5,
             content: "task_card_05",
-            state: "done",
-            project_id: 0,
-            contributers: []
-          },
-          {
-            id: 6,
-            content: "task_card_06",
             state: "inprogress",
             project_id: 0,
+            position: 7,
             contributers: [
               {
                 id: 5,
@@ -142,10 +148,11 @@ const dummy = [
             ]
           },
           {
-            id: 7,
-            content: "task_card_07",
+            id: 6,
+            content: "task_card_06",
             state: "todo",
             project_id: 0,
+            position: 9,
             contributers: [
               {
                 id: 2,
@@ -250,7 +257,7 @@ const dummy = [
           user_id: 7,
           user: {
             id: 7,
-            profile: "/static/media/avt_10.4aa1a052.png",
+            profile: "/static/media/avt_0.59701f8c.png",
             username: "아무개7"
           }
         },
@@ -261,7 +268,7 @@ const dummy = [
           user_id: 8,
           user: {
             id: 8,
-            profile: "/static/media/avt_10.4aa1a052.png",
+            profile: "/static/media/avt_13.58096983.png",
             username: "아무개8"
           }
         },
@@ -273,6 +280,7 @@ const dummy = [
             content: "task_card_00",
             state: "done",
             project_id: 1,
+            position: 9,
             contributers: []
           },
           {
@@ -280,6 +288,7 @@ const dummy = [
             content: "task_card_01",
             state: "done",
             project_id: 1,
+            position: 6,
             contributers: []
           },
           {
@@ -287,6 +296,7 @@ const dummy = [
             content: "task_card_02",
             state: "todo",
             project_id: 1,
+            position: 5,
             contributers: []
           },
           {
@@ -294,6 +304,7 @@ const dummy = [
             content: "task_card_03",
             state: "done",
             project_id: 1,
+            position: 7,
             contributers: []
           },
           {
@@ -301,6 +312,7 @@ const dummy = [
             content: "task_card_04",
             state: "done",
             project_id: 1,
+            position: 4,
             contributers: []
           },
           {
@@ -308,6 +320,7 @@ const dummy = [
             content: "task_card_05",
             state: "done",
             project_id: 1,
+            position: 0,
             contributers: []
           },
           {
@@ -315,6 +328,7 @@ const dummy = [
             content: "task_card_06",
             state: "inprogress",
             project_id: 1,
+            position: 2,
             contributers: [
               {
                 id: 5,
@@ -345,6 +359,7 @@ const dummy = [
             content: "task_card_07",
             state: "done",
             project_id: 1,
+            position: 10,
             contributers: []
           },
           {
@@ -352,6 +367,7 @@ const dummy = [
             content: "task_card_08",
             state: "done",
             project_id: 1,
+            position: 13,
             contributers: [
               {
                 id: 2,
@@ -453,10 +469,19 @@ const dummy = [
       taskCards:
         [
           {
+            id: 0,
+            content: "task_card_00",
+            state: "done",
+            position: 9,
+            project_id: 2,
+            contributers: []
+          },
+          {
             id: 1,
             content: "task_card_01",
             state: "done",
             project_id: 2,
+            position: 8,
             contributers: []
           },
           {
@@ -464,6 +489,7 @@ const dummy = [
             content: "task_card_02",
             state: "done",
             project_id: 2,
+            position: 7,
             contributers: []
           },
           {
@@ -471,6 +497,7 @@ const dummy = [
             content: "task_card_03",
             state: "done",
             project_id: 2,
+            position: 6,
             contributers: []
           },
           {
@@ -478,6 +505,7 @@ const dummy = [
             content: "task_card_04",
             state: "done",
             project_id: 2,
+            position: 5,
             contributers: []
           },
           {
@@ -485,13 +513,7 @@ const dummy = [
             content: "task_card_05",
             state: "done",
             project_id: 2,
-            contributers: []
-          },
-          {
-            id: 6,
-            content: "task_card_06",
-            state: "done",
-            project_id: 2,
+            position: 4,
             contributers: [
               {
                 id: 5,
@@ -518,10 +540,11 @@ const dummy = [
             ]
           },
           {
-            id: 7,
-            content: "task_card_07",
+            id: 6,
+            content: "task_card_06",
             state: "done",
             project_id: 2,
+            position: 3,
             contributers: []
           },
         ],
