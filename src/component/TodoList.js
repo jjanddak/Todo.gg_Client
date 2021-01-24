@@ -64,14 +64,13 @@ function TodoList() {
     }
   };
   useEffect(() => {
-    if (!isLogin) {
+    if (!isLogin && !storage[`pjt${projectId}`]) {
       try {
-        if (projectId < 3 && !storage[`pjt${projectId}`]) {
+        if (projectId < 3) {
           storage[`pjt${projectId}`] = JSON.stringify(dummy[projectId].projectInfo);
           storage[`cnt${projectId}`] = JSON.stringify(dummy[projectId].taskCardCount);
-          // } else if(!storage[`pjt${projectId}`]) { //! 메인페이지 완료 되면 이거 사용
-        } else if (projectId === "guest" && !storage[`pjt${projectId}`]) { //! 메인페이지 완료 되면 삭제
-          storage[`pjt${projectId}`] = storage.guestProject;
+        } else {
+          storage[`pjt${projectId}`] = JSON.stringify(JSON.parse(storage.guestProjectList.contributers)[projectId]);
           storage[`cnt${projectId}`] = JSON.stringify(counts);
         }
         getProject();
