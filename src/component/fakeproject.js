@@ -15,31 +15,61 @@ const project = {
           manager_id: 8,
           start_date: "2020-02-02",
           end_date: "2020-03-03",
-          contributers: [
-            {
-              project_id: 0,
-              user_id: 8,
-              user: {
-                profile: '/img/레킹볼.png',
-                username: "kimcoding2"
-              }
-            },
+          contributers: [ //* member
             {
               project_id: 0,
               user_id: 1,
               user: {
-                profile: '/img/레킹볼.png',
-                username: "kimcoding2"
+                id: 1,
+                profile: "/static/media/avt_15.b09a1586.png",
+                username: "아무개1"
+              }
+            },
+            {
+              project_id: 0,
+              user_id: 2,
+              user: {
+                id: 2,
+                profile: "/static/media/avt_13.58096983.png",
+                username: "아무개2"
+              }
+            },
+            {
+              project_id: 0,
+              user_id: 3,
+              user: {
+                id: 3,
+                profile: "/static/media/avt_9.ee26d074.png",
+                username: "아무개3"
+              }
+            },
+            {
+              project_id: 0,
+              user_id: 4,
+              user: {
+                id: 4,
+                profile: "/static/media/avt_5.6b67b02a.png",
+                username: "아무개4"
               }
             },
             {
               project_id: 0,
               user_id: 5,
               user: {
-                profile: '/img/레킹볼.png',
-                username: "kimcoding2"
+                id: 5,
+                profile: "/static/media/avt_11.3e37ca43.png",
+                username: "아무개5"
               }
-            }
+            },
+            {
+              project_id: 0,
+              user_id: 6,
+              user: {
+                id: 6,
+                profile: "/static/media/avt_10.4aa1a052.png",
+                username: "아무개6"
+              }
+            },
           ],
           user: {
             profile: '/img/레킹볼.png'
@@ -59,28 +89,76 @@ const project = {
           contributers: [
             {
               project_id: 1,
-              user_id: 8,
+              user_id: 1,
               user: {
-                profile: '/img/레킹볼.png',
-                username: "kimcoding2"
+                id: 1,
+                profile: "/static/media/avt_15.b09a1586.png",
+                username: "아무개1"
               }
             },
             {
               project_id: 1,
-              user_id: 1,
+              user_id: 2,
               user: {
-                profile: '/img/레킹볼.png',
-                username: "kimcoding2"
+                id: 2,
+                profile: "/static/media/avt_13.58096983.png",
+                username: "아무개2"
+              }
+            },
+            {
+              project_id: 1,
+              user_id: 3,
+              user: {
+                id: 3,
+                profile: "/static/media/avt_9.ee26d074.png",
+                username: "아무개3"
+              }
+            },
+            {
+              project_id: 1,
+              user_id: 4,
+              user: {
+                id: 4,
+                profile: "/static/media/avt_5.6b67b02a.png",
+                username: "아무개4"
               }
             },
             {
               project_id: 1,
               user_id: 5,
               user: {
-                profile: '/img/레킹볼.png',
-                username: "kimcoding2"
+                id: 5,
+                profile: "/static/media/avt_11.3e37ca43.png",
+                username: "아무개5"
               }
-            }
+            },
+            {
+              project_id: 1,
+              user_id: 6,
+              user: {
+                id: 6,
+                profile: "/static/media/avt_10.4aa1a052.png",
+                username: "아무개6"
+              }
+            },
+            {
+              project_id: 1,
+              user_id: 7,
+              user: {
+                id: 7,
+                profile: "/static/media/avt_10.4aa1a052.png",
+                username: "아무개7"
+              }
+            },
+            {
+              project_id: 1,
+              user_id: 8,
+              user: {
+                id: 8,
+                profile: "/static/media/avt_10.4aa1a052.png",
+                username: "아무개8"
+              }
+            },
           ],
           user: {
             profile: '/img/레킹볼.png'
@@ -100,28 +178,58 @@ const project = {
           contributers: [
             {
               project_id: 2,
-              user_id: 8,
+              user_id: 1,
               user: {
-                profile: '/img/레킹볼.png',
-                username: "kimcoding2"
+                id: 1,
+                profile: "/static/media/avt_15.b09a1586.png",
+                username: "아무개1"
               }
             },
             {
               project_id: 2,
-              user_id: 1,
+              user_id: 2,
               user: {
-                profile: '/img/레킹볼.png',
-                username: "kimcoding2"
+                id: 2,
+                profile: "/static/media/avt_13.58096983.png",
+                username: "아무개2"
+              }
+            },
+            {
+              project_id: 2,
+              user_id: 3,
+              user: {
+                id: 3,
+                profile: "/static/media/avt_9.ee26d074.png",
+                username: "아무개3"
+              }
+            },
+            {
+              project_id: 2,
+              user_id: 4,
+              user: {
+                id: 4,
+                profile: "/static/media/avt_5.6b67b02a.png",
+                username: "아무개4"
               }
             },
             {
               project_id: 2,
               user_id: 5,
               user: {
-                profile: '/img/레킹볼.png',
-                username: "kimcoding2"
+                id: 5,
+                profile: "/static/media/avt_11.3e37ca43.png",
+                username: "아무개5"
               }
-            }
+            },
+            {
+              project_id: 2,
+              user_id: 6,
+              user: {
+                id: 6,
+                profile: "/static/media/avt_10.4aa1a052.png",
+                username: "아무개6"
+              }
+            },
           ],
           user: {
             profile: '/img/레킹볼.png'
@@ -133,21 +241,21 @@ const project = {
     taskCardCount: [
       {
         project_id: 0,
-        done: 3,
+        todo: 2,
         inprogress: 2,
-        todo: 2
+        done: 3,
       },
       {
         project_id: 1,
-        done: 7,
+        todo: 1,
         inprogress: 1,
-        todo: 1
+        done: 7,
       },
       {
         project_id: 2,
-        done: 7,
+        todo: 0,
         inprogress: 0,
-        todo: 0
+        done: 7,
       }
     ]
   }

@@ -10,14 +10,15 @@ import NewProject from './NewProject'
 axios.defaults.withCredentials = true;
 
 function ProjectList() {
-  const [state, setState] = useState({ //모달창을위한 state
+  const [state, setState] = useState({ 
     loginModal: false,
     signupModal: false,
     updateModal: false,
     newProjectModal: false,
     logoutControll: true,
     dataList:[],
-    taskCountList:[]
+    taskCountList:[],
+
   })
   const { loginModal, signupModal, updateModal,newProjectModal,logoutControll,dataList,taskCountList } = state;
   const isLogin = window.sessionStorage.isLogin
@@ -31,12 +32,13 @@ function ProjectList() {
   const updateUserinfoChange = () => { //수정모달
     setState({ ...state, updateModal: !updateModal })
   }
-  const addProjectChange = () => {
+  const addProjectChange = () => { //프로젝트 추가 모달
     setState({ ...state, newProjectModal: !newProjectModal })
   }
+
   useEffect(()=>{
     if(isLogin){
-      const loginList = ()=>{ //list변수에서 실행시킬 함수 (로그인시 유저 프로젝트리스트)
+      const loginList = ()=>{// 회원 - 유저 프로젝트리스트
         axios.post('https://localhost:4001/',null, {
           headers: {
             Authorization: `Bearer ${window.sessionStorage.accessToken}`,
@@ -51,10 +53,13 @@ function ProjectList() {
       loginList()
     }
   },[isLogin])
-  
+  if(!window.sessionStorage.guestProjectList){ //비회원 - 세션에 더미데이터 저장
+    window.sessionStorage.guestProjectList=JSON.stringify(fakeproject.projectList)
+  }
+
   let taskCardCount = isLogin //로그인 상태별 태스크카운트
   ? taskCountList
-  : fakeproject.projectList.taskCardCount
+  : JSON.parse(window.sessionStorage.guestProjectList).taskCardCount 
   let done = 0 // kda계산
   let inprogress = 0
   let todo = 0
@@ -63,11 +68,12 @@ function ProjectList() {
     inprogress = inprogress + ele.inprogress;
     todo = todo + ele.todo;
   })
+
   let list = isLogin //로그인 상태별 리스트
   ? dataList.map((ele, idx) => {
     return <ProjectListEntry key={idx} content={ele} taskCardCount={taskCardCount[idx]}></ProjectListEntry>
   })
-  : fakeproject.projectList.contributers.map((ele, idx) => {
+  : JSON.parse(window.sessionStorage.guestProjectList).contributers.map((ele, idx) => {
     return <ProjectListEntry key={idx} content={ele} taskCardCount={taskCardCount[idx]}></ProjectListEntry>
   })
 
@@ -88,7 +94,7 @@ function ProjectList() {
 
   const main = isLogin
     ? <div>
-        <img src={window.sessionStorage.profile}></img> //! 테스트 끝나면 세션스토리지값으로 변경해라
+        <img src={window.sessionStorage.profile}></img>
         <p>{window.sessionStorage.username}</p>
         <p>todo:{todo}</p>
         <p>inprogress:{inprogress}</p>
