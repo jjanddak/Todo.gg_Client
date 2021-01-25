@@ -73,11 +73,11 @@ function TodoList() {
           storage[`pjt${projectId}`] = JSON.stringify(JSON.parse(storage.guestProjectList.contributers)[projectId]);
           storage[`cnt${projectId}`] = JSON.stringify(counts);
         }
-        getProject();
       } catch {
         history.push("/"); //* 없으면 홈으로
       }
     }
+    getProject();
   }, []);
   useEffect(() => {
     if (!isLogin) {
