@@ -1,23 +1,61 @@
 import React from 'react';
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, useHistory} from "react-router-dom";
 import axios from "axios";
 import SHA256 from "./SHA256";
-import './css/Login.css'
+import './css/Login.css';
+import { GoogleLogin } from "react-google-login";
+
+
+
 axios.defaults.withCredentials = true;
+
 class Login extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       email: "",
       password: "",
+      username : "",
+      profile : "",
       errorMessage: ""
     }
-
     this.GITHUB_LOGIN_URL = 'https://github.com/login/oauth/authorize?client_id=48913fb6f49bac54449a'
     this.socialLoginHandler = this.socialLoginHandler.bind(this)
     this.handleInputValue = this.handleInputValue.bind(this);
   }
 
+  //Google Login
+  responseGoogle = (res) => {
+    axios.post("https://localhost:4001/user/googleLogin", {
+      email: res.profileObj.googleId,
+      username: res.profileObj.name,
+      password: res.profileObj.email,
+      profile: res.profileObj.imageUrl
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: false
+    })
+      .then((param) => {
+        window.sessionStorage.accessToken = param.data.accessToken
+        window.sessionStorage.email = param.data.userinfo.email
+        window.sessionStorage.username = param.data.userinfo.username
+        window.sessionStorage.profile = param.data.userinfo.profile
+        window.sessionStorage.isLogin = true
+        this.props.loginChange()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      console.log(res)
+  }
+
+  //Google Login Fail
+  responseFail = (err) => {
+    console.log(err);
+  }
+  
   handleInputValue = (key) => (e) => {
     this.setState({ [key]: e.target.value });
   };
@@ -33,7 +71,6 @@ class Login extends React.Component {
       })
         .then((param) => {
           window.sessionStorage.accessToken = param.data.accessToken
-          window.sessionStorage.id = param.data.userinfo.id
           window.sessionStorage.email = param.data.userinfo.email //세션저장
           window.sessionStorage.username = param.data.userinfo.username
           window.sessionStorage.profile = param.data.userinfo.profile
@@ -46,7 +83,6 @@ class Login extends React.Component {
       this.setState({ errorMessage: '이메일과 비밀번호는 필수입니다.' })
     }
   };
-
 
   render() {
     return (
@@ -65,6 +101,14 @@ class Login extends React.Component {
             회원가입
             </button>
             <button onClick={this.socialLoginHandler}>GitHub Login</button>
+            <GoogleLogin 
+            clientId="743718284620-8frgfcjhl356cc6llkl21galrcoj2s61.apps.googleusercontent.com"
+            buttonText="GoogleLogin"
+            onSuccess={this.responseGoogle}
+            onFailure={this.responseFail}
+            // isSignedIn={true}
+            cookiePolicy={"single_host_origin"}
+            />
         </div>
       </div>
     )
