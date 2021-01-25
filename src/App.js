@@ -47,6 +47,7 @@ function App() {
           window.sessionStorage.profile=result.data.userinfo.profile;
           window.sessionStorage.email=result.data.userinfo.email;
           window.sessionStorage.accessToken=result.data.accessToken;
+          window.sessionStorage.id = result.data.userinfo.id;
           window.sessionStorage.isLogin=true;
           setGitLogin(!gitLogin);
           history.push("/");

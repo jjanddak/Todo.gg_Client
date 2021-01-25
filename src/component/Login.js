@@ -42,6 +42,7 @@ class Login extends React.Component {
         window.sessionStorage.email = param.data.userinfo.email
         window.sessionStorage.username = param.data.userinfo.username
         window.sessionStorage.profile = param.data.userinfo.profile
+        window.sessionStorage.id = param.data.userinfo.id
         window.sessionStorage.isLogin = true
         this.props.loginChange()
       })
@@ -74,6 +75,7 @@ class Login extends React.Component {
           window.sessionStorage.email = param.data.userinfo.email //세션저장
           window.sessionStorage.username = param.data.userinfo.username
           window.sessionStorage.profile = param.data.userinfo.profile
+          window.sessionStorage.id = param.data.userinfo.id
           window.sessionStorage.isLogin = true
           this.props.loginChange()
         }).catch(() => {
