@@ -68,10 +68,6 @@ function App() {
       <h1>hello world</h1>
       <Router>
         <Switch>
-          <Route path="/user/updateUserinfo"> {/** 모달 완료되면 삭제 */}
-            <UpdateUserinfo />
-          </Route>
-
           <Route path="/project/">
             <TodoList />
           </Route>
