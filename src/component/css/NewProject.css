@@ -17,6 +17,19 @@
         animation-timing-function: ease-in;
         /* animation-direction: alternate; */
 }
+.deleteModal_container{
+    width: 100%; height: 100%;
+    position: fixed;
+    top: 0;
+    background-color: tomato;
+}
+.deleteModal{
+    position: absolute;
+    background-color: #ccc;
+    left: 50%; top: 50%;
+    transform:translate(-50%,-50%);
+    width: 30%; height: 30%;
+}
 
 .hi{
     width:50px;
@@ -31,3 +44,4 @@
         transform: translateX(0px);
     }
   }
+  

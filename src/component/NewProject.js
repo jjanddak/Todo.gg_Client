@@ -18,7 +18,7 @@ function NewProject({addProjectChange}) {
   })
   const { title, startDate, endDate, team, member, description, memberErrorMsg, inputErrorMsg, checked } = state
   const isLogin = window.sessionStorage.isLogin
-  const changeData = e => { //온체인지 스테이트변경
+  const changeData = e => { 
     const { name, value } = e.target
     if (name === 'checked') { //미정버튼
       setState({ ...state, checked: e.target.checked })
@@ -42,13 +42,17 @@ function NewProject({addProjectChange}) {
     }
   }
   const addMember = function () {
-    axios.post('https://localhost:4001/user/getOne', { username: member })
+    if(isLogin){
+      axios.post('https://localhost:4001/user/getOne', { username: member })
       .then((param) => {
         setState({ ...state, team: [...team, param.data] })
       })
       .catch(() => {
         setState({ ...state, memberErrorMsg: '일치하는 유저네임이 없습니다.' })
       })
+    }else{
+      //아무 동작 X
+    }
   }
   const teamList = team.length > 0 && team.map(ele => {
     return <div key={ele.user.id}>
@@ -75,21 +79,40 @@ function NewProject({addProjectChange}) {
           .then((param) => {
             console.log(param.data);
             const proId = param.data.project_id;
-            history.push(`/project/${proId}`)  //! 순서를 어케하지? 링크를 옮기고 모달을 닫아?!?!
+            history.push(`/project/${proId}`) 
           })
           .catch(err => {
             console.log(err)
           })
       } else {
-        window.sessionStorage.guestProject = JSON.stringify({
-          title: title,
-          description: description,
-          start_date: startDate,
-          end_date: !checked ? endDate : '9999-01-01',
-          contributers: [],
-          taskCards: []
+        const oldProjectLst = JSON.parse(window.sessionStorage.guestProjectList)
+        const newProject = JSON.parse(window.sessionStorage.guestProjectList).contributers
+        oldProjectLst.contributers.push(
+          {
+            project_id:newProject.length,
+            user_id: 2,
+            project:{
+              id:0,
+              title:title,
+              description:description,
+              manager_id:2,
+              start_date:startDate,
+              end_date: !checked ? endDate : '9999-01-01',
+              contributers:[],
+              user:{
+                profile: '/img/레킹볼.png'
+              }
+            }
+          }
+        )
+        oldProjectLst.taskCardCount.push({
+          project_id:newProject.length,
+          done:0,
+          inprogress: 0,
+          todo: 0
         })
-        history.push('/project/guest')
+        window.sessionStorage.guestProjectList =JSON.stringify(oldProjectLst)
+        history.push(`/project/${newProject.length}`)
       }
     }
     else {
@@ -114,6 +137,7 @@ function NewProject({addProjectChange}) {
         <p>참여 팀원</p>
         <input type='text' name='member' onChange={changeData}></input>
         <button onClick={addMember}>추가</button>
+        {!isLogin && <p>팀원 추가는 로그인 상태에서만 가능합니다.</p>}
         {teamList}
         <p>{memberErrorMsg}</p>
         <p>프로젝트 설명</p>
