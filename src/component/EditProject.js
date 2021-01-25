@@ -93,7 +93,7 @@ function EditProject({ data, editProjectChange, getProject }) {
       ? setState({ ...state, memberErrorMsg: '이미 포함되어있는 멤버입니다.' })
       : axios.post('https://localhost:4001/user/getOne', { username: member })
         .then((param) => {
-          setState({ ...state, team: [...team, param.data], newContributer: [...newContributer, { id: param.data.user.id }] })
+          setState({ ...state, team: [...team, param.data], newContributer: [...newContributer, { id: param.data.user.id }],memberErrorMsg: '' })
         })
         .catch(() => {
           setState({ ...state, memberErrorMsg: '일치하는 유저네임이 없습니다.' })

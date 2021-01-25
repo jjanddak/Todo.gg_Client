@@ -10,8 +10,8 @@ const project = {
         user_id: 2,
         project: {
           id: 1,
-          title: "더미 프로젝트0",
-          description: "비회원 상태로 작성한 정보는 저장되지 않습니다",
+          title: "달성도 65%이하 프로젝트",
+          description: "업무 달성도를 게임전적처럼 관리할 수 있는 TODO.gg",
           manager_id: 8,
           start_date: "2020-02-02",
           end_date: "2020-03-03",
@@ -81,7 +81,7 @@ const project = {
         user_id: 2,
         project: {
           id: 1,
-          title: "더미 프로젝트1",
+          title: "달성도 99%이하 프로젝트",
           description: "비회원 상태로 작성한 정보는 저장되지 않습니다",
           manager_id: 8,
           start_date: "2020-02-02",
@@ -170,7 +170,7 @@ const project = {
         user_id: 2,
         project: {
           id: 1,
-          title: "더미 프로젝트2",
+          title: "달성도 100% 프로젝트",
           description: "비회원 상태로 작성한 정보는 저장되지 않습니다",
           manager_id: 8,
           start_date: "2020-02-02",
