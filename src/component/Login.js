@@ -150,13 +150,13 @@ class Login extends React.Component {
           </p>
           <div>{this.state.errorMessage}</div>
           <div className='btnwrapper'>
-            <button className='btn' onClick={this.handleLogin}>
+            <button className='modalbtn' onClick={this.handleLogin}>
               로그인
             </button>
-            <button className='btn' onClick={this.props.signupChange}>
+            <button className='modalbtn' onClick={this.props.signupChange}>
                 회원가입
             </button>
-            <button className='btn' onClick={this.socialLoginHandler}>GitHub Login</button>
+            <button className='modalbtn' onClick={this.socialLoginHandler}>GitHub Login</button>
             <GoogleLogin 
               className='googleBtn' 
               clientId="743718284620-8frgfcjhl356cc6llkl21galrcoj2s61.apps.googleusercontent.com"

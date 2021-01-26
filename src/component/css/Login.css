@@ -10,7 +10,7 @@
     border-radius: 15px;
     left: 50%; top: 50%;
     transform:translate(-50%,-50%);
-    width: 50%; height: 540px;
+    width: 50%; height: 70%;
     max-width: 400px; min-width: 200px;
     min-height: 300px;
     padding-bottom : 33px;
@@ -25,12 +25,32 @@
     text-align: center;
 }
 
+.loginmodal div{
+    margin-bottom: 20px;
+    text-align: center;
+}
+
 .loginmodal p{
     position: relative;
     width: 100%;
     height: 50px;
     margin-bottom: 20px;
     overflow: hidden;
+    justify-content: space-around;
+    display: flex;
+}
+
+.loginmodal p button{ /* 중복확인 버튼*/
+    position: relative;
+    top: 16px;
+    color: #fff;
+    /* background-color: #1080ff; */
+    background: linear-gradient(to right, #1080ff, #a406ff);
+    /* border-radius: 15px; */
+    width: 70px;
+    height: 30px;
+    border: none;
+    font-weight: bold;
 }
 
 .loginmodal p input {
@@ -75,7 +95,7 @@
 
 .loginmodal p input:focus + label span,
 .loginmodal p input:valid + label span{
-    transform: translateY(-150%);
+    transform: translateY(-130%);
     font-size: 14px;
     color: #4099ff;
 }
@@ -89,7 +109,7 @@
     text-align: center;
 }
 
-.loginmodal .btn {
+.loginmodal .modalbtn {
     color: #fff;
     margin-top: 20px;
     width: 85%;
