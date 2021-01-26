@@ -70,7 +70,9 @@ function TodoList() {
           storage[`pjt${projectId}`] = JSON.stringify(dummy[projectId].projectInfo);
           storage[`cnt${projectId}`] = JSON.stringify(dummy[projectId].taskCardCount);
         } else {
-          storage[`pjt${projectId}`] = JSON.stringify(JSON.parse(storage.guestProjectList.contributers)[projectId]);
+          let pjt = JSON.parse(storage.guestProjectList).contributers[projectId].project;
+          pjt = {...pjt, taskCards: []};
+          storage[`pjt${projectId}`] = JSON.stringify(pjt);
           storage[`cnt${projectId}`] = JSON.stringify(counts);
         }
       } catch {
@@ -86,7 +88,7 @@ function TodoList() {
     }
   }, [project]);
   let color = { backgroundColor: 'red' }; //* process_color
-  if (process > 76 && process <= 99) {
+  if (process > 66 && process < 100) {
     color = { backgroundColor: 'yellow' };
   } else if (process === 100) {
     color = { backgroundColor: 'blue' };
@@ -110,7 +112,9 @@ function TodoList() {
   };
   const addCard = () => {
     if (!isLogin) {
-    const newId = project.taskCards.sort((a, b) => { return a.id - b.id })[project.taskCards.length - 1].id + 1;
+    const newId = project.taskCards.length
+    ? project.taskCards.sort((a, b) => { return a.id - b.id })[project.taskCards.length - 1].id + 1
+    : 0;
     setProject({
         ...project,
         taskCards: [...project.taskCards, {
@@ -294,6 +298,7 @@ function TodoList() {
   };
   let movingCard;
   const changeState = (movingCard, newState, position) => {
+    movingCard.state !== newState && position++;
     //* 기존 스테이트 확인하고 배열에서 삭제
     const remove = (list) => {
       list.splice(movingCard.position, 1);
@@ -385,7 +390,7 @@ function TodoList() {
                         )
                       })}
                     </div>
-                    <button className="todoList_cards_button" onClick={() => { setShowAddMembar({ [item.id]: !showAddMembar[item.id] }) }}>➕</button>
+                    <button className="todoList_cards_button" onClick={() => { setShowAddMembar({ [item.id]: !showAddMembar[item.id] });setNewMemberErr("") }}>➕</button>
                   </div>
                   {showAddMembar[item.id] && (
                     <div className="todoList_cards_add_member">
@@ -422,13 +427,17 @@ function TodoList() {
   return (
     <div className="todoList">
       <nav className="todoList_nav">
-        <div className="todoList_process_color" style={color} />
-        <span className="todoList_title">{project.title}</span>
-        <span className="todoList_date">{`${project.start_date} ~ ${project.end_date === '9999-01-01' ? '완료날짜 미정' : project.end_date}`}</span>
-        <span className="todoList_process">{`진행도 ${process ? process : 0}%`}</span>
-        {isLogin && <button className="todoList_nav_button logout" onClick={logout}>로그아웃</button>}
-        <button className="todoList_nav_button home" onClick={() => { history.push("/") }}>홈버튼</button>
-        <button className="todoList_nav_button edit_project" onClick={editProjectChange} >함바가?</button>
+        <div className="todoList_nav_process_color" style={color} />
+        <span className="todoList_nav_title">{project.title}</span>
+        <div className="todoList_nav_info">
+          <div className="todoList_nav_process">{`진행도 ${process ? process : 0}%`}</div>
+          <div className="todoList_nav_date">{`${project.start_date} ~ ${project.end_date === '9999-01-01' ? '완료날짜 미정' : project.end_date}`}</div>
+        </div>
+        <div className="todoList_nav_buttons">
+          {isLogin && <button className="todoList_nav_button logout" onClick={logout}>로그아웃</button>}
+          <button className="todoList_nav_button" onClick={() => { history.push("/") }}>홈버튼</button>
+          <button className="todoList_nav_button" onClick={editProjectChange} >함바가?</button>
+        </div>
       </nav>
       <div className="todoList_taskCards" onDragOver={allowDrop}>
         <div className="todoList_todo">todo

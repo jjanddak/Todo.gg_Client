@@ -62,8 +62,9 @@ function UpdateUserinfo({ updateUserinfoChange }) {
         }
       })
         .then((param) => {
-          param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
           window.sessionStorage.username = username;
+          window.sessionStorage.profile = profile;
+          param.data.accessToken && (window.sessionStorage.accessToken = param.data.accessToken);
           updateUserinfoChange()
         })
         .catch((err) => {
@@ -237,6 +238,7 @@ function UpdateUserinfo({ updateUserinfoChange }) {
           value={oldPassword}
         />
         <div className="updateUserinfo_alert_box">{oldPasswordMessage}</div>
+        <p>소셜로그인 유저의 초기 비밀번호는 해당 사이트의 아이디(or Email) 입니다</p>
         <span className="updateUserinfo_subtitle">새 비밀번호</span>
         <input
           className="updateUserinfo_input"

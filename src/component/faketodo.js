@@ -2,7 +2,7 @@ const dummy = [
   { //! [0]
     projectInfo: {
       id: 0,
-      title: "더미 프로젝트0",
+      title: "달성도 65% 이하 프로젝트",
       description: "비회원 상태로 작성한 정보는 저장되지 않습니다",
       start_date: "2020-02-02",
       end_date: "2020-03-03",
@@ -149,7 +149,7 @@ const dummy = [
           },
           {
             id: 6,
-            content: "task_card_06",
+            content: "프로젝트에 참여 중인 인원은 프로젝트 관리 페이지에서 확인 할 수 있습니다",
             state: "todo",
             project_id: 0,
             position: 9,
@@ -179,7 +179,7 @@ const dummy = [
   { //! [1]
     projectInfo: {
       id: 1,
-      title: "더미 프로젝트1",
+      title: "달성도 99% 미만 프로젝트",
       description: "비회원 상태로 작성한 정보는 저장되지 않습니다",
       start_date: "2020-02-02",
       end_date: "2020-03-03",
@@ -293,7 +293,7 @@ const dummy = [
           },
           {
             id: 2,
-            content: "task_card_02",
+            content: "프로젝트에 참여 중인 인원은 프로젝트 관리 페이지에서 확인 할 수 있습니다",
             state: "todo",
             project_id: 1,
             position: 5,
@@ -394,7 +394,7 @@ const dummy = [
   { //! [2]
     projectInfo: {
       id: 2,
-      title: "더미 프로젝트2",
+      title: "달성도 100% 프로젝트",
       description: "비회원 상태로 작성한 정보는 저장되지 않습니다",
       start_date: "2020-02-02",
       end_date: "9999-01-01",
@@ -470,7 +470,7 @@ const dummy = [
         [
           {
             id: 0,
-            content: "task_card_00",
+            content: "프로젝트에 참여 중인 인원은 프로젝트 관리 페이지에서 확인 할 수 있습니다",
             state: "done",
             position: 9,
             project_id: 2,

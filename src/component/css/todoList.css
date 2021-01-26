@@ -1,12 +1,29 @@
 /* nav */
-.todoList_process_color {
+.todoList_nav {
+  background-color: #335;
+  height: 55px;
+  color: #fff;
+  display: flex;
+}
+.todoList_nav_process_color {
   width: 20px;
-  height: 60px;
   display: inline-block;
 }
-.todoList_nav {
-  border: solid 2px thistle; /*! 삭제 하라고*/
-  height: 60px;
+.todoList_nav_title {
+  border: solid 2px coral; /*! 삭제 하라고*/
+  font-size: 30px;
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.todoList_nav_info {
+  border: solid 2px coral; /*! 삭제 하라고*/
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.todoList_nav_buttons {
+  border: solid 2px coral; /*! 삭제 하라고*/
 }
 
 /* card list */
