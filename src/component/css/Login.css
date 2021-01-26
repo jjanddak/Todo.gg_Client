@@ -2,14 +2,73 @@
     width: 100%; height: 100%;
     position: fixed;
     top: 0;
-    background-color: rgb(21,62,85,0.2);
+    background-color: rgba(0, 0, 0, 0.5)
 }
 .loginmodal{
     position: absolute;
-    background-color: #ccc;
+    background-color: #eee;
+    border-radius: 15px;
     left: 50%; top: 50%;
     transform:translate(-50%,-50%);
-    width: 50%; height: 50%;
+    width: 50%; height: 540px;
     max-width: 400px; min-width: 200px;
-    min-height: 300px
+    min-height: 300px;
+    padding-bottom : 33px;
+    padding-left : 55px;
+    padding-right : 55px;
+    padding-top : 77px;
+    overflow: hidden;
+}
+
+.loginmodal h1{
+    padding-bottom: 26px;
+    text-align: center;
+}
+
+.loginmodal p{
+    position: relative;
+    width: 100%;
+}
+
+.loginmodal label{
+    position:absolute; 
+    left:0%; 
+    bottom:0; 
+    width:100%; 
+    height:100%;
+    text-align:left; 
+    pointer-events:none;
+}
+
+.loginmodal p input {
+    width: 100%;
+    padding: 20px 0 5px 0px ;
+    margin: 5px 0px 20px 0px;
+    border: none;
+    border-bottom: 1px solid rgba(88, 88, 88, 0.397);
+    outline: none;
+    background: transparent;
+}
+
+.loginmodal .btnwrapper {
+    text-align: center;
+}
+
+.loginmodal .btn {
+    color: #fff;
+    margin-top: 20px;
+    width: 85%;
+    padding: 10px 30px;
+    cursor: pointer;
+    background: linear-gradient(to right, #1080ff, #a406ff);
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+    font-family: Poppins-Medium;
+    font-weight: bold;
+}
+
+
+.googleBtn {
+    margin-top: 20px;
 }

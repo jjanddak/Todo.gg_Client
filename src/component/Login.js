@@ -140,26 +140,33 @@ class Login extends React.Component {
       <div className='login_container' onClick={this.props.loginChange}>
         <div className='loginmodal'onClick={(e)=>e.stopPropagation()}>
           <h1>Login</h1>
-          <p>이메일</p>
-          <input type='email' onChange={this.handleInputValue('email')}></input>
-          <p>비밀번호</p>
-          <input type='password' onChange={this.handleInputValue('password')}></input>
+          <p>
+            <input name='inputEmail' type='email' onChange={this.handleInputValue('email')}></input>
+            <label for='inputEmail'><span>Email</span></label>
+          </p>
+          <p>
+          <input name='inputPassword' type='password' onChange={this.handleInputValue('password')}></input>
+          <label for='inputPassword'><span>Password</span></label>
+          </p>
           <div>{this.state.errorMessage}</div>
-          <button onClick={this.handleLogin}>
-            로그인
-        </button>
-        <button onClick={this.props.signupChange}>
-            회원가입
+          <div className='btnwrapper'>
+            <button className='btn' onClick={this.handleLogin}>
+              로그인
             </button>
-            <button onClick={this.socialLoginHandler}>GitHub Login</button>
+            <button className='btn' onClick={this.props.signupChange}>
+                회원가입
+            </button>
+            <button className='btn' onClick={this.socialLoginHandler}>GitHub Login</button>
             <GoogleLogin 
-            clientId="743718284620-8frgfcjhl356cc6llkl21galrcoj2s61.apps.googleusercontent.com"
-            buttonText="GoogleLogin"
-            onSuccess={this.responseGoogle}
-            onFailure={this.responseFail}
-            // isSignedIn={true}
-            cookiePolicy={"single_host_origin"}
+              className='googleBtn' 
+              clientId="743718284620-8frgfcjhl356cc6llkl21galrcoj2s61.apps.googleusercontent.com"
+              buttonText="GoogleLogin"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseFail}
+              // isSignedIn={true}
+              cookiePolicy={"single_host_origin"}
             />
+          </div>
         </div>
       </div>
     )
