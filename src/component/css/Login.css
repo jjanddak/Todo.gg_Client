@@ -28,26 +28,61 @@
 .loginmodal p{
     position: relative;
     width: 100%;
-}
-
-.loginmodal label{
-    position:absolute; 
-    left:0%; 
-    bottom:0; 
-    width:100%; 
-    height:100%;
-    text-align:left; 
-    pointer-events:none;
+    height: 50px;
+    margin-bottom: 20px;
+    overflow: hidden;
 }
 
 .loginmodal p input {
     width: 100%;
-    padding: 20px 0 5px 0px ;
-    margin: 5px 0px 20px 0px;
+    height: 100%;
     border: none;
-    border-bottom: 1px solid rgba(88, 88, 88, 0.397);
-    outline: none;
     background: transparent;
+    padding-top: 20px;
+    outline: none;
+}
+
+.loginmodal p label {
+    position:absolute;  
+    left:0%; 
+    bottom:0px; 
+    height:100%;
+    width: 100%;
+    pointer-events:none; 
+    text-align:left; 
+    border-bottom: 1px solid black;
+}
+
+.loginmodal p label::after {
+    content: "";
+    position: absolute;
+    left: 0px;
+    bottom: -1px;
+    height: 100%;
+    width: 100%;
+    border-bottom: 3px solid #529df1;
+    transform:translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.loginmodal p label span {
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+    transition: all 0.3s ease;
+    color: rgb(126, 126, 126);
+}
+
+.loginmodal p input:focus + label span,
+.loginmodal p input:valid + label span{
+    transform: translateY(-150%);
+    font-size: 14px;
+    color: #4099ff;
+}
+
+.loginmodal p input:focus + label::after,
+.loginmodal p input:valid + label::after {
+    transform: translateX(0%);
 }
 
 .loginmodal .btnwrapper {

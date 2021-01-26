@@ -141,11 +141,11 @@ class Login extends React.Component {
         <div className='loginmodal'onClick={(e)=>e.stopPropagation()}>
           <h1>Login</h1>
           <p>
-            <input name='inputEmail' type='email' onChange={this.handleInputValue('email')}></input>
+            <input name='inputEmail' type='email' onChange={this.handleInputValue('email')} autoComplete='off' required></input>
             <label for='inputEmail'><span>Email</span></label>
           </p>
           <p>
-          <input name='inputPassword' type='password' onChange={this.handleInputValue('password')}></input>
+          <input name='inputPassword' type='password' onChange={this.handleInputValue('password')} autoComplete='off' required></input>
           <label for='inputPassword'><span>Password</span></label>
           </p>
           <div>{this.state.errorMessage}</div>
