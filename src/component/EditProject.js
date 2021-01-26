@@ -89,35 +89,38 @@ function EditProject({ data, editProjectChange, getProject }) {
 
   }
   const addMember = function () {
-    team.filter(item => item.user.username === member).length
-      ? setState({ ...state, memberErrorMsg: '이미 포함되어있는 멤버입니다.' })
-      : axios.post('https://localhost:4001/user/getOne', { username: member })
-        .then((param) => {
-          setState({ ...state, team: [...team, param.data], newContributer: [...newContributer, { id: param.data.user.id }],memberErrorMsg: '' })
-        })
-        .catch(() => {
-          setState({ ...state, memberErrorMsg: '일치하는 유저네임이 없습니다.' })
-        })
+    if(isLogin){
+      team.filter(item => item.user.username.toLowerCase() === member.toLowerCase()).length
+        ? setState({ ...state, memberErrorMsg: '이미 포함되어있는 멤버입니다.' })
+        : axios.post('https://localhost:4001/user/getOne', { username: member })
+          .then((param) => {
+            setState({ ...state, team: [...team, param.data], newContributer: [...newContributer, { id: param.data.user.id }],memberErrorMsg: '' })
+          })
+          .catch(() => {
+            setState({ ...state, memberErrorMsg: '일치하는 유저네임이 없습니다.' })
+          })
+    }
   }
   const deleteMember = function (e) {
     if (isLogin) {
-      let newTeam = [];
-      for (let i = 0; i < team.length; i++) {
-        if (Number(e.target.name) !== team[i].user.id) {
-          newTeam.push(team[i])
+      if(Number(e.target.name)===data.manager_id){
+        setState({ ...state, memberErrorMsg: '프로젝트 매니저는 삭제할 수 없습니다.' })
+      }else{
+        let newTeam = [];
+        for (let i = 0; i < team.length; i++) {
+          if (Number(e.target.name) !== team[i].user.id) {
+            newTeam.push(team[i])
+          }
         }
-      }
-      let newAddTeam = [];
-      for (let i = 0; i < newContributer.length; i++) {
-        if (Number(e.target.name) !== newContributer[i].id) {
-          newAddTeam.push(newContributer[i])
+        let newAddTeam = [];
+        for (let i = 0; i < newContributer.length; i++) {
+          if (Number(e.target.name) !== newContributer[i].id) {
+            newAddTeam.push(newContributer[i])
+          }
         }
+        setState({ ...state, team: newTeam, newContributer: newAddTeam, delContributer: [...delContributer, { id: e.target.name }] })
       }
-      setState({ ...state, team: newTeam, newContributer: newAddTeam, delContributer: [...delContributer, { id: e.target.name }] })
-    } else {
-      //아무 작동 안함
     }
-
   }
   const teamList = team.length > 0 && team.map(ele => {
     return <div key={ele.user.id}>
