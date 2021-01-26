@@ -7,6 +7,7 @@ import Signup from './Signup';
 import axios from 'axios';
 import UpdateUserinfo from './UpdateUserinfo';
 import NewProject from './NewProject'
+import './css/ProjectList.css'
 axios.defaults.withCredentials = true;
 
 function ProjectList() {
@@ -53,7 +54,7 @@ function ProjectList() {
       loginList()
     }
   },[isLogin])
-  if(!window.sessionStorage.guestProjectList){ //비회원 - 세션에 더미데이터 저장
+  if(!window.sessionStorage.guestProjectList&&!isLogin){ //비회원 - 세션에 더미데이터 저장
     window.sessionStorage.guestProjectList=JSON.stringify(fakeproject.projectList)
   }
 
@@ -101,16 +102,19 @@ function ProjectList() {
         <p>done:{done}</p>
         <button onClick={updateUserinfoChange}>프로필수정</button>
       </div>
-    : <div>
-        <h1>업무티어 올리기 투두관리부터 !<br />협업은 todo.gg와 함께</h1>
-        <button onClick={loginChange}>로그인</button>
-        <button onClick={signupChange}>회원가입</button>
+    : <div className='main_guesthome'>
+        <div className='main_opacity'>
+          
+         <h1>업무티어 올리기 투두관리부터 !<br />협업은 todo.gg와 함께</h1>
+         <button onClick={loginChange}>로그인</button>
+          <button onClick={signupChange}>회원가입</button>
+        </div>
       </div>
 
   return (
     <>
-      <nav>
-        <Link to='/'>로고</Link>
+      <nav className='main_nav'>
+        <Link to='/' className='main_logo'>TODO<br/>.GG</Link>
         {
           isLogin && <button onClick={handleLogout}>로그아웃</button>
         }

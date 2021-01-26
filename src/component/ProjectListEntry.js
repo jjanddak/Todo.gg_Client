@@ -7,15 +7,18 @@ function ProjectListEntry({content,taskCardCount}) {
   const {project} = content
   const {contributers} = project
 
-  const { done, inprogress, todo} = taskCardCount
+  const taskdd= window.sessionStorage[`cnt${content.project_id}`]
+  ?JSON.parse(window.sessionStorage[`cnt${content.project_id}`])
+  :taskCardCount
+  const { done, inprogress, todo} = taskdd
   const sum = Math.round(done/(inprogress+todo+done) *100) 
   const start_date = project.start_date.split(' ')[0]
   const end_date = project.end_date.split(' ')[0]
 
   let color //state 색상변경
-  if(sum <= 75){
+  if(sum <= 65){
     color = {backgroundColor : 'red'}
-  }else if(sum > 76 && sum <=99){
+  }else if(sum > 66 && sum <=99){
     color = {backgroundColor : 'yellow'}
   }else if(sum === 100){
     color = {backgroundColor : 'blue'}

@@ -1,11 +1,9 @@
 import React from 'react';
-import { Link, withRouter, useHistory} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 import SHA256 from "./SHA256";
 import './css/Login.css';
 import { GoogleLogin } from "react-google-login";
-
-
 
 axios.defaults.withCredentials = true;
 
@@ -17,12 +15,17 @@ class Login extends React.Component {
       password: "",
       username : "",
       profile : "",
-      errorMessage: ""
+      errorMessage: "",
+      gitLogin:false
     }
     this.GITHUB_LOGIN_URL = 'https://github.com/login/oauth/authorize?client_id=48913fb6f49bac54449a'
     this.socialLoginHandler = this.socialLoginHandler.bind(this)
     this.handleInputValue = this.handleInputValue.bind(this);
   }
+  //onchange 
+  handleInputValue = (key) => (e) => {
+    this.setState({ [key]: e.target.value });
+  };
 
   //Google Login
   responseGoogle = (res) => {
@@ -38,6 +41,7 @@ class Login extends React.Component {
       withCredentials: false
     })
       .then((param) => {
+        window.sessionStorage.clear()
         window.sessionStorage.accessToken = param.data.accessToken
         window.sessionStorage.email = param.data.userinfo.email
         window.sessionStorage.username = param.data.userinfo.username
@@ -49,20 +53,64 @@ class Login extends React.Component {
       .catch(err => {
         console.log(err)
       })
-      console.log(res)
   }
 
   //Google Login Fail
   responseFail = (err) => {
     console.log(err);
   }
-  
-  handleInputValue = (key) => (e) => {
-    this.setState({ [key]: e.target.value });
-  };
-  socialLoginHandler() {
+
+  //github Login
+  getAccessToken = async (authorizationCode) => {
+    // 받아온 authorization code로 다시 OAuth App에 요청해서 access token을 받을 수 있습니다.
+    // access token은 보안 유지가 필요하기 때문에 클라이언트에서 직접 OAuth App에 요청을 하는 방법은 보안에 취약할 수 있습니다.
+    // authorization code를 서버로 보내주고 서버에서 access token 요청을 하는 것이 적절합니다.
+    // TODO: 서버의 /callback 엔드포인트로 authorization code를 보내주고 access token을 받아옵니다.
+    await axios.post('https://localhost:4001/user/callback',
+    {
+      authorizationCode: authorizationCode
+    })
+    .then((res=>{
+      const accessToken=res.data.accessToken;
+      axios.get('https://api.github.com/user',
+      {
+        headers:{
+          authorization: `token ${accessToken}`
+        },
+        withCredentials:false
+      })
+      .then(res=>{
+        axios.post("https://localhost:4001/user/githubLogin",{
+          data:res.data
+        })
+        .then(result=>{
+          window.sessionStorage.clear()
+          window.sessionStorage.username=result.data.userinfo.username;
+          window.sessionStorage.profile=result.data.userinfo.profile;
+          window.sessionStorage.email=result.data.userinfo.email;
+          window.sessionStorage.accessToken=result.data.accessToken;
+          window.sessionStorage.id = result.data.userinfo.id;
+          window.sessionStorage.isLogin=true;
+          this.setState({gitLogin:!this.state.gitLogin});
+          this.props.history.push("/");
+        })
+      })
+    }))
+  }
+  componentDidMount() {
+    const url = new URL(window.location.href)
+    const authorizationCode = url.searchParams.get('code')
+    if (authorizationCode) {
+      // authorization server로부터 클라이언트로 리디렉션된 경우, authorization code가 함께 전달됩니다.
+      // ex) http://localhost:3000/?code=5e52fb85d6a1ed46a51f
+      this.getAccessToken(authorizationCode)
+    }
+  }
+
+  socialLoginHandler() { 
     window.location.assign(this.GITHUB_LOGIN_URL)
   }
+
   handleLogin = () => {
     const { email, password } = this.state; //변수할당
     if (email && password) { //다 채워져있으면 서버에보내기
@@ -71,6 +119,7 @@ class Login extends React.Component {
         password: SHA256(password),
       })
         .then((param) => {
+          window.sessionStorage.clear()
           window.sessionStorage.accessToken = param.data.accessToken
           window.sessionStorage.email = param.data.userinfo.email //세션저장
           window.sessionStorage.username = param.data.userinfo.username

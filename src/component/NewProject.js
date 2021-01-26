@@ -45,7 +45,7 @@ function NewProject({addProjectChange}) {
     if(isLogin){
       axios.post('https://localhost:4001/user/getOne', { username: member })
       .then((param) => {
-        setState({ ...state, team: [...team, param.data] })
+        setState({ ...state, team: [...team, param.data],memberErrorMsg: '' })
       })
       .catch(() => {
         setState({ ...state, memberErrorMsg: '일치하는 유저네임이 없습니다.' })
