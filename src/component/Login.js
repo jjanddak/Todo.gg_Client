@@ -4,6 +4,8 @@ import axios from "axios";
 import SHA256 from "./SHA256";
 import './css/Login.css';
 import { GoogleLogin } from "react-google-login";
+import githubIcon from "../avatars/GitHubMark.png";
+import googleIcon from "../avatars/google-icon.svg";
 
 axios.defaults.withCredentials = true;
 
@@ -141,27 +143,47 @@ class Login extends React.Component {
     return (
       <div className='login_container' onClick={this.props.loginChange}>
         <div className='loginmodal'onClick={(e)=>e.stopPropagation()}>
-          <h1>Login</h1>
-          <p>이메일</p>
-          <input type='email' onChange={this.handleInputValue('email')}></input>
-          <p>비밀번호</p>
-          <input type='password' onChange={this.handleInputValue('password')}></input>
-          <div>{this.state.errorMessage}</div>
-          <button onClick={this.handleLogin}>
-            로그인
-        </button>
-        <button onClick={this.props.signupChange}>
-            회원가입
+          {/* <h1>Login</h1> */}
+          <p>
+            <input name='inputEmail' type='email' onChange={this.handleInputValue('email')} autoComplete='off' required></input>
+            <label for='inputEmail'><span>Email</span></label>
+          </p>
+          <p>
+          <input name='inputPassword' type='password' onChange={this.handleInputValue('password')} autoComplete='off' required></input>
+          <label for='inputPassword'><span>Password</span></label>
+          </p>
+          <div className='Signup_alert_box'>{this.state.errorMessage}</div>
+          <div className='btnwrapper'>
+            <button className='modalbtn' onClick={this.handleLogin}>
+              Login
             </button>
-            <button onClick={this.socialLoginHandler}>GitHub Login</button>
-            <GoogleLogin 
-            clientId="743718284620-8frgfcjhl356cc6llkl21galrcoj2s61.apps.googleusercontent.com"
-            buttonText="GoogleLogin"
-            onSuccess={this.responseGoogle}
-            onFailure={this.responseFail}
-            // isSignedIn={true}
-            cookiePolicy={"single_host_origin"}
-            />
+
+            <div className='socialwrapper'>
+              <div style={{height:60, padding:40, color:'rgb(111,111,111)'}}>Or login with</div>
+              <span>
+                <button className='githubbtn socialbtn' onClick={this.socialLoginHandler}><img src={githubIcon} /></button>              
+                <GoogleLogin 
+                  render={renderProps => (
+                    <button className='googlebtn socialbtn' onClick={renderProps.onClick} >
+                      <img src={googleIcon} />
+                      </button>
+                  )}
+                  className='googleBtn socialbtn' 
+                  clientId="743718284620-8frgfcjhl356cc6llkl21galrcoj2s61.apps.googleusercontent.com"
+                  buttonText="Google"
+                  onSuccess={this.responseGoogle}
+                  onFailure={this.responseFail}
+                  // isSignedIn={true}
+                  cookiePolicy={"single_host_origin"}
+                />
+              </span>
+              <div className='signupwrapper'>
+                <a className='' onClick={this.props.signupChange}>
+                    Sign up
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )
