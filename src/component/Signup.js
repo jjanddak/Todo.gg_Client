@@ -193,7 +193,7 @@ function Signup({signupChange,loginChange}) {
   return (
     <div className='login_container' onClick={signupChange}>
     <div className="Signup loginmodal" onClick={(e)=>e.stopPropagation()}>
-      <h1 className="Signup_title">Signup</h1>
+      {/* <h1 className="Signup_title">Signup</h1> */}
       <p>
         <input
           className="Signup_input"
@@ -262,7 +262,7 @@ function Signup({signupChange,loginChange}) {
       <div className="Signup_alert_box signupErr">{errorMessage}</div>
       
       <div className='socialwrapper'>
-        <div style={{height:40, padding:0, color:'rgb(111,111,111)'}}>Or login with</div>
+        <div style={{height:40, padding:10, color:'rgb(111,111,111)'}}>Or login with</div>
         <span>
           <button className='githubbtn socialbtn' onClick={socialLoginHandler}><img src={githubIcon} /></button>              
           <GoogleLogin 

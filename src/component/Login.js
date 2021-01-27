@@ -96,7 +96,7 @@ class Login extends React.Component {
     return (
       <div className='login_container' onClick={this.props.loginChange}>
         <div className='loginmodal'onClick={(e)=>e.stopPropagation()}>
-          <h1>Login</h1>
+          {/* <h1>Login</h1> */}
           <p>
             <input name='inputEmail' type='email' onChange={this.handleInputValue('email')} autoComplete='off' required></input>
             <label for='inputEmail'><span>Email</span></label>
