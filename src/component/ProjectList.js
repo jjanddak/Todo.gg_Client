@@ -64,17 +64,17 @@ function ProjectList() {
   let done = 0 // kda계산
   let inprogress = 0
   let todo = 0
-  taskCardCount.map(ele => {
+  taskCardCount.reverse().map(ele => {
     done = done + ele.done;
     inprogress = inprogress + ele.inprogress;
     todo = todo + ele.todo;
   })
 
   let list = isLogin //로그인 상태별 리스트
-  ? dataList.map((ele, idx) => {
+  ? dataList.reverse().map((ele, idx) => {
     return <ProjectListEntry key={idx} content={ele} taskCardCount={taskCardCount[idx]}></ProjectListEntry>
   })
-  : JSON.parse(window.sessionStorage.guestProjectList).contributers.map((ele, idx) => {
+  : JSON.parse(window.sessionStorage.guestProjectList).contributers.reverse().map((ele, idx) => {
     return <ProjectListEntry key={idx} content={ele} taskCardCount={taskCardCount[idx]}></ProjectListEntry>
   })
 
@@ -104,10 +104,9 @@ function ProjectList() {
       </div>
     : <div className='main_guesthome'>
         <div className='main_opacity'>
-          
-         <h1>업무티어 올리기 투두관리부터 !<br />협업은 todo.gg와 함께</h1>
-         <button onClick={loginChange}>로그인</button>
-          <button onClick={signupChange}>회원가입</button>
+          <div className='main_intro'>
+         <h1>업무티어 올리기 TODO관리부터 !<br />협업은 todo.gg와 함께</h1>
+          </div>
         </div>
       </div>
 
@@ -116,16 +115,24 @@ function ProjectList() {
       <nav className='main_nav'>
         <Link to='/' className='main_logo'>TODO<br/>.GG</Link>
         {
-          isLogin && <button onClick={handleLogout}>로그아웃</button>
+          isLogin 
+          ? <button className='main_Log' onClick={handleLogout}>로그아웃</button>
+          : <button className='main_Log' onClick={loginChange}>로그인</button>
         }
       </nav>
+      <div className='main_main'>
+      {/* <div className='main_opacity'> */}
       {main}
-      <button onClick={addProjectChange}>+</button>
-      { loginModal && <Login loginChange={loginChange} signupChange={signupChange} />}
-      { signupModal && <Signup loginChange={loginChange} signupChange={signupChange} />}
-      { updateModal && <UpdateUserinfo updateUserinfoChange={updateUserinfoChange} />}
-      { newProjectModal && <NewProject addProjectChange={addProjectChange}/>}
-      {list}
+        <div className='main_list'>
+          <button className='main_addProject' onClick={addProjectChange}>새 프로젝트 추가</button>
+          { loginModal && <Login loginChange={loginChange} signupChange={signupChange} />}
+          { signupModal && <Signup loginChange={loginChange} signupChange={signupChange} />}
+          { updateModal && <UpdateUserinfo updateUserinfoChange={updateUserinfoChange} />}
+          { newProjectModal && <NewProject addProjectChange={addProjectChange}/>}
+          {list}
+        {/* </div> */}
+        </div>
+      </div>
     </>
   )
 }

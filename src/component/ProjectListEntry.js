@@ -17,11 +17,11 @@ function ProjectListEntry({content,taskCardCount}) {
 
   let color //state 색상변경
   if(sum <= 65){
-    color = {backgroundColor : 'red'}
+    color = {backgroundColor : '#ed6767'}
   }else if(sum > 66 && sum <=99){
-    color = {backgroundColor : 'yellow'}
+    color = {backgroundColor : '##ffb93b'}
   }else if(sum === 100){
-    color = {backgroundColor : 'blue'}
+    color = {backgroundColor : '#5393ca'}
   }
   const teamList = []
   for(let i = 0; i < contributers.length; i++){

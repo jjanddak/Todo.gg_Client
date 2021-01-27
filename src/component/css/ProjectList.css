@@ -1,6 +1,6 @@
 .main_nav{
     height: 55px;
-    background: #ccc;
+    background: #fff;
 }
 .main_logo {
     margin-left: 7px;
@@ -10,24 +10,76 @@
     font-size: 22px;
     text-align: right;
 }
+.main_main{
+    /* background-image: url(./img/pengu.jpg); */
+    background-size: cover;
+}
 .main_guesthome{
-    /* background-color: green; */
+    background-color: green;
     background-image: url(./img/pengu.jpg);
     background-size: cover;
     background-position: 0 -70px;
-    height: 300px;
+    height: 370px;
     /* text-align: center; */
 }
 .main_opacity{
     background-color: rgb(0,0,0,0.7);
-    height: 300px;
+    height: 370px;
 }
 .main_opacity h1{
-    font-size: 40px;
-    padding-top: 50px; padding-left: 500px;
+    font-size: 49px;
+    font-family: 'HangeulNuri-Bold';
+    /* padding-top: 50px; padding-left: 500px; */
     color:#fff;
 }
-.main_opacity button{
+.main_intro{
+    margin: 0 auto;
+    padding-top: 60px;
+    width: 700px;
+    /* border: 1px solid red; */
+}
+.main_opacity > button{
+    /* border-radius: 15px; */
+    /* background: #000; */
+    margin-top: 40px;
+    width: 350px;
+    height: 50px;
     /* text-align: center; */
-    
+}
+.main_Log{
+    float: right;
+    width:100px;
+    height: 50px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+.main_Log:focus{
+    outline: none
+}
+.main_addProject{
+    float:right;
+    margin: 20px 0;
+    width: 140px;
+    height: 45px;
+    /* background: #fff; */
+    background: linear-gradient(to right, #1080ff, #a406ff);
+    /* border: 1px solid black */
+    border: none;
+    border-radius: 50px;
+    color:#fff;
+    font-weight:bold;
+}
+.main_list{
+    /* background: #000; */
+    width: 1250px;
+    margin: 0 auto
+}
+
+@font-face {
+    font-family: 'HangeulNuri-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/HangeulNuri-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
