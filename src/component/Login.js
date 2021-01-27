@@ -4,6 +4,8 @@ import axios from "axios";
 import SHA256 from "./SHA256";
 import './css/Login.css';
 import { GoogleLogin } from "react-google-login";
+import githubIcon from "../avatars/GitHubMark.png";
+import googleIcon from "../avatars/google-icon.svg";
 
 axios.defaults.withCredentials = true;
 
@@ -60,52 +62,7 @@ class Login extends React.Component {
     console.log(err);
   }
 
-  //github Login
-  getAccessToken = async (authorizationCode) => {
-    // 받아온 authorization code로 다시 OAuth App에 요청해서 access token을 받을 수 있습니다.
-    // access token은 보안 유지가 필요하기 때문에 클라이언트에서 직접 OAuth App에 요청을 하는 방법은 보안에 취약할 수 있습니다.
-    // authorization code를 서버로 보내주고 서버에서 access token 요청을 하는 것이 적절합니다.
-    // TODO: 서버의 /callback 엔드포인트로 authorization code를 보내주고 access token을 받아옵니다.
-    await axios.post('https://localhost:4001/user/callback',
-    {
-      authorizationCode: authorizationCode
-    })
-    .then((res=>{
-      const accessToken=res.data.accessToken;
-      axios.get('https://api.github.com/user',
-      {
-        headers:{
-          authorization: `token ${accessToken}`
-        },
-        withCredentials:false
-      })
-      .then(res=>{
-        axios.post("https://localhost:4001/user/githubLogin",{
-          data:res.data
-        })
-        .then(result=>{
-          window.sessionStorage.clear()
-          window.sessionStorage.username=result.data.userinfo.username;
-          window.sessionStorage.profile=result.data.userinfo.profile;
-          window.sessionStorage.email=result.data.userinfo.email;
-          window.sessionStorage.accessToken=result.data.accessToken;
-          window.sessionStorage.id = result.data.userinfo.id;
-          window.sessionStorage.isLogin=true;
-          this.setState({gitLogin:!this.state.gitLogin});
-          this.props.history.push("/");
-        })
-      })
-    }))
-  }
-  componentDidMount() {
-    const url = new URL(window.location.href)
-    const authorizationCode = url.searchParams.get('code')
-    if (authorizationCode) {
-      // authorization server로부터 클라이언트로 리디렉션된 경우, authorization code가 함께 전달됩니다.
-      // ex) http://localhost:3000/?code=5e52fb85d6a1ed46a51f
-      this.getAccessToken(authorizationCode)
-    }
-  }
+  
 
   socialLoginHandler() { 
     window.location.assign(this.GITHUB_LOGIN_URL)
@@ -139,27 +96,47 @@ class Login extends React.Component {
     return (
       <div className='login_container' onClick={this.props.loginChange}>
         <div className='loginmodal'onClick={(e)=>e.stopPropagation()}>
-          <h1>Login</h1>
-          <p>이메일</p>
-          <input type='email' onChange={this.handleInputValue('email')}></input>
-          <p>비밀번호</p>
-          <input type='password' onChange={this.handleInputValue('password')}></input>
-          <div>{this.state.errorMessage}</div>
-          <button onClick={this.handleLogin}>
-            로그인
-        </button>
-        <button onClick={this.props.signupChange}>
-            회원가입
+          {/* <h1>Login</h1> */}
+          <p>
+            <input name='inputEmail' type='email' onChange={this.handleInputValue('email')} autoComplete='off' required></input>
+            <label for='inputEmail'><span>Email</span></label>
+          </p>
+          <p>
+          <input name='inputPassword' type='password' onChange={this.handleInputValue('password')} autoComplete='off' required></input>
+          <label for='inputPassword'><span>Password</span></label>
+          </p>
+          <div className='Signup_alert_box'>{this.state.errorMessage}</div>
+          <div className='btnwrapper'>
+            <button className='modalbtn' onClick={this.handleLogin}>
+              Login
             </button>
-            <button onClick={this.socialLoginHandler}>GitHub Login</button>
-            <GoogleLogin 
-            clientId="743718284620-8frgfcjhl356cc6llkl21galrcoj2s61.apps.googleusercontent.com"
-            buttonText="GoogleLogin"
-            onSuccess={this.responseGoogle}
-            onFailure={this.responseFail}
-            // isSignedIn={true}
-            cookiePolicy={"single_host_origin"}
-            />
+
+            <div className='socialwrapper'>
+              <div style={{height:60, padding:40, color:'rgb(111,111,111)'}}>Or login with</div>
+              <span>
+                <button className='githubbtn socialbtn' onClick={this.socialLoginHandler}><img src={githubIcon} /></button>              
+                <GoogleLogin 
+                  render={renderProps => (
+                    <button className='googlebtn socialbtn' onClick={renderProps.onClick} >
+                      <img src={googleIcon} />
+                      </button>
+                  )}
+                  className='googleBtn socialbtn' 
+                  clientId="743718284620-8frgfcjhl356cc6llkl21galrcoj2s61.apps.googleusercontent.com"
+                  buttonText="Google"
+                  onSuccess={this.responseGoogle}
+                  onFailure={this.responseFail}
+                  // isSignedIn={true}
+                  cookiePolicy={"single_host_origin"}
+                />
+              </span>
+              <div className='signupwrapper'>
+                <a className='' onClick={this.props.signupChange}>
+                    Sign up
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )
