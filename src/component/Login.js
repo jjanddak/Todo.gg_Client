@@ -92,7 +92,7 @@ class Login extends React.Component {
           window.sessionStorage.id = result.data.userinfo.id;
           window.sessionStorage.isLogin=true;
           this.setState({gitLogin:!this.state.gitLogin});
-          this.props.history.push("/");
+
         })
       })
     }))
@@ -104,11 +104,13 @@ class Login extends React.Component {
       // authorization server로부터 클라이언트로 리디렉션된 경우, authorization code가 함께 전달됩니다.
       // ex) http://localhost:3000/?code=5e52fb85d6a1ed46a51f
       this.getAccessToken(authorizationCode)
+
     }
   }
 
   socialLoginHandler() { 
     window.location.assign(this.GITHUB_LOGIN_URL)
+    this.props.loginChange()
   }
 
   handleLogin = () => {
