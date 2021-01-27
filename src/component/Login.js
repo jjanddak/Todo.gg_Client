@@ -4,6 +4,7 @@ import axios from "axios";
 import SHA256 from "./SHA256";
 import './css/Login.css';
 import { GoogleLogin } from "react-google-login";
+import githubIcon from "../avatars/GitHubMark.png";
 
 axios.defaults.withCredentials = true;
 
@@ -111,16 +112,19 @@ class Login extends React.Component {
             <button className='modalbtn' onClick={this.props.signupChange}>
                 회원가입
             </button>
-            <button className='modalbtn' onClick={this.socialLoginHandler}>GitHub Login</button>
-            <GoogleLogin 
-              className='googleBtn' 
-              clientId="743718284620-8frgfcjhl356cc6llkl21galrcoj2s61.apps.googleusercontent.com"
-              buttonText="GoogleLogin"
-              onSuccess={this.responseGoogle}
-              onFailure={this.responseFail}
-              // isSignedIn={true}
-              cookiePolicy={"single_host_origin"}
-            />
+            
+            <div className='socialwrapper'>
+              <button className='githubbtn socialbtn' onClick={this.socialLoginHandler}><img src={githubIcon} /></button>              
+              <GoogleLogin 
+                className='googleBtn socialbtn' 
+                clientId="743718284620-8frgfcjhl356cc6llkl21galrcoj2s61.apps.googleusercontent.com"
+                buttonText="Google"
+                onSuccess={this.responseGoogle}
+                onFailure={this.responseFail}
+                // isSignedIn={true}
+                cookiePolicy={"single_host_origin"}
+              />
+            </div>
           </div>
         </div>
       </div>

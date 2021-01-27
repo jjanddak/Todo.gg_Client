@@ -41,6 +41,30 @@
     text-align: center;
 }
 
+.loginmodal .socialwrapper {
+    width: 90%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.loginmodal .socialwrapper .socialbtn {
+    height: 10%;
+    border: none;    
+}
+.loginmodal .githubbtn{
+    width: 50%;
+    position: relative;
+    top: 15px;
+    margin-right: 10px;
+}
+.loginmodal img{
+    width: 40%;
+    cursor: pointer;
+}
+.loginmodal .googleBtn{
+    width: 44%;
+}
+
 .loginmodal p{
     position: relative;
     width: 100%;
