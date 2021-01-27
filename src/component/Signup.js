@@ -101,7 +101,7 @@ function Signup({signupChange,loginChange}) {
       setState({
         ...state,
         password: "",
-        passwordMessage: "비밀번호를 입력 해 주세요",
+        passwordMessage: "비밀번호를 입력해 주세요",
       })
     } else if (firstPassword.length < 6 || firstPassword.length > 12) {
       setState({
@@ -216,11 +216,11 @@ function Signup({signupChange,loginChange}) {
         >중복확인</button>
       </p>
       <div className="Signup_alert_box">{usernameMessage}</div>
+      <div className="Signup_alert_box signupErr">{errorMessage}</div>
       
       <div>
         <Link onClick={loginChange}>이미 아이디가 있으신가요?</Link>
       </div>
-      <div className="Signup_alert_box">{errorMessage}</div>
       <div>
         <button
           className="SignUp_submit_button modalbtn"

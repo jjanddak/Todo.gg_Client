@@ -26,19 +26,26 @@
 }
 
 .loginmodal div{
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     text-align: center;
 }
 
 .loginmodal .Signup_alert_box{
-    height: 16px;
+    height: 20px;
+    font-size: small;
+    text-align: left;
+}
+
+.loginmodal .signupErr {
+    color: red;
+    text-align: center;
 }
 
 .loginmodal p{
     position: relative;
     width: 100%;
     height: 50px;
-    margin-bottom: 20px;
+    margin-top: 20px;
     overflow: hidden;
     justify-content: space-around;
     display: flex;
