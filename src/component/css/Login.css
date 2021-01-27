@@ -30,6 +30,10 @@
     text-align: center;
 }
 
+.loginmodal .Signup_alert_box{
+    height: 16px;
+}
+
 .loginmodal p{
     position: relative;
     width: 100%;
