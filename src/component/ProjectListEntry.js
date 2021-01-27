@@ -19,7 +19,7 @@ function ProjectListEntry({content,taskCardCount}) {
   if(sum <= 65){
     color = {backgroundColor : '#ed6767'}
   }else if(sum > 66 && sum <=99){
-    color = {backgroundColor : '##ffb93b'}
+    color = {backgroundColor : '#ffb93b'}
   }else if(sum === 100){
     color = {backgroundColor : '#5393ca'}
   }
@@ -36,14 +36,17 @@ function ProjectListEntry({content,taskCardCount}) {
     <Link to={`/project/${content.project_id}`} className='entry' >
       <div className='entry_stateColor' style={color}></div>
       <div className='box'>
-        <p className='entry_title'>{project.title}<br />{start_date}<br />{`~${end_date === '9999-01-01' ? '완료날짜미정' :end_date}`}</p>
+        <p className='entry_title'>{project.title}</p>
+        <p className='entry_date'>{start_date}{` ~ ${end_date === '9999-01-01' ? '완료날짜미정' :end_date}`}</p>
       </div>
-      <img src={project.user.profile} className='entry_host'></img>
-      <div className='box'>
+      <div className='entry_host'><img className='entry_host' src={project.user.profile}></img></div>
+      <div className='box kdabox'>
         <p className='entry_kda'>{`${todo}/${inprogress}/${done}`}</p>
         <p className='entry_progress'>{`진행 ${sum ? sum :0}%`}</p>
       </div>
-      <p className='entry_description'>{project.description}</p>
+      {/* <div className='entry_description_parent'> */}
+        <span className='entry_description'>{project.description}</span>
+      {/* </div> */}
       <div className='entry_team'>
         {teamList}
       </div>

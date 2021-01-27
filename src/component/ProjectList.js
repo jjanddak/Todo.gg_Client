@@ -123,15 +123,15 @@ function ProjectList() {
       <div className='main_main'>
       {/* <div className='main_opacity'> */}
       {main}
-        <div className='main_list'>
-          <button className='main_addProject' onClick={addProjectChange}>새 프로젝트 추가</button>
-          { loginModal && <Login loginChange={loginChange} signupChange={signupChange} />}
-          { signupModal && <Signup loginChange={loginChange} signupChange={signupChange} />}
-          { updateModal && <UpdateUserinfo updateUserinfoChange={updateUserinfoChange} />}
-          { newProjectModal && <NewProject addProjectChange={addProjectChange}/>}
-          {list}
-        {/* </div> */}
-        </div>
+      { loginModal && <Login loginChange={loginChange} signupChange={signupChange} />}
+      { signupModal && <Signup loginChange={loginChange} signupChange={signupChange} />}
+      { updateModal && <UpdateUserinfo updateUserinfoChange={updateUserinfoChange} />}
+      { newProjectModal && <NewProject addProjectChange={addProjectChange}/>}
+      <div className='main_list'>
+        <button className='main_addProject' onClick={addProjectChange}>새 프로젝트 추가</button>
+        {list}
+      {/* </div> */}
+      </div>
       </div>
     </>
   )

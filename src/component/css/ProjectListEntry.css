@@ -1,7 +1,7 @@
 .entry{
     display: block;
     clear: both;
-    /* border:1px solid red; */
+    border: 1px solid rgb(214, 214, 214);
     width:1250px;
     height: 120px;
     margin-bottom: 15px;
@@ -22,15 +22,17 @@
 
 .entry_title{
     /* border: 1px solid red; */
-    /* padding:11% 0; */
+    padding:10% 0 5% 0;
     font-size: 22px;
 }
 .entry_date{
     /* margin-top: 10px; */
-    /* font-size: 22px; */
+    font-size: 16px;
 }
 .entry_host{
-    width: 100px; height: 100px;
+    width: 80px; height: 80px;
+    margin-top: 10px;
+    border-radius: 50%;
 }
 .box{
     /* border:1px solid red; */
@@ -38,14 +40,27 @@
     width: 300px;
     /* margin: 0 30px */
 }
+.kdabox{
+    /* text-align: center; */
+    width: 200px;
+}
 .entry_kda{
-
+    margin-top: 40px;  
 }
 .entry_progress{
+}
 
+.entry_description_parent{
+    /* position: relative; */
+    width: 330px;
+    height: 120px; 
+    display: inline-block;
 }
 .entry_description{
-    width: 330px;
+    width: 430px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 .entry_team{
     /* border: 1px solid red; */
@@ -53,6 +68,8 @@
     float: left;
     width: 190px;
     height: 120px;
+    /* margin-left: 20px; */
+    padding-left: 40px;
 }
 .entry_teamimg{
     width: 50px;height: 50px;
