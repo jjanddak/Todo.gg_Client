@@ -6,7 +6,7 @@
 }
 .loginmodal{
     position: absolute;
-    background-color: #eee;
+    background-color: rgb(255, 255, 255);
     border-radius: 15px;
     left: 50%; top: 50%;
     transform:translate(-50%,-50%);
@@ -16,7 +16,7 @@
     padding-bottom : 33px;
     padding-left : 55px;
     padding-right : 55px;
-    padding-top : 77px;
+    padding-top : 55px;
     overflow: hidden;
 }
 
@@ -41,28 +41,32 @@
     text-align: center;
 }
 
-.loginmodal .socialwrapper {
-    width: 90%;
-    margin-top: 20px;
+.loginmodal .btnwrapper {
     text-align: center;
+    height: auto;
+}
+
+.loginmodal .socialwrapper {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .loginmodal .socialwrapper .socialbtn {
     height: 10%;
-    border: none;    
-}
-.loginmodal .githubbtn{
-    width: 50%;
-    position: relative;
-    top: 15px;
-    margin-right: 10px;
+    border: none;
+    outline: none;
+    background-color: transparent;
 }
 .loginmodal img{
-    width: 40%;
+    width: 40px;
     cursor: pointer;
+    border-radius: 50%;
 }
-.loginmodal .googleBtn{
-    width: 44%;
+.loginmodal .googlebtn img{
+    width: 40px;
+    margin-left: 20px;
 }
 
 .loginmodal p{
@@ -140,9 +144,6 @@
     transform: translateX(0%);
 }
 
-.loginmodal .btnwrapper {
-    text-align: center;
-}
 
 .loginmodal .modalbtn {
     color: #fff;
@@ -158,7 +159,10 @@
     font-weight: bold;
 }
 
-
-.googleBtn {
-    margin-top: 20px;
+.signupwrapper {
+    flex: 1;
+    padding-top: 100px;
+}
+.signupwrapper a{
+    cursor: pointer;
 }

@@ -4,6 +4,9 @@ import axios from "axios";
 import SHA256 from "./SHA256";
 import Pictures from "./Pictures";
 import './css/Login.css';
+import GoogleLogin from "react-google-login";
+import githubIcon from "../avatars/GitHubMark.png";
+import googleIcon from "../avatars/google-icon.svg";
 
 axios.defaults.withCredentials = true;
 
@@ -21,6 +24,7 @@ function Signup({signupChange,loginChange}) {
     passwordMessage: "",
     errorMessage: "",
   })
+  const GITHUB_LOGIN_URL = 'https://github.com/login/oauth/authorize?client_id=48913fb6f49bac54449a'
   const { emailChecked, email, emailMessage, usernameChecked, username, usernameMessage, password, firstPassword, lastPassword, passwordMessage, errorMessage } = state;
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -147,6 +151,45 @@ function Signup({signupChange,loginChange}) {
     }
   };
 
+  //Google Login
+  const responseGoogle = (res) => {
+    axios.post("https://localhost:4001/user/googleLogin", {
+      email: res.profileObj.googleId,
+      username: res.profileObj.name,
+      password: res.profileObj.email,
+      profile: res.profileObj.imageUrl
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: false
+    })
+      .then((param) => {
+        window.sessionStorage.clear()
+        window.sessionStorage.accessToken = param.data.accessToken
+        window.sessionStorage.email = param.data.userinfo.email
+        window.sessionStorage.username = param.data.userinfo.username
+        window.sessionStorage.profile = param.data.userinfo.profile
+        window.sessionStorage.id = param.data.userinfo.id
+        window.sessionStorage.isLogin = true
+        this.props.loginChange()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  //Google Login Fail
+  const responseFail = (err) => {
+    console.log(err);
+  }
+
+  
+
+  const socialLoginHandler = () => { 
+    window.location.assign(GITHUB_LOGIN_URL)
+  }
+
   return (
     <div className='login_container' onClick={signupChange}>
     <div className="Signup loginmodal" onClick={(e)=>e.stopPropagation()}>
@@ -218,14 +261,31 @@ function Signup({signupChange,loginChange}) {
       <div className="Signup_alert_box">{usernameMessage}</div>
       <div className="Signup_alert_box signupErr">{errorMessage}</div>
       
-      <div>
-        <Link onClick={loginChange}>이미 아이디가 있으신가요?</Link>
+      <div className='socialwrapper'>
+        <div style={{height:40, padding:0, color:'rgb(111,111,111)'}}>Or login with</div>
+        <span>
+          <button className='githubbtn socialbtn' onClick={socialLoginHandler}><img src={githubIcon} /></button>              
+          <GoogleLogin 
+            render={renderProps => (
+              <button className='googlebtn socialbtn' onClick={renderProps.onClick} >
+                <img src={googleIcon} />
+                </button>
+            )}
+            className='googleBtn socialbtn' 
+            clientId="743718284620-8frgfcjhl356cc6llkl21galrcoj2s61.apps.googleusercontent.com"
+            buttonText="Google"
+            onSuccess={responseGoogle}
+            onFailure={responseFail}
+            // isSignedIn={true}
+            cookiePolicy={"single_host_origin"}
+          />
+        </span>
       </div>
       <div>
         <button
           className="SignUp_submit_button modalbtn"
           onClick={handleSignup}
-        >회원가입</button>
+        >Sign up</button>
       </div>
     </div>
     </div>

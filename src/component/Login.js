@@ -5,6 +5,7 @@ import SHA256 from "./SHA256";
 import './css/Login.css';
 import { GoogleLogin } from "react-google-login";
 import githubIcon from "../avatars/GitHubMark.png";
+import googleIcon from "../avatars/google-icon.svg";
 
 axios.defaults.withCredentials = true;
 
@@ -107,23 +108,33 @@ class Login extends React.Component {
           <div className='Signup_alert_box'>{this.state.errorMessage}</div>
           <div className='btnwrapper'>
             <button className='modalbtn' onClick={this.handleLogin}>
-              로그인
+              Login
             </button>
-            <button className='modalbtn' onClick={this.props.signupChange}>
-                회원가입
-            </button>
-            
+
             <div className='socialwrapper'>
-              <button className='githubbtn socialbtn' onClick={this.socialLoginHandler}><img src={githubIcon} /></button>              
-              <GoogleLogin 
-                className='googleBtn socialbtn' 
-                clientId="743718284620-8frgfcjhl356cc6llkl21galrcoj2s61.apps.googleusercontent.com"
-                buttonText="Google"
-                onSuccess={this.responseGoogle}
-                onFailure={this.responseFail}
-                // isSignedIn={true}
-                cookiePolicy={"single_host_origin"}
-              />
+              <div style={{height:60, padding:40, color:'rgb(111,111,111)'}}>Or login with</div>
+              <span>
+                <button className='githubbtn socialbtn' onClick={this.socialLoginHandler}><img src={githubIcon} /></button>              
+                <GoogleLogin 
+                  render={renderProps => (
+                    <button className='googlebtn socialbtn' onClick={renderProps.onClick} >
+                      <img src={googleIcon} />
+                      </button>
+                  )}
+                  className='googleBtn socialbtn' 
+                  clientId="743718284620-8frgfcjhl356cc6llkl21galrcoj2s61.apps.googleusercontent.com"
+                  buttonText="Google"
+                  onSuccess={this.responseGoogle}
+                  onFailure={this.responseFail}
+                  // isSignedIn={true}
+                  cookiePolicy={"single_host_origin"}
+                />
+              </span>
+              <div className='signupwrapper'>
+                <a className='' onClick={this.props.signupChange}>
+                    Sign up
+                </a>
+              </div>
             </div>
           </div>
         </div>
