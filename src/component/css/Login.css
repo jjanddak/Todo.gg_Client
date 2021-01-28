@@ -11,7 +11,7 @@
     left: 50%; top: 50%;
     transform:translate(-50%,-50%);
     width: 50%; height: 70%;
-    max-width: 400px; min-width: 200px;
+    max-width: 400px; min-width: 400px;
     min-height: 300px;
     padding-bottom : 33px;
     padding-left : 55px;
@@ -39,6 +39,7 @@
 .loginmodal .signupErr {
     color: red;
     text-align: center;
+    font-weight: bold;
 }
 
 .loginmodal .btnwrapper {
