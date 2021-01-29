@@ -85,14 +85,16 @@ function NewProject({addProjectChange}) {
             console.log(err)
           })
       } else {
-        const oldProjectLst = JSON.parse(window.sessionStorage.guestProjectList)
+        let oldProjectLst = JSON.parse(window.sessionStorage.guestProjectList)
         const newProject = JSON.parse(window.sessionStorage.guestProjectList).contributers
+        let newProjectId = JSON.parse(window.sessionStorage.guestProjectList).contributers[oldProjectLst.contributers.length-1].project_id+1
+        // setState({...state,newProjectId:newProjectId++});
         oldProjectLst.contributers.push(
           {
-            project_id:newProject.length+1,
+            project_id:newProjectId,
             user_id: 2,
             project:{
-              id:newProject.length+1,
+              id:newProjectId,
               title:title,
               description:description,
               manager_id:2,
@@ -106,13 +108,13 @@ function NewProject({addProjectChange}) {
           }
         )
         oldProjectLst.taskCardCount.push({
-          project_id:newProject.length,
+          project_id:newProjectId,
           done:0,
           inprogress: 0,
           todo: 0
         })
         window.sessionStorage.guestProjectList =JSON.stringify(oldProjectLst)
-        history.push(`/project/${newProject.length}`)
+        history.push(`/project/${newProjectId}`)
       }
     }
     else {

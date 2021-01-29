@@ -108,9 +108,12 @@
 .todoList_todo_list, .todoList_inprogress_list, .todoList_done_list {
   overflow: auto;
   height: 745px;
+  display: flex;
+  flex-direction: column;
 }
 .todoList_position_box {
   border: solid 2px coral; /*! 삭제 하라고*/
+  flex:1;
   /* height: */
 }
 
