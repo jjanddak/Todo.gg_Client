@@ -377,13 +377,13 @@ function TodoList() {
           ? (<div className="todoList_cards_remove">
             <div>삭제 하시겠습니까?</div>
             <button className="todoList_cards_remove_submit" onClick={showDelete.func}>submit</button>
-            <button className="todoList_cards_remove_cencel" onClick={() => { setShowDelete({ [item.id]: false }) }}>cencel</button>
+            <button className="todoList_cards_remove_cancel" onClick={() => { setShowDelete({ [item.id]: false }) }}>cancel</button>
           </div>)
           : (showEditCard[item.id]
             ? (<>
               <textarea className="todoList_cards_textarea" name="editContent" value={editTaskContent} onChange={onChange} />
               <button className="todoList_cards_confirm_button_submit" onClick={() => { editCard(item.id) }}>submit</button>
-              <button className="todoList_cards_confirm_button_cencel" onClick={() => { setShowEditCard({ [item.id]: false }) }}>cancel</button>
+              <button className="todoList_cards_confirm_button_cancel" onClick={() => { setShowEditCard({ [item.id]: false }) }}>cancel</button>
             </>)
             : (<>
               <div onDrop={() => { dropItem(item.state, item.position) }} onDragOver={dragHover}>

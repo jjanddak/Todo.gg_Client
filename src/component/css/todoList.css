@@ -156,7 +156,7 @@
   border: none;
   border-right: 1px #aaa solid;
 }
-.todoList_cards_confirm_button_cencel {
+.todoList_cards_confirm_button_cancel {
   display: inline-block;
   width: 137px;
   height: 26px;
@@ -223,7 +223,7 @@
   border: none;
   border-right: 1px #aaa solid;
 }
-.todoList_cards_remove_cencel {
+.todoList_cards_remove_cancel {
   display: inline-block;
   width: 137px;
   height: 26px;
