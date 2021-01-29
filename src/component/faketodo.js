@@ -102,26 +102,10 @@ const dummy = [
           },
           {
             id: 3,
-            content: "task_card_03",
+            content: "우하단 버튼을 통해 담당 인원을 추가 할 수 있수 있고 추가 된 이미지를 클릭 해 삭제 할 수 있습니다",
             state: "done",
             project_id: 0,
-            position: 5,
-            contributers: []
-          },
-          {
-            id: 4,
-            content: "task_card_04",
-            state: "done",
-            project_id: 0,
-            position: 6,
-            contributers: []
-          },
-          {
-            id: 5,
-            content: "task_card_05",
-            state: "inprogress",
-            project_id: 0,
-            position: 7,
+            position: 99,
             contributers: [
               {
                 id: 5,
@@ -148,11 +132,28 @@ const dummy = [
             ]
           },
           {
+            id: 4,
+            content: "task_card_04",
+            state: "done",
+            project_id: 0,
+            position: 6,
+            contributers: []
+          },
+          {
+            id: 5,
+            content: "우측의 버튼을 통해 카드의 내용을 수정/삭제 할 수 있습니다",
+            state: "inprogress",
+            project_id: 0,
+            position: 99,
+            contributers: [
+            ]
+          },
+          {
             id: 6,
             content: "프로젝트에 참여 중인 인원은 프로젝트 관리 페이지에서 확인 할 수 있습니다",
             state: "todo",
             project_id: 0,
-            position: 9,
+            position: 99,
             contributers: [
               {
                 id: 2,
@@ -277,11 +278,34 @@ const dummy = [
       [
           {
             id: 0,
-            content: "task_card_00",
+            content: "우하단 버튼을 통해 담당 인원을 추가 할 수 있수 있고 추가 된 이미지를 클릭 해 삭제 할 수 있습니다",
             state: "done",
             project_id: 1,
-            position: 9,
-            contributers: []
+            position: 99,
+            contributers: [
+              {
+                id: 5,
+                project_id: 1,
+                taskCard_id: 3,
+                user_id: 4,
+                user: {
+                  id: 4,
+                  profile: "/static/media/avt_9.ee26d074.png",
+                  username: "아무개4"
+                }
+              },
+              {
+                id: 4,
+                project_id: 1,
+                taskCard_id: 3,
+                user_id: 1,
+                user: {
+                  id: 1,
+                  profile: "/static/media/avt_15.b09a1586.png",
+                  username: "아무개1"
+                }
+              }
+            ]
           },
           {
             id: 1,
@@ -325,33 +349,11 @@ const dummy = [
           },
           {
             id: 6,
-            content: "task_card_06",
+            content: "우측의 버튼을 통해 카드의 내용을 수정/삭제 할 수 있습니다",
             state: "inprogress",
             project_id: 1,
             position: 2,
             contributers: [
-              {
-                id: 5,
-                project_id: 1,
-                taskCard_id: 3,
-                user_id: 4,
-                user: {
-                  id: 4,
-                  profile: "/static/media/avt_9.ee26d074.png",
-                  username: "아무개4"
-                }
-              },
-              {
-                id: 4,
-                project_id: 1,
-                taskCard_id: 3,
-                user_id: 1,
-                user: {
-                  id: 1,
-                  profile: "/static/media/avt_15.b09a1586.png",
-                  username: "아무개1"
-                }
-              }
             ]
           },
           {
@@ -478,7 +480,7 @@ const dummy = [
           },
           {
             id: 1,
-            content: "task_card_01",
+            content: "우측의 버튼을 통해 카드의 내용을 수정/삭제 할 수 있습니다",
             state: "done",
             project_id: 2,
             position: 8,
@@ -502,18 +504,10 @@ const dummy = [
           },
           {
             id: 4,
-            content: "task_card_04",
+            content: "우하단 버튼을 통해 담당 인원을 추가 할 수 있수 있고 추가 된 이미지를 클릭 해 삭제 할 수 있습니다",
             state: "done",
             project_id: 2,
-            position: 5,
-            contributers: []
-          },
-          {
-            id: 5,
-            content: "task_card_05",
-            state: "done",
-            project_id: 2,
-            position: 4,
+            position: 99,
             contributers: [
               {
                 id: 5,
@@ -538,6 +532,14 @@ const dummy = [
                 }
               }
             ]
+          },
+          {
+            id: 5,
+            content: "task_card_05",
+            state: "done",
+            project_id: 2,
+            position: 4,
+            contributers: []
           },
           {
             id: 6,

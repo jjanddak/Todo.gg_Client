@@ -20,11 +20,12 @@ function TodoList() {
   const [taskContent, setTaskContent] = useState("");
   const [newMember, setNewMember] = useState("");
   const [newMemberErr, setNewMemberErr] = useState("");
-  const [showDelete, setShowDelete] = useState({func: () => {}});
+  const [showDelete, setShowDelete] = useState({ func: () => { } });
   const [showAddCard, setShowAddCard] = useState(false);
   const [showEditCard, setShowEditCard] = useState({});
   const [showAddMembar, setShowAddMembar] = useState({});
   const [editProjectModal, setEditProjectModal] = useState(false);
+  const [editCardInfo, setEditCardInfo] = useState({});
   const process = Math.round(counts.done / (counts.todo + counts.inprogress + counts.done) * 100);
   let todoList = [];
   let inprogressList = [];
@@ -71,7 +72,7 @@ function TodoList() {
           storage[`cnt${projectId}`] = JSON.stringify(dummy[projectId].taskCardCount);
         } else {
           let pjt = JSON.parse(storage.guestProjectList).contributers[projectId].project;
-          pjt = {...pjt, taskCards: []};
+          pjt = { ...pjt, taskCards: [] };
           storage[`pjt${projectId}`] = JSON.stringify(pjt);
           storage[`cnt${projectId}`] = JSON.stringify(counts);
         }
@@ -112,10 +113,10 @@ function TodoList() {
   };
   const addCard = () => {
     if (!isLogin) {
-    const newId = project.taskCards.length
-    ? project.taskCards.sort((a, b) => { return a.id - b.id })[project.taskCards.length - 1].id + 1
-    : 0;
-    setProject({
+      const newId = project.taskCards.length
+        ? project.taskCards.sort((a, b) => { return a.id - b.id })[project.taskCards.length - 1].id + 1
+        : 0;
+      setProject({
         ...project,
         taskCards: [...project.taskCards, {
           id: newId,
@@ -149,7 +150,7 @@ function TodoList() {
     }
   };
   const deleteCard = (id) => {
-    setShowDelete({[id]: false});
+    setShowDelete({ [id]: false });
     if (!isLogin) {
       setProject({
         ...project,
@@ -235,6 +236,7 @@ function TodoList() {
           ...project,
           taskCards: cards,
         });
+        setNewMember("");
         setNewMemberErr("");
         setShowAddMembar({ [id]: false });
       } else {
@@ -249,6 +251,7 @@ function TodoList() {
         })
           .then(() => {
             getProject();
+            setNewMember("");
             setNewMemberErr("");
           })
           .catch((err) => {
@@ -258,14 +261,14 @@ function TodoList() {
     }
   };
   const removeMember = (cardId, userId) => {
-    setShowDelete({[cardId]: false});
+    setShowDelete({ [cardId]: false });
     if (!isLogin) {
       const newCards = [];
-      for(let card of project.taskCards) {
-        if(card.id === cardId) {
+      for (let card of project.taskCards) {
+        if (card.id === cardId) {
           const editedMember = [];
-          for(let member of card.contributers) {
-            if(member.user.id === userId) {
+          for (let member of card.contributers) {
+            if (member.user.id === userId) {
               continue;
             }
             editedMember.push(member);
@@ -346,6 +349,13 @@ function TodoList() {
   const allowDrop = (e) => {
     e.preventDefault();
   };
+  const dragHover = (e) => {
+
+    offDragOver(e);
+  }
+  const offDragOver = (e) => {
+
+  }
   const dragItem = (item) => { //* 이동 할 카드 정보
     movingCard = item;
   };
@@ -360,48 +370,49 @@ function TodoList() {
         key={item.id}
       >
         {showDelete[item.id]
-          ? (<div className="todoList_cards_delete">
-            삭제 하시겠습니까?
-            <button onClick={showDelete.func}>O</button>
-            <button onClick={() => {setShowDelete({[item.id]: false})}}>X</button>
+          ? (<div className="todoList_cards_remove">
+            <div>삭제 하시겠습니까?</div>
+            <button className="todoList_cards_remove_submit" onClick={showDelete.func}>submit</button>
+            <button className="todoList_cards_remove_cencel" onClick={() => { setShowDelete({ [item.id]: false }) }}>cencel</button>
           </div>)
           : (showEditCard[item.id]
-              ? (<>
-                  <textarea className="todoList_cards_textarea" name="content" value={taskContent} onChange={onChange} />
-                  <button className="todoList_cards_button" onClick={() => { editCard(item.id) }}>submit</button>
-                  <button className="todoList_cards_button" onClick={() => { setShowEditCard({ [item.id]: false }) }}>cancel</button>
-                </>) 
-              : (<>
-                  <div onDrop={() => { dropItem(item.state, item.position) }}>
-                    <div className="todoList_cards_content">{item.content}</div>
-                    <button className="todoList_cards_button" onClick={() => {
-                      setTaskContent(item.content)
-                      setShowEditCard({ [item.id]: true })
-                    }}>⚙</button>
-                    <button className="todoList_cards_button" onClick={() => {setShowDelete({ [item.id]: true, func: () => {deleteCard(item.id)} })}}>✖</button>
-                  </div>
-                  <div onDrop={() => { dropItem(item.state, item.position - 1) }}>
-                    <div className="todoList_cards_contributers">
-                      {item.contributers.map((el) => {
-                        return (
-                          <button onClick={() => {setShowDelete({ [item.id]: true, func: () => {removeMember(item.id, el.user.id)} })}} key={el.id}>
-                            <img className="todoList_cards_contributers_profile" src={el.user.profile} title={el.user.username} alt={el.user.username} />
-                          </button>
-                        )
-                      })}
+            ? (<>
+              <textarea className="todoList_cards_textarea" name="content" value={taskContent} onChange={onChange} />
+              <button className="todoList_cards_confirm_button_submit" onClick={() => { editCard(item.id) }}>submit</button>
+              <button className="todoList_cards_confirm_button_cencel" onClick={() => { setShowEditCard({ [item.id]: false }) }}>cancel</button>
+            </>)
+            : (<>
+              <div onDrop={() => { dropItem(item.state, item.position) }} onDragOver={dragHover}>
+                <div className="todoList_cards_content">
+                  <div className="todoList_edit" onMouseEnter={() => { setEditCardInfo({ [item.id]: true }) }}>···</div>
+                  {editCardInfo[item.id]
+                    &&
+                    <div className="todoList_editList" onMouseLeave={() => { setEditCardInfo({ [item.id]: false }) }}>
+                      <button className="todoList_cards_button" onClick={() => { setTaskContent(item.content); setShowEditCard({ [item.id]: true }); setEditCardInfo({ [item.id]: false }) }}>수정</button>
+                      <button className="todoList_cards_button" onClick={() => { setShowDelete({ [item.id]: true, func: () => { deleteCard(item.id) } }); setEditCardInfo({ [item.id]: false }) }}>삭제</button>
                     </div>
-                    <button className="todoList_cards_button" onClick={() => { setShowAddMembar({ [item.id]: !showAddMembar[item.id] });setNewMemberErr("") }}>➕</button>
-                  </div>
-                  {showAddMembar[item.id] && (
-                    <div className="todoList_cards_add_member">
-                      <input type="text" name="member" onChange={onChange} />
-                      <button className="todoList_cards_button" onClick={() => { addMember(item.id) }}>add</button>
-                      <div className="todoList_cards_add_member_err">{newMemberErr}</div>
-                    </div>
-                  )}
-                </>)
-            )
-          }
+                  }
+                  {item.content}
+                </div>
+              </div>
+              <div className="todoList_mambers" onDrop={() => { dropItem(item.state, item.position - 1) }} onDragOver={dragHover}>
+                <div className="todoList_cards_contributers">
+                  {item.contributers.map((el) => {
+                    return <img className="todoList_cards_contributers_profile" src={el.user.profile} title={el.user.username} alt={el.user.username} onClick={() => { setShowDelete({ [item.id]: true, func: () => { removeMember(item.id, el.user.id) } }) }} key={el.id} />
+                  })}
+                </div>
+                <button className="todoList_cards_contributers_button" onClick={() => { setShowAddMembar({ [item.id]: !showAddMembar[item.id] }); setNewMemberErr("") }}>➕</button>
+              </div>
+              {showAddMembar[item.id] && (
+                <div className="todoList_cards_add_member">
+                  <input className="todoList_cards_contributers_input" type="text" name="member" onChange={onChange} />
+                  <button className="todoList_cards_contributers_add_button" onClick={() => { addMember(item.id) }}>add</button>
+                  <div className="todoList_cards_add_member_err">{newMemberErr}</div>
+                </div>
+              )}
+            </>)
+          )
+        }
       </div>
     )
   };
@@ -428,10 +439,10 @@ function TodoList() {
     <div className="todoList">
       <nav className="todoList_nav">
         <div className="todoList_nav_process_color" style={color} />
-        <span className="todoList_nav_title">{project.title}</span>
         <div className="todoList_nav_info">
-          <div className="todoList_nav_process">{`진행도 ${process ? process : 0}%`}</div>
-          <div className="todoList_nav_date">{`${project.start_date} ~ ${project.end_date === '9999-01-01' ? '완료날짜 미정' : project.end_date}`}</div>
+          <p className="todoList_nav_title">{project.title}</p>
+          {/* <p className="todoList_nav_date">{`${project.start_date} ~ ${project.end_date === '9999-01-01' ? '완료날짜 미정' : project.end_date}`}</p>
+          <p className="todoList_nav_process">{`진행도${process ? process : 0}%`}</p> */}
         </div>
         <div className="todoList_nav_buttons">
           {isLogin && <button className="todoList_nav_button logout" onClick={logout}>로그아웃</button>}
@@ -440,36 +451,33 @@ function TodoList() {
         </div>
       </nav>
       <div className="todoList_taskCards" onDragOver={allowDrop}>
-        <div className="todoList_todo">todo
-          <button className="todoList_add_card" onClick={() => setShowAddCard(!showAddCard)}>add card</button>
+        <div className="todoList_todo">
           <div className="todoList_counts">{counts.todo}</div>
-          <div className="todoList_add_" style={{ display: showAddCard ? "block" : "none" }}>
+          <div className="todoList_list_title">todo</div>
+          <button className="todoList_add_card" onClick={() => setShowAddCard(!showAddCard)}>➕</button>
+          <div className="todoList_add_box" style={{ display: showAddCard ? "block" : "none" }}>
             <textarea className="todoList_input" name="content" onChange={onChange} value={taskContent} />
             <button className="todoList_submit_input" onClick={addCard}>add</button>
           </div>
           <div className="todoList_todo_list">
-            {renderTodoList.length
-              ? renderTodoList
-              : <div className="todoList_position_box" onDrop={() => { dropItem("todo", -1) }} />
-            }
+            {renderTodoList}
+            <div className="todoList_position_box" onDrop={() => { dropItem("todo", -1) }} />
           </div>
         </div>
-        <div className="todoList_inprogress" onDragOver={allowDrop}>in progress
+        <div className="todoList_inprogress" onDragOver={allowDrop}>
           <div className="todoList_counts">{counts.inprogress}</div>
+          <div className="todoList_list_title">in progress</div>
           <div className="todoList_inprogress_list">
-            {renderInprogressList.length
-              ? renderInprogressList
-              : <div className="todoList_position_box" onDrop={() => { dropItem("inprogress", -1) }} />
-            }
+            {renderInprogressList}
+            <div className="todoList_position_box" onDrop={() => { dropItem("inprogress", -1) }} />
           </div>
         </div>
-        <div className="todoList_done" onDragOver={allowDrop}>done
+        <div className="todoList_done" onDragOver={allowDrop}>
           <div className="todoList_counts">{counts.done}</div>
+          <div className="todoList_list_title">done</div>
           <div className="todoList_done_list">
-            {renderDoneList.length
-              ? renderDoneList
-              : <div className="todoList_position_box" onDrop={() => { dropItem("done", -1) }} />
-            }
+            {renderDoneList}
+            <div className="todoList_position_box" onDrop={() => { dropItem("done", -1) }} />
           </div>
         </div>
       </div>
