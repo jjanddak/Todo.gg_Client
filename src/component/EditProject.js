@@ -83,6 +83,8 @@ function EditProject({ data, editProjectChange, getProject }) {
         }
       }
       window.sessionStorage.guestProjectList = JSON.stringify(sessList)
+      window.sessionStorage.removeItem('pjt'+data.id);
+      window.sessionStorage.removeItem('cnt'+data.id);
       history.push("/");
     }
   }
