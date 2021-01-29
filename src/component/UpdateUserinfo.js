@@ -256,7 +256,7 @@ function UpdateUserinfo({ updateUserinfoChange }) {
           </div> */}
         </p>
 
-        <div className="updateUserinfo_info_box">소셜로그인 유저의 초기 비밀번호는 <br />해당 계정의 닉네임 또는 이메일 입니다</div>
+        <div className="updateUserinfo_info_box">소셜로그인 유저의 초기 비밀번호는 <br/>해당 계정의 닉네임 또는 이메일 입니다</div>
        
         <p>
           <input

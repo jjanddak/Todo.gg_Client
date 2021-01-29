@@ -146,10 +146,10 @@
 }
 .updateUserinfo_info_box {
     /* margin-bottom: 20px; */
-    font-size: 12px;
-    font-weight: bold;
+    font-size: small;
+    /* font-weight: bold; */
     /* width: 80%; */
-    text-align: center;
+    text-align: left;
 }
 .updateErr{
     margin-top: 12px;
