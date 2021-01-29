@@ -91,7 +91,6 @@ function UpdateUserinfo({ updateUserinfoChange }) {
         username: newUsername,
       })
         .then((param) => {
-          console.log(param.data.message)
           if (param.data.message === "invalid") {
             // setState({
             //   ...state,
@@ -217,62 +216,79 @@ function UpdateUserinfo({ updateUserinfoChange }) {
           {pictureList}
         </div>
         
-        <div className="nickname_password_wrapper">
-          <span>
-            <input
-              className="updateUserinfo_input"
-              name="newUsername"
-              type="text"
-              placeholder={window.sessionStorage.username}
-              onChange={onChange}
-            />
-            <button
-              className="updateUserinfo_button"
-              type="submit"
-              onClick={checkUsername}
-            >중복확인</button>
-          </span>
+        <p>
+          <input
+            className="updateUserinfo_input"
+            name="newUsername"
+            type="text"
+            placeholder={window.sessionStorage.username}
+            onChange={onChange}
+          />
+          <label>
+            <span>닉네임 변경</span>
+          </label>
+          <button
+            className="updateUserinfo_button"
+            type="submit"
+            onClick={checkUsername}
+          >중복확인</button>
+        </p>
+
+     
         <div className="updateUserinfo_alert_box">{usernameMessage}</div>
-          
-            <input
-              className="updateUserinfo_input"
-              placeholder="기존 비밀번호"
-              name="oldPassword"
-              type="password"
-              onBlur={checkOldPassword}
-              onChange={onChange}
-              value={oldPassword}
-            />
+        <p>
+          <input
+            className="updateUserinfo_input"
+            // placeholder=""
+            name="oldPassword"
+            type="password"
+            onBlur={checkOldPassword}
+            onChange={onChange}
+            value={oldPassword}
+            autoComplete='off'
+            required
+          />
+          <label>
+            <span>기존 비밀번호</span>
+          </label>
           {/* <div className="updateUserinfo_alert_box">
             {oldPasswordMessage}
           </div> */}
-          <div className="updateUserinfo_info_box">소셜로그인 유저의 초기 비밀번호는 해당 사이트의 아이디(or Email) 입니다</div>
-        </div>
-        
+        </p>
 
-        <div className="new_password_wrapper">
-          <div className="updateUserinfo_alert_box">{newPasswordMessage}</div>
-          <div>
-            <input
-              className="updateUserinfo_input"
-              placeholder="새 비밀번호"
-              name="firstPassword"
-              type="password"
-              onChange={onChange}
-              value={firstPassword}
-            />
-          </div>
-          <div>
-            <input
-              className="updateUserinfo_input"
-              placeholder="비밀번호 확인"
-              name="lastPassword"
-              type="password"
-              onChange={onChange}
-              value={lastPassword}
-            />
-          </div>
-        </div>
+        <div className="updateUserinfo_info_box">소셜로그인 유저의 초기 비밀번호는 <br />해당 계정의 닉네임 또는 이메일 입니다</div>
+       
+        <p>
+          <input
+            className="updateUserinfo_input"
+            placeholder=""
+            name="firstPassword"
+            type="password"
+            onChange={onChange}
+            value={firstPassword}
+            autoComplete='off'
+            required
+          />
+          <label>
+            <span>새 비밀번호</span>
+          </label>
+        </p>
+        <div className="updateUserinfo_alert_box">{newPasswordMessage}</div>
+        <p>
+          <input
+            className="updateUserinfo_input"
+            placeholder=""
+            name="lastPassword"
+            type="password"
+            onChange={onChange}
+            value={lastPassword}
+            autoComplete='off'
+            required
+          />
+          <label>
+            <span>비밀번호 확인</span>
+          </label>
+        </p>
         <div className="updateUserinfo_alert_box updateErr">{errorMessage}</div>
         
         <button
