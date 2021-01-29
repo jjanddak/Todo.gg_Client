@@ -89,7 +89,7 @@ function NewProject({addProjectChange}) {
         const newProject = JSON.parse(window.sessionStorage.guestProjectList).contributers
         oldProjectLst.contributers.push(
           {
-            project_id:newProject.length,
+            project_id:newProject.length+1,
             user_id: 2,
             project:{
               id:0,

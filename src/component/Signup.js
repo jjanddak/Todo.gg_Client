@@ -261,6 +261,13 @@ function Signup({signupChange,loginChange}) {
       <div className="Signup_alert_box">{usernameMessage}</div>
       <div className="Signup_alert_box signupErr">{errorMessage}</div>
       
+      <div>
+        <button
+          className="SignUp_submit_button modalbtn"
+          onClick={handleSignup}
+        >Sign up</button>
+      </div>
+      
       <div className='socialwrapper'>
         <div style={{height:40, padding:10, color:'rgb(111,111,111)'}}>Or login with</div>
         <span>
@@ -280,12 +287,6 @@ function Signup({signupChange,loginChange}) {
             cookiePolicy={"single_host_origin"}
           />
         </span>
-      </div>
-      <div>
-        <button
-          className="SignUp_submit_button modalbtn"
-          onClick={handleSignup}
-        >Sign up</button>
       </div>
     </div>
     </div>
