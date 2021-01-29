@@ -19,7 +19,6 @@ function EditProject({ data, editProjectChange, getProject }) {
     newContributer: [],
     delContributer: []
   })
-
   const history = useHistory();
   const { title, startDate, endDate, team, member, description, memberErrorMsg, inputErrorMsg, checked, isEditing, isDelete, newContributer, delContributer } = state
   const isLogin = window.sessionStorage.isLogin
@@ -75,21 +74,20 @@ function EditProject({ data, editProjectChange, getProject }) {
           console.log(err)
         })
     } else {
-      let test = JSON.parse(window.sessionStorage.guestProjectList)
-      let test1 = JSON.parse(window.sessionStorage.guestProjectList).contributers
-      for (let i = 0; i < test1.length; i++) {
-        if (test1[i].project_id === data.id) {
-          test1.splice(i, 1)
-          test.contributers = test1
+      let sessList = JSON.parse(window.sessionStorage.guestProjectList)
+      let sessContributer = JSON.parse(window.sessionStorage.guestProjectList).contributers
+      for (let i = 0; i < sessContributer.length; i++) {
+        if (sessContributer[i].project_id === data.id) {
+          sessContributer.splice(i, 1)
+          sessList.contributers = sessContributer
         }
       }
-      window.sessionStorage.guestProjectList = JSON.stringify(test)
+      window.sessionStorage.guestProjectList = JSON.stringify(sessList)
       history.push("/");
     }
-
   }
   const addMember = function () {
-    if(isLogin){
+      if(isLogin){
       team.filter(item => item.user.username.toLowerCase() === member.toLowerCase()).length
         ? setState({ ...state, memberErrorMsg: '이미 포함되어있는 멤버입니다.' })
         : axios.post('https://localhost:4001/user/getOne', { username: member })
@@ -99,7 +97,7 @@ function EditProject({ data, editProjectChange, getProject }) {
           .catch(() => {
             setState({ ...state, memberErrorMsg: '일치하는 유저네임이 없습니다.' })
           })
-    }
+      }    
   }
   const deleteMember = function (e) {
     if (isLogin) {
@@ -123,10 +121,10 @@ function EditProject({ data, editProjectChange, getProject }) {
     }
   }
   const teamList = team.length > 0 && team.map(ele => {
-    return <div key={ele.user.id}>
+    return <div className="memberEnt" key={ele.user.id}>
       <img className='hi' src={ele.user.profile}></img>
-      <span>{ele.user.username}</span>
-      {isEditing && <button name={ele.user.id} onClick={deleteMember}>-</button>}
+      <span className="listUserName">{ele.user.username}</span>
+      {isEditing && <button className="deleteMember" name={ele.user.id} onClick={deleteMember}>X</button>}
     </div>
   })
   const editProject = function () {
@@ -155,11 +153,11 @@ function EditProject({ data, editProjectChange, getProject }) {
             console.log(err)
           })
       } else {
-        let test = JSON.parse(window.sessionStorage.guestProjectList)
-        let test1 = JSON.parse(window.sessionStorage.guestProjectList).contributers
-        for (let i = 0; i < test1.length; i++) {
-          if (test1[i].project_id === data.id) {
-            test.contributers[i].project = {
+        let sessList = JSON.parse(window.sessionStorage.guestProjectList)
+        let sessContributer = JSON.parse(window.sessionStorage.guestProjectList).contributers
+        for (let i = 0; i < sessContributer.length; i++) {
+          if (sessContributer[i].project_id === data.id) {
+            sessList.contributers[i].project = {
               id: data.id,
               title: title,
               description: description,
@@ -173,7 +171,7 @@ function EditProject({ data, editProjectChange, getProject }) {
             }
           }
         }
-        window.sessionStorage.guestProjectList = JSON.stringify(test)
+        window.sessionStorage.guestProjectList = JSON.stringify(sessList)
         // history.push("/");
         // setProject({ ...data, title: title, start_date: startDate, end_date: !checked ? endDate : '9999-01-01', description: description })
         editProjectChange()
@@ -186,73 +184,86 @@ function EditProject({ data, editProjectChange, getProject }) {
   return (
     <div className='newProjectModal_container' onClick={editProjectChange}>
       <div className='newProjectModal' onClick={(e) => e.stopPropagation()}>
-        {!isEditing && <button onClick={editChange}>수정</button>}
-        <p>프로젝트 이름</p>
+      <div className='res'>
+        {!isEditing && <button className="editButton" onClick={editChange}>수정</button>}
+          {/* <p>프로젝트 이름</p> */}
         {isEditing
-          ? <input type='text' name='title' value={title} onChange={changeData}></input>
-          : <p>{title}</p>
+          ? <>
+          <p className="projectName2">프로젝트 이름</p>
+          <input className="changeTitle" type='text' name='title' value={title} onChange={changeData}></input>
+          </>
+          : <p className="projectName">{title}</p>
         }
-        <p>시작날짜</p>
+        <p className="DateTitle">시작날짜</p>
         {isEditing
-          ? <input type='date' name='startDate' value={startDate} onChange={changeData}></input>
-          : <p>{startDate}</p>
+          ? <input type='date' className="changeDate" name='startDate' value={startDate} onChange={changeData}></input>
+          : <p className="Date"> - {startDate}</p>
         }
-
         {isEditing
           ?//수정화면일 때
           <>
             {!checked &&
               <>
-                <p>종료날짜</p>
-                <input type='date' name='endDate' value={endDate} onChange={changeData}></input>
+                <p className="DateTitle">종료날짜</p>
+                <input type='date' className="changeDate" name='endDate' value={endDate} onChange={changeData}></input>
               </>
             }
-            <p>종료날짜 미정</p>
+            <p className="DateTitle">종료날짜 미정</p>
             {checked
-              ? <input type='checkbox' name='checked' checked onChange={changeData}></input>
-              : <input type='checkbox' name='checked' onChange={changeData}></input>
+              ? <>
+              <input className="checkbotton" type='checkbox' name='checked' checked onChange={changeData}></input>
+              <hr className="line"></hr>
+              </>
+              : <>
+              <input className="checkbotton" type='checkbox' name='checked' onChange={changeData}></input>
+              <hr className="line"></hr>
+              </>
             }
           </>
           : //정보조회화면일 때
           (<>
-            <p>종료날짜</p>
-            <p>{endDate === '9999-01-01' ? '완료날짜 미정' : endDate}</p>
+            <p className="DateTitle">종료날짜</p>
+            <p className="Date"> - {endDate === '9999-01-01' ? '완료날짜 미정' : endDate}</p>
+            <hr className="line"></hr>
           </>)
         }
-        <p>참여 팀원</p>
+        <p className="joinUser">참여 팀원</p>
         {isEditing && (
-          <>
-            <input type='text' name='member' onChange={changeData}></input>
-            <button onClick={addMember}>추가</button>
-            {!isLogin && <p>로그인 상태에서만 팀원 삭제 추가가 가능합니다.</p>}
-          </>
+          <div className="errMsgInterval">
+            <input className="addMember" type='text' name='member' onChange={changeData}></input>
+            <button className="memberButton" onClick={addMember}>추가</button>
+            <p className="errMsg">{memberErrorMsg}</p>
+            {!isLogin && <p className="errMsg">로그인 상태에서만 팀원 삭제 추가가 가능합니다.</p>}
+          </div>
         )
         }
         {teamList}
-        <p>{memberErrorMsg}</p>
-        <p>프로젝트 설명</p>
+        <hr className="line"></hr>
+        <p className="projectExplain">프로젝트 설명</p>
         {isEditing
-          ? <textarea name='description' value={description} onChange={changeData}></textarea>
-          : <p>{description}</p>
+          ? <textarea className="textArea" name='description' value={description} onChange={changeData}></textarea>
+          : <p className="description">{description}</p>
         }
         {isEditing &&
-          <>
-            <button onClick={editProject}>수정</button>
-            <button onClick={deleteChange}>삭제</button>
-          </>
+          <div className="divInline">
+            <button className="editInfoButton" onClick={editProject}>수정</button>
+            <button className="deleteButton" onClick={deleteChange}>삭제</button>
+          </div>
         }
         <p>{inputErrorMsg}</p>
+      </div>
       </div>
       {isDelete &&
         <div className='deleteModal_container' onClick={deleteChange}>
           <div className='deleteModal' onClick={(e) => e.stopPropagation()}>
-            <p>프로젝트 복구는 불가능합니다. 정말로 삭제하시겠습니까?</p>
+            <p className="deleteProjectAlerts">프로젝트 복구는 불가능합니다. 정말로 삭제하시겠습니까?</p>
             <button onClick={deleteProject}>네</button>
             <button onClick={deleteChange}>아니요</button>
           </div>
         </div>
       }
-    </div>
+      </div>
+    
   )
 }
 export default EditProject
