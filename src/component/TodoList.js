@@ -449,9 +449,9 @@ function TodoList() {
           <p className="todoList_nav_process">{`진행도${process ? process : 0}%`}</p> */}
         </div>
         <div className="todoList_nav_buttons">
-          {isLogin && <button className="todoList_nav_button logout" onClick={logout}>로그아웃</button>}
-          <button className="todoList_nav_button" onClick={() => { history.push("/") }}>홈버튼</button>
-          <button className="todoList_nav_button" onClick={editProjectChange} >함바가?</button>
+          {isLogin && <button className="todoList_nav_button_logout" onClick={logout} />}
+          <button className="todoList_nav_button_home" onClick={() => { history.push("/") }} />
+          <button className="todoList_nav_button_setting" onClick={editProjectChange} />
         </div>
       </nav>
       <div className="todoList_taskCards" onDragOver={allowDrop}>

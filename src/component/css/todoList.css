@@ -7,7 +7,7 @@
   background-position: center;
   background-attachment: fixed;
 }
-.todoList > textarea:focus, button:focus, input:focus {
+.todoList textarea:focus, button:focus, input:focus {
   outline: 0;
 }
 
@@ -35,9 +35,35 @@
   padding-top: 1%;
   font-size: 30px;
 }
-.todoList_nav_buttons {
-  border: solid 2px coral; /*! 삭제 하라고*/
-  margin-right: 0px;
+.todoList_nav_button_logout {
+  background-image: url(./img/logout.png);
+  background-size: 55px;
+  background-color: #fff;
+  background-position: center;
+  display: inline-block;
+  border: none;
+  width: 54px;
+  height: 54px;
+}
+.todoList_nav_button_home {
+  background-image: url(./img/home.png);
+  background-size: 55px;
+  background-color: #fff;
+  background-position: center;
+  display: inline-block;
+  border: none;
+  width: 54px;
+  height: 54px;
+}
+.todoList_nav_button_setting {
+  background-image: url(./img/setting.png);
+  background-size: 55px;
+  background-color: #fff;
+  background-position: center;
+  display: inline-block;
+  border: none;
+  width: 54px;
+  height: 54px;
 }
 
 /** card list */
@@ -199,14 +225,14 @@
   height: 27px;
   border: none;
   border-top: solid 1px #aaa;
+  border-bottom: solid 1px #aaa;
 }
 .todoList_cards_contributers_add_button {
   width: 43px;
   height: 27px;
   background-color: #fff;
-  border: none;
-  border-top: solid 1px #aaa;
-  border-left: solid 1px #aaa;
+  border: solid 1px #aaa;
+  border-right: none;
 }
 .todoList_cards_remove div {
   text-align: center;
