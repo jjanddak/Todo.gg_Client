@@ -94,14 +94,19 @@ function ProjectList() {
   }
 
   const main = isLogin
-    ? <div>
-        <img src={window.sessionStorage.profile}></img>
-        <p>{window.sessionStorage.username}</p>
-        <p>todo:{todo}</p>
-        <p>inprogress:{inprogress}</p>
-        <p>done:{done}</p>
-        <button onClick={updateUserinfoChange}>프로필수정</button>
+    ? 
+    <div className='userinfo_container'>
+      <div className='main_opacity'>
+        <div className='userinfo_wrapper'>
+          <img src={window.sessionStorage.profile}></img>
+          <div className='userinfo_detail_wrapper'>
+            <p className='userinfo_username'>{window.sessionStorage.username}</p>
+            <p className='userinfo_kda'>todo:{todo} / inprogress:{inprogress} / done:{done}</p>
+            <button className='updatebtn' onClick={updateUserinfoChange}>프로필수정</button>
+          </div>
+        </div>
       </div>
+    </div>
     : <div className='main_guesthome'>
         <div className='main_opacity'>
           <div className='main_intro'>
