@@ -17,7 +17,8 @@ function TodoList() {
     id: 0, title: "", description: "", start_date: "", end_date: "", contributers: [], taskCards: [],
   });
   const [counts, setCounts] = useState({ todo: 0, inprogress: 0, done: 0, }); //* 카운트 초기화
-  const [taskContent, setTaskContent] = useState("");
+  const [newTaskContent, setNewTaskContent] = useState("");
+  const [editTaskContent, setEditTaskContent] = useState("");
   const [newMember, setNewMember] = useState("");
   const [newMemberErr, setNewMemberErr] = useState("");
   const [showDelete, setShowDelete] = useState({ func: () => { } });
@@ -95,9 +96,9 @@ function TodoList() {
     color = { backgroundColor: 'blue' };
   }
   const onChange = (e) => {
-    e.target.name === "member"
-      ? setNewMember(e.target.value)
-      : setTaskContent(e.target.value)
+    e.target.name === "member" && setNewMember(e.target.value);
+    e.target.name === "newContent" && setNewTaskContent(e.target.value);
+    e.target.name === "editContent" && setEditTaskContent(e.target.value);
   };
   const logout = () => {
     axios.post("https://localhost:4001/user/logout", null, {
@@ -112,6 +113,9 @@ function TodoList() {
       });
   };
   const addCard = () => {
+    const newPosition = todoList.length
+    ? todoList[todoList.length-1].position + 1
+    : 0;
     if (!isLogin) {
       const newId = project.taskCards.length
         ? project.taskCards.sort((a, b) => { return a.id - b.id })[project.taskCards.length - 1].id + 1
@@ -120,19 +124,19 @@ function TodoList() {
         ...project,
         taskCards: [...project.taskCards, {
           id: newId,
-          content: taskContent,
+          content: newTaskContent,
           state: "todo",
           project_id: projectId,
-          position: todoList.length,
+          position: newPosition,
           contributers: [],
         }]
       })
-      setTaskContent("");
+      setNewTaskContent("");
       setShowAddCard(false);
     } else {
       axios.post(`https://localhost:4001/project/${projectId}/newTask`, {
-        content: taskContent,
-        position: todoList.length,
+        content: newTaskContent,
+        position: newPosition,
       }, {
         headers: {
           Authorization: `Bearer ${storage.accessToken}`,
@@ -140,7 +144,7 @@ function TodoList() {
         }
       })
         .then(() => {
-          setTaskContent("");
+          setNewTaskContent("");
           setShowAddCard(false);
           getProject();
         })
@@ -177,7 +181,7 @@ function TodoList() {
     if (!isLogin) {
       const cards = project.taskCards.map((item) => {
         if (item.id === id) {
-          return { ...item, content: taskContent };
+          return { ...item, content: editTaskContent };
         } else {
           return item;
         }
@@ -190,7 +194,7 @@ function TodoList() {
     } else {
       axios.post(`https://localhost:4001/project/${projectId}/updateTask`, {
         id: id,
-        content: taskContent,
+        content: editTaskContent,
       }, {
         headers: {
           Authorization: `Bearer ${storage.accessToken}`,
@@ -377,7 +381,7 @@ function TodoList() {
           </div>)
           : (showEditCard[item.id]
             ? (<>
-              <textarea className="todoList_cards_textarea" name="content" value={taskContent} onChange={onChange} />
+              <textarea className="todoList_cards_textarea" name="editContent" value={editTaskContent} onChange={onChange} />
               <button className="todoList_cards_confirm_button_submit" onClick={() => { editCard(item.id) }}>submit</button>
               <button className="todoList_cards_confirm_button_cencel" onClick={() => { setShowEditCard({ [item.id]: false }) }}>cancel</button>
             </>)
@@ -388,7 +392,7 @@ function TodoList() {
                   {editCardInfo[item.id]
                     &&
                     <div className="todoList_editList" onMouseLeave={() => { setEditCardInfo({ [item.id]: false }) }}>
-                      <button className="todoList_cards_button" onClick={() => { setTaskContent(item.content); setShowEditCard({ [item.id]: true }); setEditCardInfo({ [item.id]: false }) }}>수정</button>
+                      <button className="todoList_cards_button" onClick={() => { setEditTaskContent(item.content); setShowEditCard({ [item.id]: true }); setEditCardInfo({ [item.id]: false }) }}>수정</button>
                       <button className="todoList_cards_button" onClick={() => { setShowDelete({ [item.id]: true, func: () => { deleteCard(item.id) } }); setEditCardInfo({ [item.id]: false }) }}>삭제</button>
                     </div>
                   }
@@ -454,9 +458,9 @@ function TodoList() {
         <div className="todoList_todo">
           <div className="todoList_counts">{counts.todo}</div>
           <div className="todoList_list_title">todo</div>
-          <button className="todoList_add_card" onClick={() => setShowAddCard(!showAddCard)}>➕</button>
+          <button className="todoList_add_card" onClick={() => {setShowAddCard(!showAddCard); setNewTaskContent("")}}>➕</button>
           <div className="todoList_add_box" style={{ display: showAddCard ? "block" : "none" }}>
-            <textarea className="todoList_input" name="content" onChange={onChange} value={taskContent} />
+            <textarea className="todoList_input" name="newContent" onChange={onChange} value={newTaskContent} />
             <button className="todoList_submit_input" onClick={addCard}>add</button>
           </div>
           <div className="todoList_todo_list">

@@ -57,6 +57,7 @@
 }
 .todoList_add_box {
   margin: 0 auto;
+  margin-bottom: 10px;
   width: 274px;
   background-color: #fff;
   border: 1px #aaa solid;
@@ -86,6 +87,7 @@
   padding-bottom: 30px;
   color: #fff;
   width: 335px;
+  height: 834px;
   float: left;
   margin: 30px;
 }
@@ -102,9 +104,7 @@
   flex-direction: column;
 }
 .todoList_position_box {
-  border: solid 2px coral; /*! 삭제 하라고*/
   flex:1;
-  /* height: */
 }
 
 /** entry */
