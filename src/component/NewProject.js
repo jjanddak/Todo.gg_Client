@@ -92,7 +92,7 @@ function NewProject({addProjectChange}) {
             project_id:newProject.length+1,
             user_id: 2,
             project:{
-              id:0,
+              id:newProject.length+1,
               title:title,
               description:description,
               manager_id:2,

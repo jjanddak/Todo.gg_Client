@@ -27,13 +27,14 @@
 }
 .todoList_nav_date, .todoList_nav_process, .todoList_nav_title {
   float: left;
-  padding-top: 3%;
+  /* padding-top: 3%; */
   padding-left: 15px;
   padding-right: 15px;
 }
 .todoList_nav_title {
-  padding-top: 1%;
-  font-size: 30px;
+  /* padding-top: 1%; */
+  font-size: 26px;
+  line-height: 55px;
 }
 .todoList_nav_buttons {
   border: solid 2px coral; /*! 삭제 하라고*/
@@ -41,18 +42,27 @@
 }
 
 /** card list */
+.todoList_todo{
+    position: relative;
+}
 .todoList_taskCards {
   max-width: 1200px;
   margin: 0 auto;
+
 }
 .todoList_list_title {
   display: inline-block;
   font-size: 18px;
 }
 .todoList_add_card {
-  float: right;
+  color: #fff;
+  font-size: 30px;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  /* float: right; */
   border: none;
-  margin-top: 17px;
+  /* margin-top: 17px; */
   background-color: transparent;
 }
 .todoList_add_box {
