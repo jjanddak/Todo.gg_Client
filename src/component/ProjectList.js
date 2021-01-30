@@ -118,7 +118,7 @@ function ProjectList() {
   return (
     <>
       <nav className='main_nav'>
-        <Link to='/' className='main_logo'>TODO<br/>.GG</Link>
+        <Link to='/' className='main_logo'>TODO.GG</Link>
         {
           isLogin 
           ? <button className='main_Log' onClick={handleLogout}>로그아웃</button>

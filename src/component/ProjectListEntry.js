@@ -44,9 +44,7 @@ function ProjectListEntry({content,taskCardCount}) {
         <p className='entry_kda'>{`${todo}/${inprogress}/${done}`}</p>
         <p className='entry_progress'>{`진행 ${sum ? sum :0}%`}</p>
       </div>
-      {/* <div className='entry_description_parent'> */}
         <span className='entry_description'>{project.description}</span>
-      {/* </div> */}
       <div className='entry_team'>
         {teamList}
       </div>
