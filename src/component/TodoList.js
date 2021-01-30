@@ -458,7 +458,7 @@ function TodoList() {
         <div className="todoList_todo">
           <div className="todoList_counts">{counts.todo}</div>
           <div className="todoList_list_title">todo</div>
-          <button className="todoList_add_card" onClick={() => {setShowAddCard(!showAddCard); setNewTaskContent("")}}>➕</button>
+          {/* <button className="todoList_add_card" onClick={() => {setShowAddCard(!showAddCard); setNewTaskContent("")}}>➕</button> */}
           <button className="todoList_add_card" onClick={() => setShowAddCard(!showAddCard)}>+</button>
           <div className="todoList_add_box" style={{ display: showAddCard ? "block" : "none" }}>
             <textarea className="todoList_input" name="newContent" onChange={onChange} value={newTaskContent} />

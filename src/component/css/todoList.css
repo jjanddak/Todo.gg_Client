@@ -6,6 +6,7 @@
   height: 100vh;
   background-position: center;
   background-attachment: fixed;
+  overflow: hidden;
 }
 .todoList textarea:focus, button:focus, input:focus {
   outline: 0;
