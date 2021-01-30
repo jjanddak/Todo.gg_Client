@@ -117,13 +117,24 @@ function ProjectList() {
 
   return (
     <>
-      <nav className='main_nav'>
+      {/* <nav className='main_nav'>
         <Link to='/' className='main_logo'>TODO.GG</Link>
         {
           isLogin 
-          ? <button className='main_Log' onClick={handleLogout}>로그아웃</button>
+          ? <button className="todoList_nav_button_logout" onClick={handleLogout} />
+          // ? <button className='main_Log' onClick={handleLogout}>로그아웃</button>
           : <button className='main_Log' onClick={loginChange}>로그인</button>
         }
+      </nav> */}
+      <nav className="todoList_nav">
+        <Link to='/' className='main_logo'>TODO.GG</Link>
+        <div className="projectList_nav_buttons">
+          {
+            isLogin 
+            ? <button className="todoList_nav_button_logout" onClick={handleLogout} />
+            : <button className='main_Log' onClick={loginChange}>Login</button>
+          }
+        </div>
       </nav>
       <div className='main_main'>
       {/* <div className='main_opacity'> */}

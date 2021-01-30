@@ -89,11 +89,11 @@ function TodoList() {
       setCounts({ todo: todoList.length, inprogress: inprogressList.length, done: doneList.length, });
     }
   }, [project]);
-  let color = { backgroundColor: 'red' }; //* process_color
+  let color = { backgroundColor: '#ed6767' }; //* process_color
   if (process > 66 && process < 100) {
-    color = { backgroundColor: 'yellow' };
+    color = { backgroundColor: '#ffb93b' };
   } else if (process === 100) {
-    color = { backgroundColor: 'blue' };
+    color = { backgroundColor: '#5393ca' };
   }
   const onChange = (e) => {
     e.target.name === "member" && setNewMember(e.target.value);

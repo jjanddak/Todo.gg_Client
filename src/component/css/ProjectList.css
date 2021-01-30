@@ -3,15 +3,24 @@
     height: 55px;
     background: #fff;
     text-align: center;
+    
+    /* background-color: #fff;
+    height: 55px;
+    display: flex;
+    border-bottom: #335 1px solid; */
 }
 .main_logo {
     /* margin-left: 7px; */
+    margin: auto;
     display:inline-block;
     color: rgb(61, 116, 233);
     font-weight: 600;
     font-size: 30px;
     line-height: 55px;
-    /* text-align: right; */
+    text-align: center;
+}
+.projectList_nav_buttons{
+    width:54px;
 }
 .main_main{
     /* background-image: url(./img/pengu.jpg); */
@@ -20,7 +29,7 @@
 .main_Log{
     position: absolute;
     right: 0;
-    width:100px;
+    width: 110px;
     height: 50px;
     border: none;
     background: none;
