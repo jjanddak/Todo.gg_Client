@@ -87,9 +87,7 @@
   position: absolute;
   top: 15px;
   right: 20px;
-  /* float: right; */
   border: none;
-  /* margin-top: 17px; */
   background-color: transparent;
 }
 .todoList_add_box {
@@ -141,7 +139,7 @@
   flex-direction: column;
 }
 .todoList_position_box {
-  flex:1;
+  flex: 1;
 }
 
 /** entry */
@@ -153,9 +151,10 @@
   min-height: 130px;
   margin: 0 auto;
   margin-bottom: 10px;
-  position: relative;}
+  position: relative;
+}
 .todoList_edit {
-  font-size:20px;
+  font-size: 20px;
   height: 20px;
   float: right;
   margin-right: 5px;
@@ -222,6 +221,9 @@
   border-radius: 50%;
   border: solid 1px #aaa;
   background-color: #fff;
+  font-weight: 500;
+  font-size: 25px;
+  color: #666;
 }
 .todoList_cards_contributers_profile {
   margin: 4px;
@@ -232,18 +234,19 @@
   border: solid 1px #aaa;
 }
 .todoList_cards_contributers_input {
-  width: 230px;
+  width: 85%;
   height: 27px;
   border: none;
   border-top: solid 1px #aaa;
   border-bottom: solid 1px #aaa;
 }
 .todoList_cards_contributers_add_button {
-  width: 43px;
+  width: 15%;
   height: 27px;
   background-color: #fff;
   border: solid 1px #aaa;
   border-right: none;
+  color: #555;
 }
 .todoList_cards_remove div {
   text-align: center;
