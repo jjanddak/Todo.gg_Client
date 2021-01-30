@@ -192,9 +192,13 @@ function EditProject({ data, editProjectChange, getProject }) {
         {isEditing
           ? <>
           <p className="projectName2">프로젝트 이름</p>
+          <button className="editInfoButton" onClick={editProject}>수정</button>
           <input className="changeTitle" type='text' name='title' value={title} onChange={changeData}></input>
           </>
-          : <p className="projectName">{title}</p>
+          : <>
+          <p className="projectName">{title}</p>
+          <p className="guestErrMsg">{inputErrorMsg}</p>
+          </>
         }
         <p className="DateTitle">시작날짜</p>
         {isEditing
@@ -248,19 +252,22 @@ function EditProject({ data, editProjectChange, getProject }) {
         }
         {isEditing &&
           <div className="divInline">
-            <button className="editInfoButton" onClick={editProject}>수정</button>
+            {/* <button className="editInfoButton" onClick={editProject}>수정</button> */}
             <button className="deleteButton" onClick={deleteChange}>삭제</button>
           </div>
         }
-        <p>{inputErrorMsg}</p>
+        {/* <p className="guestErrMsg">{inputErrorMsg}</p> */}
       </div>
       </div>
       {isDelete &&
         <div className='deleteModal_container' onClick={deleteChange}>
           <div className='deleteModal' onClick={(e) => e.stopPropagation()}>
-            <p className="deleteProjectAlerts">프로젝트 복구는 불가능합니다. 정말로 삭제하시겠습니까?</p>
-            <button onClick={deleteProject}>네</button>
-            <button onClick={deleteChange}>아니요</button>
+            <div className="warningImg"></div>
+            <div className="deleteProjectAlerts">프로젝트 복구는 불가능합니다. <br/>정말로 삭제하시겠습니까?</div>
+            <div className="buttonInterval">
+            <button className="deleteProjectButton" onClick={deleteProject}>네</button>
+            <button className="deleteProjectButtonNot" onClick={deleteChange}>아니요</button>
+            </div>
           </div>
         </div>
       }

@@ -124,28 +124,30 @@ function NewProject({addProjectChange}) {
   return (
     <div className='newProjectModal_container' onClick={addProjectChange}>
       <div className='newProjectModal' onClick={(e)=>e.stopPropagation()}>
-        <p>프로젝트 이름</p>
-        <input type='text' name='title' onChange={changeData}></input>
-        <p>시작날짜</p>
-        <input type='date' name='startDate' onChange={changeData}></input>
+        <div className="res">
+        <p className="projectName2">프로젝트 이름</p>
+        <input className="changeTitle" type='text' name='title' onChange={changeData}></input>
+        <p className="DateTitle">시작날짜</p>
+        <input className="changeDate" type='date' name='startDate' onChange={changeData}></input>
         {!checked &&
         <>
-          <p>종료날짜</p>
-          <input type='date' name='endDate' value={endDate} onChange={changeData}></input>
+          <p className="DateTitle">종료날짜</p>
+          <input className="changeDate" type='date' name='endDate' value={endDate} onChange={changeData}></input>
         </>
       }
-        <p>종료날짜 미정</p>
-        <input type='checkbox' name='checked' onChange={changeData}></input>
-        <p>참여 팀원</p>
-        <input type='text' name='member' onChange={changeData}></input>
-        <button onClick={addMember}>추가</button>
-        {!isLogin && <p>팀원 추가는 로그인 상태에서만 가능합니다.</p>}
+        <p className="DateTitle">종료날짜 미정</p>
+        <input className="checkbotton" type='checkbox' name='checked' onChange={changeData}></input>
+        <p className="joinUser">참여 팀원</p>
+        <input className="addMember" type='text' name='member' onChange={changeData}></input>
+        <button className="memberButton" onClick={addMember}>추가</button>
+        {!isLogin && <p className="errMsg">팀원 추가는 로그인 상태에서만 가능합니다.</p>}
         {teamList}
         <p>{memberErrorMsg}</p>
-        <p>프로젝트 설명</p>
-        <textarea name='description' onChange={changeData}></textarea>
-        <button onClick={addProject}>생성</button>
+        <p className="projectExplain">프로젝트 설명</p>
+        <textarea className="textArea" name='description' onChange={changeData}></textarea>
+        <button className="createProject" onClick={addProject}>생성</button>
         <p>{inputErrorMsg}</p>
+      </div>
       </div>
       </div>
   )
