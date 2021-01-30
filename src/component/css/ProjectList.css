@@ -1,18 +1,34 @@
 .main_nav{
+    position: relative;
     height: 55px;
     background: #fff;
+    text-align: center;
 }
 .main_logo {
-    margin-left: 7px;
+    /* margin-left: 7px; */
     display:inline-block;
     color: rgb(61, 116, 233);
     font-weight: 600;
-    font-size: 22px;
-    text-align: right;
+    font-size: 30px;
+    line-height: 55px;
+    /* text-align: right; */
 }
 .main_main{
     /* background-image: url(./img/pengu.jpg); */
     background-size: cover;
+}
+.main_Log{
+    position: absolute;
+    right: 0;
+    width:100px;
+    height: 50px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+.main_Log:focus{
+    outline: none
 }
 .main_guesthome{
     background-color: green;
@@ -45,18 +61,6 @@
     width: 350px;
     height: 50px;
     /* text-align: center; */
-}
-.main_Log{
-    float: right;
-    width:100px;
-    height: 50px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-.main_Log:focus{
-    outline: none
 }
 .main_addProject{
     float:right;

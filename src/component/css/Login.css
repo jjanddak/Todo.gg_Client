@@ -86,15 +86,12 @@
     position: relative;
     top: 20px;
     color: rgb(49, 49, 49);
-    /* background-color: #1080ff; */
-    /* background: linear-gradient(to right, #1080ff, #a406ff); */
     background-color:rgb(255, 255, 255);
-    /* border-radius: 15px; */
     width: 60px;
     height: 25px;
     border: 1px solid #aaa;
     font-size: 12px;
-    /* font-weight: bold; */
+    cursor: pointer;
 }
 
 .loginmodal p input {

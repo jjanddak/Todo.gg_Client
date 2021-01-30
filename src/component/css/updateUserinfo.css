@@ -8,12 +8,13 @@
     position: absolute;
     background-color: rgb(241, 241, 241);
     left: 50%; top: 50%;
-    transform:translate(-50%,-55%);
-    width: 50%; height: 70%;
+    transform:translate(-50%,-50%);
+    width: 50%; height: 80%;
     max-width: 400px; min-width: 400px;
-    min-height: 700px;
+    min-height: 730px;
     text-align: center;
     border-radius: 15px;
+    padding: 20px 55px 0px 55px;
 }
 
 .updateUserinfo_profile { /*프로필사진변경*/
@@ -35,8 +36,8 @@
     border-radius: 0%;
     width: 23px;
     position: relative;
-    bottom: 40px;
-    left: 75px;
+    bottom: 35px;
+    left: 60px;
 }
 .updateUserinfo_profile button{
     margin: auto;
@@ -50,57 +51,111 @@
 }
 
 .updateUserinfo_pictures{
-    margin: auto;
+    /* margin: auto; */
+    padding-right: 20px;
     max-height: 100px;
-    width: 330px;
+    width: 300px;
     overflow: auto;
 }
 .profilelistimg {
     width: 50px;
-    /* border-radius: 50%; */
-    /* border: 1px solid grey; */
     cursor: pointer;
 }
 
 .nickname_password_wrapper{
     margin-bottom: 20px;
 }
-.updateModal div input { /* 닉네임 변경 */
-    text-align: center;
-    width: 35%;
-    height: 20px;
-    border: none;
-    border-bottom: 1px solid grey;
-    background: transparent;
-    outline: none;
-    margin-top: 20px;
-}
-.updateModal div button{ /* 중복확인 버튼*/
+.updateModal p button{ /* 중복확인 버튼*/
     position: relative;
-    color: #fff;
-    background: linear-gradient(to right, #1080ff, #a406ff);
+    top: 20px;
+    color: rgb(49, 49, 49);
+    background-color:rgb(255, 255, 255);
     width: 60px;
-    height: 22px;
-    border: none;
-    font-weight: bold;
-    outline: none;
+    height: 25px;
+    border: 1px solid #aaa;
+    font-size: 12px;
     cursor: pointer;
 }
+
+.updateModal p{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+    overflow: hidden;
+    justify-content: space-around;
+    display: flex;
+}
+.updateModal p input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    padding-top: 20px;
+    outline: none;
+}
+
+.updateModal p label {
+    position:absolute;  
+    left:0%; 
+    bottom:0px; 
+    height:100%;
+    width: 100%;
+    pointer-events:none; 
+    text-align:left; 
+    border-bottom: 1px solid black;
+}
+
+.updateModal p label::after {
+    content: "";
+    position: absolute;
+    left: 0px;
+    bottom: -1px;
+    height: 100%;
+    width: 100%;
+    border-bottom: 3px solid #529df1;
+    transform:translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.updateModal p label span {
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+    transition: all 0.3s ease;
+    color: rgb(126, 126, 126);
+}
+
+.updateModal p input:focus + label span,
+.updateModal p input:valid + label span{
+    transform: translateY(-130%);
+    font-size: 14px;
+    color: #4099ff;
+}
+
+.updateModal p input:focus + label::after,
+.updateModal p input:valid + label::after {
+    transform: translateX(0%);
+}
+
 
 .updateUserinfo_alert_box{
     height: 20px;
     font-size: small;
-    /* text-align: left; */
+    text-align: left;
 }
 .updateUserinfo_info_box {
     /* margin-bottom: 20px; */
-    font-size: 12px;
-    font-weight: bold;
+    font-size: small;
+    /* font-weight: bold; */
+    /* width: 80%; */
+    text-align: left;
 }
 .updateErr{
     margin-top: 12px;
     color: red;
     font-weight: bold;
+    text-align: center;
 }
 
 .updateUserinfo_submit_button{ /*적용버튼*/
