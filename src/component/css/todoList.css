@@ -211,25 +211,23 @@
   width: 274px;
   min-height: 85px;
 }
-.todoList_mambers {
-  /* border-top: 1px #aaa solid; */
-}
 .todoList_cards_contributers {
   display: inline-block;
   width: 230px;
   height: 30px;
 }
 .todoList_cards_contributers_button {
+  background-image: url(./img/add_person.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
   float: right;
-  margin: 2px auto;
+  margin-right: 5px;
   width: 30px;
   height: 30px;
   border-radius: 50%;
   border: solid 1px #aaa;
   background-color: #fff;
-  font-weight: 500;
-  font-size: 25px;
-  color: #666;
 }
 .todoList_cards_contributers_profile {
   margin: 4px;

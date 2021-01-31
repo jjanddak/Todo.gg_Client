@@ -405,7 +405,7 @@ function TodoList() {
                     return <img className="todoList_cards_contributers_profile" src={el.user.profile} title={el.user.username} alt={el.user.username} onClick={() => { setShowDelete({ [item.id]: true, func: () => { removeMember(item.id, el.user.id) } }) }} key={el.id} />
                   })}
                 </div>
-                <button className="todoList_cards_contributers_button" onClick={() => { setShowAddMembar({ [item.id]: !showAddMembar[item.id] }); setNewMemberErr("") }}>+</button>
+                <button className="todoList_cards_contributers_button" onClick={() => { setShowAddMembar({ [item.id]: !showAddMembar[item.id] }); setNewMemberErr("") }} />
               </div>
               {showAddMembar[item.id] && (
                 <div className="todoList_cards_add_member">
