@@ -458,31 +458,36 @@ function TodoList() {
         <div className="todoList_todo">
           <div className="todoList_counts">{counts.todo}</div>
           <div className="todoList_list_title">todo</div>
-          {/* <button className="todoList_add_card" onClick={() => {setShowAddCard(!showAddCard); setNewTaskContent("")}}>➕</button> */}
           <button className="todoList_add_card" onClick={() => setShowAddCard(!showAddCard)}>+</button>
-          <div className="todoList_todo_list">
+          <div className="todoList_list">
             <div className="todoList_add_box" style={{ display: showAddCard ? "block" : "none" }}>
               <textarea className="todoList_input" name="newContent" onChange={onChange} value={newTaskContent} />
               <button className="todoList_submit_input" onClick={addCard}>add</button>
             </div>
             {renderTodoList}
-            <div className="todoList_position_box" onDrop={() => { dropItem("todo", -1) }} />
+            {!renderTodoList.length &&
+              <div className="todoList_position_box" onDrop={() => { dropItem("todo", -1) }} />
+            }
           </div>
         </div>
         <div className="todoList_inprogress" onDragOver={allowDrop}>
           <div className="todoList_counts">{counts.inprogress}</div>
           <div className="todoList_list_title">in progress</div>
-          <div className="todoList_inprogress_list">
+          <div className="todoList_list">
             {renderInprogressList}
-            <div className="todoList_position_box" onDrop={() => { dropItem("inprogress", -1) }} />
+            {!renderInprogressList.length &&
+              <div className="todoList_position_box" onDrop={() => { dropItem("inprogress", -1) }} />
+            }
           </div>
         </div>
         <div className="todoList_done" onDragOver={allowDrop}>
           <div className="todoList_counts">{counts.done}</div>
           <div className="todoList_list_title">done</div>
-          <div className="todoList_done_list">
+          <div className="todoList_list">
             {renderDoneList}
-            <div className="todoList_position_box" onDrop={() => { dropItem("done", -1) }} />
+            {!renderDoneList.length &&
+              <div className="todoList_position_box" onDrop={() => { dropItem("done", -1) }} />
+            }
           </div>
         </div>
       </div>

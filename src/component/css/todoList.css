@@ -1,12 +1,11 @@
 /** main */
 .todoList {
-  background-image: url(./img/howling_abyss.jpg);
+  background: url(./img/howling_abyss.jpg);
   background-size: cover;
-  width: 100%;
-  height: 100vh;
-  background-position: center;
   background-attachment: fixed;
-  overflow: hidden;
+  background-position: 0 0;
+  width: 100vw;
+  height: 100vh;
 }
 .todoList textarea:focus, button:focus, input:focus {
   outline: 0;
@@ -28,12 +27,10 @@
 }
 .todoList_nav_date, .todoList_nav_process, .todoList_nav_title {
   float: left;
-  /* padding-top: 3%; */
   padding-left: 15px;
   padding-right: 15px;
 }
 .todoList_nav_title {
-  /* padding-top: 1%; */
   font-size: 26px;
   line-height: 55px;
 }
@@ -42,6 +39,7 @@
   background-size: 55px;
   background-color: #fff;
   background-position: center;
+  cursor: pointer;
   display: inline-block;
   border: none;
   width: 54px;
@@ -52,6 +50,7 @@
   background-size: 55px;
   background-color: #fff;
   background-position: center;
+  cursor: pointer;
   display: inline-block;
   border: none;
   width: 54px;
@@ -62,6 +61,7 @@
   background-size: 55px;
   background-color: #fff;
   background-position: center;
+  cursor: pointer;
   display: inline-block;
   border: none;
   width: 54px;
@@ -69,13 +69,37 @@
 }
 
 /** card list */
-.todoList_todo{
-    position: relative;
-}
 .todoList_taskCards {
   max-width: 1200px;
   margin: 0 auto;
 
+}
+.todoList_list {
+  max-height: 740px;
+  overflow: auto;
+}
+.todoList_list::-webkit-scrollbar {
+  width: 8px;
+}
+.todoList_list::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  border-radius: 8px;
+}
+.todoList_list::-webkit-scrollbar-track {
+  background-color:inherit ;
+  border-radius: 8px;
+}
+  .todoList_todo, .todoList_inprogress, .todoList_done {
+    border-radius: 20px;
+  background-color: #13193d;
+  border: 1px solid #335;
+  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  color: #fff;
+  width: 335px;
+  float: left;
+  margin: 30px;
 }
 .todoList_list_title {
   display: inline-block;
@@ -84,9 +108,9 @@
 .todoList_add_card {
   color: #fff;
   font-size: 30px;
-  position: absolute;
-  top: 15px;
-  right: 20px;
+  display: block;
+  float: right;
+  margin-top: 10px;
   border: none;
   background-color: transparent;
 }
@@ -113,33 +137,15 @@
   display: block;
   margin: 0 auto;
 }
-.todoList_todo, .todoList_inprogress, .todoList_done {
-  border-radius: 20px;
-  background-color: #13193d;
-  border: 1px solid #335;
-  padding: 20px;
-  padding-top: 10px;
-  padding-bottom: 30px;
-  color: #fff;
-  width: 335px;
-  height: 834px;
-  float: left;
-  margin: 30px;
-}
 .todoList_counts {
   display: inline-block;
   margin: 10px;
   font-size: 20px;
   font-weight:600;
 }
-.todoList_todo_list, .todoList_inprogress_list, .todoList_done_list {
-  overflow: auto;
-  height: 745px;
-  display: flex;
-  flex-direction: column;
-}
 .todoList_position_box {
-  flex: 1;
+  border: 1px solid orange;
+  height: 120px;
 }
 
 /** entry */
@@ -206,7 +212,7 @@
   min-height: 85px;
 }
 .todoList_mambers {
-  border-top: 1px #aaa solid;
+  /* border-top: 1px #aaa solid; */
 }
 .todoList_cards_contributers {
   display: inline-block;
