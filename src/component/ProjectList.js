@@ -132,7 +132,7 @@ function ProjectList() {
           {
             isLogin 
             ? <button className="todoList_nav_button_logout" onClick={handleLogout} />
-            : <button className='main_Log' onClick={loginChange}>Login</button>
+            : <button className='main_Log' onClick={loginChange} />
           }
         </div>
       </nav>
