@@ -72,7 +72,7 @@ const project = {
             },
           ],
           user: {
-            profile: '/static/media/avt_15.b09a1586.png'
+            profile: '/static/media/avt_9.ee26d074.png'
           }
         }
       },
@@ -161,7 +161,7 @@ const project = {
             },
           ],
           user: {
-            profile: '/static/media/avt_15.b09a1586.png'
+            profile: '/static/media/avt_10.4aa1a052.png'
           }
         }
       },
