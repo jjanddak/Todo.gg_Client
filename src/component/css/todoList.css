@@ -144,13 +144,13 @@
   font-weight:600;
 }
 .todoList_position_box {
-  border: 1px solid orange;
   height: 120px;
 }
 
 /** entry */
 .todoList_cards {
   border: solid 1px #aaa;
+  border-radius: 5px;
   background-color: #fff;
   color: #000;
   width: 276px;
@@ -208,6 +208,7 @@
 .todoList_cards_content {
   display: inline-block;
   overflow:auto;
+  padding: 5px;
   width: 274px;
   min-height: 85px;
 }
