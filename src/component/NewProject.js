@@ -57,7 +57,7 @@ function NewProject({addProjectChange}) {
   const teamList = team.length > 0 && team.map(ele => {
     return <div key={ele.user.id}>
       <img className='hi' src={ele.user.profile}></img>
-      <span>{ele.user.username}</span>
+      <span className='listUserName'>{ele.user.username}</span>
     </div>
   })
   const addProject = function () {
