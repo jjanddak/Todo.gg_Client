@@ -353,13 +353,7 @@ function TodoList() {
   const allowDrop = (e) => {
     e.preventDefault();
   };
-  const dragHover = (e) => {
 
-    offDragOver(e);
-  }
-  const offDragOver = (e) => {
-
-  }
   const dragItem = (item) => { //* 이동 할 카드 정보
     movingCard = item;
   };
@@ -386,7 +380,7 @@ function TodoList() {
               <button className="todoList_cards_confirm_button_cancel" onClick={() => { setShowEditCard({ [item.id]: false }) }}>cancel</button>
             </>)
             : (<>
-              <div onDrop={() => { dropItem(item.state, item.position) }} onDragOver={dragHover}>
+              <div onDrop={() => { dropItem(item.state, item.position) }}>
                 <div className="todoList_cards_content">
                   <div className="todoList_edit" onMouseEnter={() => { setEditCardInfo({ [item.id]: true }) }}>···</div>
                   {editCardInfo[item.id]
@@ -399,7 +393,7 @@ function TodoList() {
                   {item.content}
                 </div>
               </div>
-              <div className="todoList_mambers" onDrop={() => { dropItem(item.state, item.position - 1) }} onDragOver={dragHover}>
+              <div className="todoList_mambers" onDrop={() => { dropItem(item.state, item.position - 1) }} >
                 <div className="todoList_cards_contributers">
                   {item.contributers.map((el) => {
                     return <img className="todoList_cards_contributers_profile" src={el.user.profile} title={el.user.username} alt={el.user.username} onClick={() => { setShowDelete({ [item.id]: true, func: () => { removeMember(item.id, el.user.id) } }) }} key={el.id} />

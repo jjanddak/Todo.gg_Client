@@ -87,6 +87,12 @@
     color:rgb(88, 88, 88);
     font-weight:bold;
 }
+.main_addProject:hover{ 
+    box-shadow: 10000px 0 0 0 rgba(0,0,0,0.3) inset;
+    color: white;
+    border: none;
+}
+
 .main_list{
     /* background: #000; */
     width: 1250px;

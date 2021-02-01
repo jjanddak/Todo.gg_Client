@@ -1,9 +1,9 @@
 const project = {
   projectList: {
     id: 5,
-    username: "jjanddak",
-    email: "opplane@gmail.com",
-    profile: '/img/레킹볼.png',
+    username: "HGHI",
+    email: "HGHI@gmail.com",
+    profile: '/static/media/avt_15.b09a1586.png',
     contributers: [
       {
         project_id: 0,
@@ -72,7 +72,7 @@ const project = {
             },
           ],
           user: {
-            profile: '/img/레킹볼.png'
+            profile: '/static/media/avt_15.b09a1586.png'
           }
         }
       },
@@ -161,7 +161,7 @@ const project = {
             },
           ],
           user: {
-            profile: '/img/레킹볼.png'
+            profile: '/static/media/avt_15.b09a1586.png'
           }
         }
       },
@@ -232,11 +232,10 @@ const project = {
             },
           ],
           user: {
-            profile: '/img/레킹볼.png'
+            profile: '/static/media/avt_15.b09a1586.png'
           }
         }
       },
-
     ],
     taskCardCount: [
       {
@@ -260,5 +259,4 @@ const project = {
     ]
   }
 }
-
 export default project
