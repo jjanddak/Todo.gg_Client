@@ -1,5 +1,4 @@
-# Todo.gg_Client
-
+# Todo.gg
 ![HGHI로고_280x280](https://user-images.githubusercontent.com/59241017/108674151-2718a400-7528-11eb-8683-503a9b226935.jpg)
 
 ## TODO.GG는 태스크관리와 게임 전적 조회 기능을 접목시킨 협업툴입니다.
