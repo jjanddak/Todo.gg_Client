@@ -1,0 +1,82 @@
+.entry{
+    display: block;
+    clear: both;
+    border: 1px solid rgb(214, 214, 214);
+    width:1250px;
+    height: 120px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    /* border-radius: 15px; */
+    /* vertical-align: middle; */
+}
+.entry_stateColor,.box,.entry_host,.entry_description{
+    float: left;
+    height: 120px;
+    /* border-radius: 15px 0 0 15px; */
+    /* border:1px solid red; */
+}
+.entry_stateColor{
+    width: 10px;
+    background-color: #ed6767;
+}
+
+.entry_title{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+    /* border: 1px solid red; */
+    padding:10% 5% 3% 5%;
+    font-size: 22px;
+}
+.entry_date{
+    font-size: 16px;
+}
+.entry_host{
+    width: 80px; height: 80px;
+    margin-top: 10px;
+    border-radius: 50%;
+}
+.box{
+    /* border:1px solid red; */
+    text-align: center;
+    width: 300px;
+    /* margin: 0 30px */
+}
+.kdabox{
+    /* text-align: center; */
+    width: 200px;
+}
+.entry_kda{
+    margin-top: 40px;  
+}
+.entry_progress{
+}
+
+
+.entry_description{
+    margin-top: 15px;
+    height: 90px;
+    display: inline-block;
+    line-height: 30px;
+    width: 430px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    /* word-wrap:break-word;  */
+}
+.entry_team{
+    /* border: 1px solid red; */
+    padding-top:15px;
+    float: left;
+    width: 190px;
+    height: 120px;
+    /* margin-left: 20px; */
+    padding-left: 40px;
+}
+.entry_teamimg{
+    width: 42px;height: 42px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+}
