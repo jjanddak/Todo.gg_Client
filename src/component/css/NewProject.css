@@ -1,0 +1,439 @@
+.newProjectModal_container{
+    width: 100%; height: 100%;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.res{
+    width: 80%;
+    margin:0 auto;
+    /* width: 100px; */
+    /* background: #ccc; */
+}
+.newProjectModal{
+    overflow:auto;
+    position: absolute;
+    background-color:white;
+    top: 0;right: 0;
+    /* transform:translate(-50%,-50%); */
+    width: 25%; height: 100%;
+    min-width: 200px;
+        animation-name: slideIn;
+        animation-duration: 0.5s;
+        animation-timing-function: ease-in;
+        /* animation-direction: alternate; */
+}
+.deleteModal_container{
+    
+    width: 100%; height: 100%;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.deleteModal{
+    /* padding-top: 40px; */
+    position: absolute;
+    border-radius: 1%;
+    background-color: white;
+    left: 50%; top: 50%;
+    transform:translate(-50%,-50%);
+    width: 30%; height: 30%;
+}
+.hi{
+    width:50px;
+    height: 50px;
+}
+@keyframes slideIn {
+    from {
+        transform: translateX(100px);
+    }
+    to {
+        transform: translateX(0px);
+    }
+}
+.editButton {
+    background-color: #5898f8; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    /* font-size: 16px; */
+    /* border-radius: 2px; */
+    /* box-shadow: 1.5px 1.5px 1.5px black; */
+    /* margin-left: 400px; */
+    margin-top: 30px;
+    /* position: absolute; */
+    float: right;
+}
+.editButton:hover{ 
+    box-shadow:200px 0 0 0 rgba(0,0,0,0.5) inset;
+}
+
+.guestErrMsg{
+    font-size: 15px;
+    display: block;
+    float: right;
+    width: 80%; /*70%*/
+    margin: 0 auto;
+    text-align: right;
+    color: red;
+    font-weight: bold;
+    line-height: 0.5;
+}
+
+.projectName{
+    font-size: 20px;
+    font-weight: bold;
+    display: inline-block;
+    /* margin-left: 50px; */
+    margin-top: 30px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+.DateTitle{
+    font-size: 16px;
+    line-height: 2.2;
+    color: rgb(88, 88, 88);
+    /* margin-left: 50px; */
+}    
+.Date{
+    font-size: 18px;
+    /* color: rgb(228, 112, 59); */
+    /* margin-left: 130px; */
+    line-height: 2.2;
+}
+.joinUser{
+    font-size: 16px;
+    line-height: 2.5;
+    color: rgb(88, 88, 88);
+}
+.line{
+    border: none;
+    border-top: 1px solid rgb(170, 170, 170);
+    color: #fff;
+    background-color: #fff;
+    height: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+.projectExplain{
+    font-size : 16px;
+    line-height: 3;
+    color: rgb(88, 88, 88);
+    /* margin-left: 50px; */
+}
+.description{
+    /* margin-left: 50px; */
+    /* font-size: 20px; */
+    height: auto;
+    width: 100%;
+    /* background-color: rgb(140, 37, 187); */
+    /* border:1px solid black; */
+    /* color: white; */
+    word-break: break-all;
+    margin-bottom: 30px;
+}
+.hi{
+    border-radius: 70%;
+}
+.listUserName{
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+    height: 50px;
+    line-height: 50px;
+    margin-left: 30px;
+    /* width: 180px; */
+}
+/* 여기서부터 프로젝트 수정창 */
+.projectName2{
+    font-size: 16px;
+    display: inline-block;
+    /* margin-left: 50px; */
+    margin-top: 30px;
+    line-height: 1;
+    color: rgb(88, 88, 88);
+}
+.changeTitle{
+    display: inline-block;
+    width:100%;
+    height: 45px;
+    border:2px solid #aaa;
+    /* border-radius:4px; */
+    margin:  8px 0;
+    /* margin-left: 50px; */
+    margin-top: 30px;
+    /* text-align: center; */
+    outline:none;
+    /* padding:8px; */
+    padding-left: 15px;
+    box-sizing:border-box;
+    transition:.3s;
+    /* font-size: 25px; */
+}
+.changeTitle:focus{
+    border-color:dodgerBlue;
+    box-shadow:0 0 8px 0 dodgerBlue;
+}
+.changeDate{
+    display: inline-block;
+    width:100%;
+    height: 45px;
+    border:2px solid #aaa;
+    /* border-radius:4px; */
+    margin:  8px 0;
+    /* margin-left: 50px; */
+    /* text-align: center; */
+    outline:none;
+        padding-left: 15px;
+    /* padding:8px; */
+    box-sizing:border-box;
+    transition:.3s;
+    /* font-size: 25px; */
+}
+.changeDate:focus{
+    border-color:dodgerBlue;
+    box-shadow:0 0 8px 0 dodgerBlue;
+}
+input.checkbotton{
+    /* margin-left: 50px; */
+    /* height: 50px;
+    line-height: 50px;
+    display: inline-block; */
+    position: relative;
+    appearance: none; outline: none;
+    width: 50px; height: 30px;
+    background-color: #ffffff; border: 1px solid #D9DADC;
+    border-radius: 50px; box-shadow: inset -20px 0 0 0 #ffffff;
+    transition-duration: 200ms;
+}
+input.checkbotton:after{
+    content: "";
+    position: absolute;
+    top: 1px; left: 1px;
+    width: 26px; height: 26px;
+    background-color: transparent;
+    border-radius: 50%; box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
+}
+input.checkbotton:checked{
+    border-color: #4ED164;
+    box-shadow: inset 20px 0 0 0 #4ED164;
+}
+input.checkbotton:checked:after {
+    left: 20px;
+    box-shadow: -2px 4px 3px rgba(0,0,0,0.05);
+}
+.addMember{
+    display: inline-block;
+    width:86%;
+    border:2px solid #aaa;
+    /* border-radius:4px; */
+    margin:  8px 0;
+    /* margin-left: 50px; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    outline:none;
+    padding:8px;
+    box-sizing:border-box;
+    transition:.3s;
+    /* font-size: 25px; */
+}
+.addMember:focus{
+    border-color:dodgerBlue;
+    box-shadow:0 0 8px 0 dodgerBlue;
+}
+.memberButton{
+    width:14%;
+    background-color: #5898f8;
+    border: none;
+    /* border-radius: 10%; */
+    color:#fff;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    /* font-size: 15px; */
+    cursor: pointer;
+    /* position: absolute; */
+    margin-top: 10px;
+    /* box-shadow: 1.5px 1.5px 1.5px black; */
+}
+.memberButton:hover{ 
+    box-shadow:200px 0 0 0 rgba(0,0,0,0.5) inset;
+}
+.memberEnt{
+    margin-bottom: 10px;
+    /* padding-right: 15px; */
+}
+/* .errMsgInterval{
+     margin-top: 10px;
+    margin-bottom: 50px; 
+} */
+.errMsg{
+    font-size: 13px;
+    margin: auto 0;
+    height: 15px;
+    /* position: absolute; */
+    text-align: center;
+    color: rgb(223, 2, 2);
+    line-height: 0.1;
+}
+.deleteMember{
+    width:30px;
+    background-color: #ED6767;
+    border: none;
+    /* border-radius: 10%; */
+    color:#fff;
+    padding: 5px 0;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    float: right;
+    margin: auto ;
+    margin-top: 13px;
+    /* box-shadow: 1.5px 1.5px 1.5px black; */
+}
+.deleteMember:hover{ 
+    box-shadow:200px 0 0 0 rgba(0,0,0,0.5) inset;
+}
+.textArea{
+    font-size: 16px;
+    min-height: 250px;
+    word-break: break-all;
+    display: block;
+    width:100%;
+    border:2px solid #aaa;
+    /* border-radius:4px; */
+    margin:  8px auto;
+    outline:none;
+    padding:8px;
+    resize: none;
+    box-sizing:border-box;
+    transition:.3s;
+}
+.editInfoButton{
+    width:70px;
+    background-color: #5898f8;
+    border: none;
+    /* border-radius: 10%; */
+    color:#fff;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    margin-top: 20px;
+    float: right;
+}
+.editInfoButton:hover{ 
+    box-shadow:200px 0 0 0 rgba(0,0,0,0.5) inset;
+}
+
+.deleteButton{
+    width:70px;
+    background-color: #ED6767;
+    border: none;
+    /* border-radius: 10%; */
+    color:#fff;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    margin-top: 10px;
+    float: right;
+}
+.deleteButton:hover{ 
+    box-shadow:200px 0 0 0 rgba(0,0,0,0.5) inset;
+}
+
+.divInline{
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.deleteProjectAlerts{
+    
+    margin-top: 20px;
+    text-align: center;
+    font-size: 20px;
+    width: 100%;
+    font: bold;
+    margin: auto 0;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    line-height: 1.7;
+
+}
+
+.deleteProjectButton{
+    width:100px;
+    background-color: #ec3c3c;
+    border: 1px solid black;
+    /* border-radius: 10%; */
+    color:#fff;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    line-height: 1;
+    float: left;
+}
+
+.deleteProjectButtonNot{
+    width:100px;
+    /* background-color: #ec3c3c; */
+    border: 1px solid black;
+    /* border-radius: 10%; */
+    color:black;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    line-height: 1;
+    cursor: pointer;
+    float: right;
+    
+}
+
+.buttonInterval{
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+
+}
+
+ .warningImg{
+    background-image: url(./img/warning2.png);
+    background-size: 100px;
+    text-align: center;
+    display: block;
+    margin: auto;
+    height: 100px;
+    background-repeat:no-repeat;
+    background-position: center;
+} 
+
+/* 프로젝트 생성 */
+
+.createProject{
+    width:100px;
+    background-color: #5898f8;
+    border: none;
+    color:#fff;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    margin-top: 20px;
+    float: right;
+}
+.createProject:hover{ 
+    box-shadow:200px 0 0 0 rgba(0,0,0,0.5) inset;
+}
