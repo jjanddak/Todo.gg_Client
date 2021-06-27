@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  client:
+    container_name: todo.gg_client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ".:/app"
+      - "/app/node_modules"
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=development
+    stdin_open: true
+    tty: true
